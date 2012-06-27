@@ -56,7 +56,7 @@ public class TADataCenter
 	{
 		// TODO Auto-generated method stub
 
-		long x =  getSP(context).getLong(TAG_TIME_ACCUMULATE, 0);
+		long x = getSP(context).getLong(TAG_TIME_ACCUMULATE, 0);
 		return x;
 	}
 
@@ -76,4 +76,41 @@ public class TADataCenter
 		getSP(context).edit().putLong(TAG_LAST_TOGGLE_TIME, y).commit();
 	}
 
+	public static class SPCenter
+	{
+		private static final String TAG = null;
+		private static final String TAG_CNT = "cnt";
+
+		public static String[] getSPNames(Context context)
+		{
+			SharedPreferences x = context.getSharedPreferences(SPCenter.TAG, Context.MODE_PRIVATE);
+			int cnt = x.getInt(SPCenter.TAG_CNT, 0);
+			if (cnt <= 0)
+			{
+				return null;
+			}
+			String[] rlt = new String[cnt];
+			for (int i = 0; i < cnt; i++)
+			{
+				rlt[i] = x.getString(SPCenter.makeKey(i), "");
+			}
+			return rlt;
+		}
+
+		public static void addSPName(Context context, String name)
+		{
+			if (name == null)
+			{
+				return;
+			}
+			SharedPreferences x = context.getSharedPreferences(SPCenter.TAG, Context.MODE_PRIVATE);
+			int cnt = x.getInt(SPCenter.TAG_CNT, 0);
+			x.edit().putString(SPCenter.makeKey(cnt), name);
+		}
+
+		private static String makeKey(int i)
+		{
+			return "" + i;
+		}
+	}
 }
