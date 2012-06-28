@@ -56,6 +56,9 @@ public class TASelect extends Activity
 				Button btn = new Button(this);
 				btn.setText(names[i]);
 				final int id = i;
+				btn.setTextColor(TADataCenter.getOnFlag(this, names[i])
+						? this.getResources().getColor(R.color.colorForOn)
+								: this.getResources().getColor(R.color.colorForOff));
 				btn.setOnClickListener(new OnClickListener()
 				{
 
