@@ -30,8 +30,8 @@ public class TAMain extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
-				TADataCenter.Toggle(TAMain.this);
-				TAMain.this.updateBtn();
+				TADataCenter.Toggle(TAMain.this, TADataCenter.SPCenter.getLastSPName(TAMain.this));
+				TAMain.this.updateUI();
 			}
 		});
 		x = (Button) this.findViewById(R.id.project);
@@ -51,7 +51,7 @@ public class TAMain extends Activity
 	{
 		if (requestCode == TAMain.selectdode && resultCode == Activity.RESULT_OK)
 		{
-			this.updateBtn();
+			this.updateUI();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
@@ -60,14 +60,18 @@ public class TAMain extends Activity
 	protected void onResume()
 	{
 		super.onResume();
-		this.updateBtn();
+		this.updateUI();
 	}
 
-	private void updateBtn()
+	private void updateUI()
 	{
 
-		Button x = (Button) this.findViewById(R.id.btn);
-		x.setText(TADataCenter.getOnFlag(this) ? "set Off" : "set on");
+		String spName = TADataCenter.SPCenter.getLastSPName(this);
+
+		Button x = (Button) this.findViewById(R.id.project);
+		x.setText(spName + " (click to choose another one)");
+		x = (Button) this.findViewById(R.id.btn);
+		x.setText(TADataCenter.getOnFlag(this, spName) ? "set Off" : "set on");
 		this.updateText();
 
 	}
@@ -76,13 +80,13 @@ public class TAMain extends Activity
 	{
 		TextView tv = (TextView) this.findViewById(R.id.tv);
 
-		if (TADataCenter.getOnFlag(this))
+		if (TADataCenter.getOnFlag(this, TADataCenter.SPCenter.getLastSPName(this)))
 		{
 			tv.setText("¼ÆÊ±ÖÐ");
 		}
 		else
 		{
-			long x = TADataCenter.getAccumulate(this);
+			long x = TADataCenter.getAccumulate(this, TADataCenter.SPCenter.getLastSPName(this));
 			long sec = x / 1000;
 			long min = sec / 60;
 			sec = sec % 60;
