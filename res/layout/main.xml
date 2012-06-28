@@ -6,7 +6,7 @@
 	android:layout_height="fill_parent">
 	<Button
 		android:id="@+id/project"
-		android:text="click to choose project"
+		android:text="@string/chooseProject"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"></Button>
 	<TextView

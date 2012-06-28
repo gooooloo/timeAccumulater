@@ -69,9 +69,9 @@ public class TAMain extends Activity
 		String spName = TADataCenter.SPCenter.getLastSPName(this);
 
 		Button x = (Button) this.findViewById(R.id.project);
-		x.setText(spName + " (click to choose another one)");
+		x.setText(spName + this.getString(R.string.chooseProject));
 		x = (Button) this.findViewById(R.id.btn);
-		x.setText(TADataCenter.getOnFlag(this, spName) ? "set Off" : "set on");
+		x.setText(TADataCenter.getOnFlag(this, spName) ? R.string.setTimerOff : R.string.setTimerOn);
 		this.updateText();
 
 	}
@@ -82,7 +82,7 @@ public class TAMain extends Activity
 
 		if (TADataCenter.getOnFlag(this, TADataCenter.SPCenter.getLastSPName(this)))
 		{
-			tv.setText("¼ÆÊ±ÖÐ");
+			tv.setText(R.string.timeAccumulating);
 		}
 		else
 		{
@@ -92,7 +92,7 @@ public class TAMain extends Activity
 			sec = sec % 60;
 			long hour = min / 60;
 			min = min % 60;
-			tv.setText("accumulate : " + hour + " hours " + min + " minutes " + sec + " seconds.");
+			tv.setText(this.getString(R.string.timeResult, hour, min, sec));
 		}
 	}
 }

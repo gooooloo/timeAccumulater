@@ -2,4 +2,11 @@
 <resources>
     <string name="hello">Hello World, TAMain!</string>
     <string name="app_name">timeAccumulater</string>
+    <string name="newProject">新建</string>
+    <string name="inputHint">请输入名称</string>
+    <string name="chooseProject">（点击选择其他项目）</string>
+    <string name="setTimerOff">停止计时</string>
+    <string name="setTimerOn">继续计时</string>
+    <string name="timeResult">累计时间：%1$d小时%2$d分%3$d秒</string>
+    <string name="timeAccumulating">计时中</string>
 </resources>
