@@ -43,7 +43,7 @@ public class TAMain extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
-				TADataCenter.Toggle(TAMain.this, TADataCenter.SPCenter.getLastSPName(TAMain.this));
+				TADataCenter.Toggle(TAMain.this, TADataCenter.ProjectCenter.getLastProjectName(TAMain.this));
 				TAMain.this.updateUI();
 			}
 		});
@@ -79,7 +79,7 @@ public class TAMain extends Activity
 	private void updateUI()
 	{
 
-		String spName = TADataCenter.SPCenter.getLastSPName(this);
+		String spName = TADataCenter.ProjectCenter.getLastProjectName(this);
 
 		((Button) this.findViewById(R.id.project)).setText(spName + this.getString(R.string.chooseProject));
 		((Button) this.findViewById(R.id.btn)).setText(TADataCenter.getOnFlag(this, spName) ? R.string.setTimerOff : R.string.setTimerOn);
@@ -91,13 +91,13 @@ public class TAMain extends Activity
 	{
 		TextView tv = (TextView) this.findViewById(R.id.tv);
 
-		if (TADataCenter.getOnFlag(this, TADataCenter.SPCenter.getLastSPName(this)))
+		if (TADataCenter.getOnFlag(this, TADataCenter.ProjectCenter.getLastProjectName(this)))
 		{
 			tv.setText(R.string.timeAccumulating);
 		}
 		else
 		{
-			long x = TADataCenter.getAccumulate(this, TADataCenter.SPCenter.getLastSPName(this));
+			long x = TADataCenter.getAccumulate(this, TADataCenter.ProjectCenter.getLastProjectName(this));
 			long sec = x / 1000;
 			long min = sec / 60;
 			sec = sec % 60;

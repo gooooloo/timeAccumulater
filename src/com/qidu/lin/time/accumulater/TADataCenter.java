@@ -83,29 +83,29 @@ public class TADataCenter
 		return context.getSharedPreferences(name, Context.MODE_PRIVATE);
 	}
 
-	public static class SPCenter
+	public static class ProjectCenter
 	{
-		private static final String TAG = "spnames";
-		private static final String TAG_CNT = "cnt";
-		private static final String TAG_LAST_NAME = "TAG_LAST_NAME";
+		private static final String TAG_ALL_PROJECTS = "spnames";
+		private static final String TAG_PROJECT_CNT = "cnt";
+		private static final String TAG_LAST_PROJECT = "TAG_LAST_NAME";
 		private static final int INVALID_ID = -1;
 
-		private static int getLastNameId(Context context)
+		private static int getLastPrjoectId(Context context)
 		{
-			SharedPreferences x = context.getSharedPreferences(SPCenter.TAG, Context.MODE_PRIVATE);
-			return x.getInt(SPCenter.TAG_LAST_NAME, INVALID_ID);
+			SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
+			return x.getInt(ProjectCenter.TAG_LAST_PROJECT, INVALID_ID);
 		}
 
-		public static void setLastNameId(Context context, int id)
+		public static void setLastProjectId(Context context, int id)
 		{
-			SharedPreferences x = context.getSharedPreferences(SPCenter.TAG, Context.MODE_PRIVATE);
-			x.edit().putInt(TAG_LAST_NAME, id).commit();
+			SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
+			x.edit().putInt(TAG_LAST_PROJECT, id).commit();
 		}
 
-		public static String[] getSPNames(Context context)
+		public static String[] getProjectNames(Context context)
 		{
-			SharedPreferences x = context.getSharedPreferences(SPCenter.TAG, Context.MODE_PRIVATE);
-			int cnt = x.getInt(SPCenter.TAG_CNT, 0);
+			SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
+			int cnt = x.getInt(ProjectCenter.TAG_PROJECT_CNT, 0);
 			if (cnt <= 0)
 			{
 				return new String[] {};
@@ -113,28 +113,23 @@ public class TADataCenter
 			String[] rlt = new String[cnt];
 			for (int i = 0; i < cnt; i++)
 			{
-				rlt[i] = x.getString(SPCenter.makeKey(i), "");
+				rlt[i] = x.getString(ProjectCenter.makeKey(i), "");
 			}
 			return rlt;
 		}
 
-		public static String getLastSPName(Context context)
+		public static String getLastProjectName(Context context)
 		{
-			return getSPNameById(context, getLastNameId(context));
+			return getProjectNameById(context, getLastPrjoectId(context));
 		}
 
-		/**
-		 * @param context
-		 * @param name
-		 * @return the ID of the SPName
-		 */
-		public static int addSPName(Context context, String name)
+		public static int addProjectName(Context context, String name)
 		{
 			if (name == null || name.length() == 0)
 			{
-				return SPCenter.INVALID_ID;
+				return ProjectCenter.INVALID_ID;
 			}
-			String names[] = getSPNames(context);
+			String names[] = getProjectNames(context);
 			for (int i = 0; names != null && i < names.length; i++)
 			{
 				if (name.equalsIgnoreCase(names[i]))
@@ -142,21 +137,21 @@ public class TADataCenter
 					return i;
 				}
 			}
-			SharedPreferences x = context.getSharedPreferences(SPCenter.TAG, Context.MODE_PRIVATE);
+			SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
 			int cnt = names.length;
-			x.edit().putString(SPCenter.makeKey(cnt), name).commit();
-			x.edit().putInt(SPCenter.TAG_CNT, cnt + 1).commit();
+			x.edit().putString(ProjectCenter.makeKey(cnt), name).commit();
+			x.edit().putInt(ProjectCenter.TAG_PROJECT_CNT, cnt + 1).commit();
 			return cnt;
 		}
 
-		private static String getSPNameById(Context context, int id)
+		private static String getProjectNameById(Context context, int id)
 		{
 			String retErr = "";
 			if (id == INVALID_ID)
 			{
 				return retErr;
 			}
-			String[] names = getSPNames(context);
+			String[] names = getProjectNames(context);
 			if (names != null && 0 <= id && id < names.length)
 			{
 				return names[id];

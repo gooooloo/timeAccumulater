@@ -41,8 +41,7 @@ public class TASelect extends Activity
 		TableLayout tableLayout = (TableLayout) this.findViewById(R.id.table);
 
 		final EditText input = (EditText) this.findViewById(R.id.input);
-		Button v = (Button) this.findViewById(R.id.add);
-		v.setOnClickListener(new OnClickListener()
+		((Button) this.findViewById(R.id.add)).setOnClickListener(new OnClickListener()
 		{
 
 			@Override
@@ -50,7 +49,7 @@ public class TASelect extends Activity
 			{
 				if (input.getVisibility() == View.VISIBLE)
 				{
-					int id = TADataCenter.SPCenter.addSPName(TASelect.this, input.getText().toString());
+					int id = TADataCenter.ProjectCenter.addProjectName(TASelect.this, input.getText().toString());
 					TASelect.this.onSelect(id);
 				}
 				else
@@ -60,7 +59,7 @@ public class TASelect extends Activity
 			}
 		});
 
-		String[] names = TADataCenter.SPCenter.getSPNames(this);
+		String[] names = TADataCenter.ProjectCenter.getProjectNames(this);
 		if (names != null && names.length != 0)
 		{
 			TableRow tr = new TableRow(this);
@@ -110,7 +109,7 @@ public class TASelect extends Activity
 	private void onSelect(int id)
 	{
 
-		TADataCenter.SPCenter.setLastNameId(this, id);
+		TADataCenter.ProjectCenter.setLastProjectId(this, id);
 		TASelect.this.finish();
 	}
 }
