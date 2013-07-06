@@ -23,6 +23,11 @@ public class IntentFilterReceiver extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_intent_filter_receiver);
 
+		updateUI();
+	}
+
+	private void updateUI()
+	{
 		ViewGroup root = (ViewGroup) findViewById(R.id.root);
 
 		Uri uri = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
@@ -64,6 +69,8 @@ public class IntentFilterReceiver extends Activity
 			TADataCenter.addPastTimeToAccumulate(this, projectName, duration);
 			
 			Toast.makeText(this, "time accumulated!", Toast.LENGTH_SHORT).show();
+			
+			updateUI();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
