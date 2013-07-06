@@ -149,7 +149,7 @@ public class TADataCenter
 			return cnt;
 		}
 
-		private static String getProjectNameById(Context context, int id)
+		public static String getProjectNameById(Context context, int id)
 		{
 			String retErr = "";
 			if (id == INVALID_ID)

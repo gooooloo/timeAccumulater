@@ -20,6 +20,7 @@
 package com.qidu.lin.time.accumulater;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +33,8 @@ import android.widget.Toast;
 
 public class TASelect extends Activity
 {
+	public static final String ID = "com.qidu.lin.time.accumulater.id";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -108,8 +111,9 @@ public class TASelect extends Activity
 
 	private void onSelect(int id)
 	{
-
-		TADataCenter.ProjectCenter.setLastProjectId(this, id);
+		Intent intent = getIntent();
+		intent.putExtra(ID, id);
+		setResult(RESULT_OK, intent);
 		TASelect.this.finish();
 	}
 }

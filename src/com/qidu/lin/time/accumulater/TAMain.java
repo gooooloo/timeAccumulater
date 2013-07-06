@@ -64,6 +64,8 @@ public class TAMain extends Activity
 	{
 		if (requestCode == TAMain.selectdode && resultCode == Activity.RESULT_OK)
 		{
+			int id = data.getIntExtra(TASelect.ID, 0);
+			TADataCenter.ProjectCenter.setLastProjectId(this, id);
 			this.updateUI();
 		}
 		super.onActivityResult(requestCode, resultCode, data);

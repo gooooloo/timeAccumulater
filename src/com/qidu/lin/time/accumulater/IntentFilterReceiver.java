@@ -10,10 +10,12 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class IntentFilterReceiver extends Activity
 {
 	protected static final int selectdode = 0;
+	private static final String DURATION = "DURATION";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -46,7 +48,9 @@ public class IntentFilterReceiver extends Activity
 
 	protected void onTomatoClicked(TATomato y)
 	{
-		startActivityForResult(new Intent(this, TASelect.class), selectdode);
+		Intent intent = new Intent(this, TASelect.class);
+		intent.putExtra(DURATION, y.getDurationMs());
+		startActivityForResult(intent, selectdode);
 	}
 
 	@Override
@@ -54,7 +58,12 @@ public class IntentFilterReceiver extends Activity
 	{
 		if (requestCode == TAMain.selectdode && resultCode == Activity.RESULT_OK)
 		{
-			// TODO
+			int id = data.getIntExtra(TASelect.ID, 0);
+			int duration = data.getIntExtra(DURATION, 0);
+			String projectName = TADataCenter.ProjectCenter.getProjectNameById(this, id);
+			TADataCenter.addPastTimeToAccumulate(this, projectName, duration);
+			
+			Toast.makeText(this, "time accumulated!", Toast.LENGTH_SHORT).show();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
