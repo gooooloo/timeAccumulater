@@ -1,6 +1,7 @@
 package com.qidu.lin.time.accumulater;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.net.Uri;
@@ -27,6 +28,13 @@ public class TAClockwiseTomatoCSVParser
 			list.add(tomato);
 		}
 
+		return list;
+	}
+
+	public static List<TATomato> parseInReverse(Uri uri)
+	{
+		List<TATomato> list = parse(uri);
+		Collections.reverse(list);
 		return list;
 	}
 

@@ -20,7 +20,7 @@ public class IntentFilterReceiver extends Activity
 		ViewGroup root = (ViewGroup) findViewById(R.id.root);
 		
 		Uri uri = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
-		for (TATomato y : TAClockwiseTomatoCSVParser.parse(uri))
+		for (TATomato y : TAClockwiseTomatoCSVParser.parseInReverse(uri))
 		{
 			Button btn = new Button(this);
 			btn.setText(y.getStartTimeString() + "  " +y.getDurationString());
