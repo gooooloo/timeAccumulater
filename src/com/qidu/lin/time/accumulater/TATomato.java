@@ -22,5 +22,10 @@ public class TATomato
 	{
 		return "" + minutes + ":" + seconds;
 	}
+	
+	public String getStartTimeString()
+	{
+		return ""+start;
+	}
 
 }

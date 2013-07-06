@@ -23,7 +23,7 @@ public class IntentFilterReceiver extends Activity
 		for (TATomato y : TAClockwiseTomatoCSVParser.parse(uri))
 		{
 			Button btn = new Button(this);
-			btn.setText(y.getDurationString());
+			btn.setText(y.getStartTimeString() + "  " +y.getDurationString());
 			root.addView(btn);
 		}
 	}
