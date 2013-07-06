@@ -46,11 +46,16 @@ public class TADataCenter
 		{
 			long lastTimeMs = getLastTime(context, projectName);
 			long pastTimeMs = curTimeMs - lastTimeMs;
-			setAccumulate(context, projectName, pastTimeMs + getAccumulate(context, projectName));
+			addPastTimeToAccumulate(context, projectName, pastTimeMs);
 		}
 		setLastTime(context, projectName, curTimeMs);
 		setOnFlag(context, projectName, !beforeIsOn);
 
+	}
+
+	public static void addPastTimeToAccumulate(Context context, String projectName, long pastTimeMs)
+	{
+		setAccumulate(context, projectName, pastTimeMs + getAccumulate(context, projectName));
 	}
 
 	public static long getAccumulate(Context context, String projectName)
