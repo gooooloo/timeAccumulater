@@ -8,12 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 public class IntentFilterReceiver extends Activity
 {
+	protected static final int selectdode = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -31,7 +31,7 @@ public class IntentFilterReceiver extends Activity
 			Button btn = new Button(this);
 			btn.setText("#" + index + " " + y.getStartTimeString() + "  " + y.getDurationString());
 			root.addView(btn);
-			
+
 			btn.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
@@ -46,7 +46,17 @@ public class IntentFilterReceiver extends Activity
 
 	protected void onTomatoClicked(TATomato y)
 	{
-		
+		startActivityForResult(new Intent(this, TASelect.class), selectdode);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (requestCode == TAMain.selectdode && resultCode == Activity.RESULT_OK)
+		{
+			// TODO
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
