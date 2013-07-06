@@ -2,9 +2,9 @@ package com.qidu.lin.time.accumulater;
 
 public class TATomato
 {
-	public final String duration;
-	private final long start;
-	private final long end;
+	public final int duration;
+	public final long start;
+	public final long end;
 	public final int minutes;
 	public final int seconds;
 
@@ -13,10 +13,14 @@ public class TATomato
 		this.start = Long.valueOf(start.trim());
 		this.end = Long.valueOf(end.trim());
 
-		int time = (int) (this.end - this.start);
-		seconds = time % 60;
-		minutes = time / 60;
-		duration = "" + minutes + ":" + seconds;
+		duration = (int) (this.end - this.start);
+		seconds = duration % 60;
+		minutes = duration / 60;
+	}
+
+	public String getDurationString()
+	{
+		return "" + minutes + ":" + seconds;
 	}
 
 }
