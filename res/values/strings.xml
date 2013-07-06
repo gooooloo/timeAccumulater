@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="hello">Hello World, TAMain!</string>
     <string name="app_name">timeAccumulater</string>
     <string name="newProject">新建</string>
@@ -9,4 +10,8 @@
     <string name="setTimerOn">继续计时</string>
     <string name="timeResult">累计时间：%1$d小时%2$d分%3$d秒</string>
     <string name="timeAccumulating">计时中</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_intent_filter_receiver">@string/app_name</string>
+
 </resources>
