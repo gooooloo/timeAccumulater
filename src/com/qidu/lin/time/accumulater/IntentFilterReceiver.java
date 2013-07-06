@@ -1,5 +1,7 @@
 package com.qidu.lin.time.accumulater;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,13 +20,16 @@ public class IntentFilterReceiver extends Activity
 		setContentView(R.layout.activity_intent_filter_receiver);
 
 		ViewGroup root = (ViewGroup) findViewById(R.id.root);
-		
+
 		Uri uri = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
-		for (TATomato y : TAClockwiseTomatoCSVParser.parseInReverse(uri))
+		List<TATomato> tomatoListReverse = TAClockwiseTomatoCSVParser.parseInReverse(uri);
+		int index = tomatoListReverse.size();
+		for (TATomato y : tomatoListReverse)
 		{
 			Button btn = new Button(this);
-			btn.setText(y.getStartTimeString() + "  " +y.getDurationString());
+			btn.setText("#" + index + " " + y.getStartTimeString() + "  " + y.getDurationString());
 			root.addView(btn);
+			index--;
 		}
 	}
 
