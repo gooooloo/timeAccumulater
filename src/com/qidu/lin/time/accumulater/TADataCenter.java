@@ -30,63 +30,57 @@ public class TADataCenter
 	private static final String TAG_TIME_ACCUMULATE = "com.qidu.lin.timeAccumulate.TAG_TIME_ACCUMULATE";
 	private static final String TAG_LAST_TOGGLE_TIME = "com.qidu.lin.timeAccumulate.TAG_LAST_TOGGLE_TIME";
 
-	static boolean getOnFlag(Context context, String name)
+	static boolean getOnFlag(Context context, String projectName)
 	{
 
-		return TADataCenter.getSP(context, name).getBoolean(TAG_IS_TIME_COMSUMING_FLAG, false);
+		return TADataCenter.getProjectSP(context, projectName).getBoolean(TAG_IS_TIME_COMSUMING_FLAG, false);
 	}
 
-	public static void Toggle(Context context, String name)
+	public static void Toggle(Context context, String projectName)
 	{
-		boolean beforeIsOn = getOnFlag(context, name);
+		boolean beforeIsOn = getOnFlag(context, projectName);
 
-		Calendar x = Calendar.getInstance();
-		long y = x.getTimeInMillis();
+		long curTimeMs = Calendar.getInstance().getTimeInMillis();
 
 		if (beforeIsOn)
 		{
-			long yy = getLastTime(context, name);
-			long yyy = y - yy;
-			setAccumulate(context, name, yyy + getAccumulate(context, name));
+			long lastTimeMs = getLastTime(context, projectName);
+			long pastTimeMs = curTimeMs - lastTimeMs;
+			setAccumulate(context, projectName, pastTimeMs + getAccumulate(context, projectName));
 		}
-		setLastTime(context, name, y);
-		setOnFlag(context, name, !beforeIsOn);
+		setLastTime(context, projectName, curTimeMs);
+		setOnFlag(context, projectName, !beforeIsOn);
 
 	}
 
-	public static long getAccumulate(Context context, String name)
+	public static long getAccumulate(Context context, String projectName)
 	{
-		// TODO Auto-generated method stub
-
-		long x = getSP(context, name).getLong(TAG_TIME_ACCUMULATE, 0);
-		return x;
+		return getProjectSP(context, projectName).getLong(TAG_TIME_ACCUMULATE, 0);
 	}
 
-	private static void setAccumulate(Context context, String name, long yyy)
+	private static void setAccumulate(Context context, String projectName, long duration)
 	{
-		// TODO Auto-generated method stub
-		getSP(context, name).edit().putLong(TAG_TIME_ACCUMULATE, yyy).commit();
+		getProjectSP(context, projectName).edit().putLong(TAG_TIME_ACCUMULATE, duration).commit();
 	}
 
 	private static long getLastTime(Context context, String name)
 	{
-		return getSP(context, name).getLong(TAG_LAST_TOGGLE_TIME, Calendar.getInstance().getTimeInMillis());
+		return getProjectSP(context, name).getLong(TAG_LAST_TOGGLE_TIME, Calendar.getInstance().getTimeInMillis());
 	}
 
 	private static void setLastTime(Context context, String name, long y)
 	{
-		getSP(context, name).edit().putLong(TAG_LAST_TOGGLE_TIME, y).commit();
+		getProjectSP(context, name).edit().putLong(TAG_LAST_TOGGLE_TIME, y).commit();
 	}
 
 	private static void setOnFlag(Context context, String name, boolean on)
 	{
-		TADataCenter.getSP(context, name).edit().putBoolean(TAG_IS_TIME_COMSUMING_FLAG, on).commit();
+		getProjectSP(context, name).edit().putBoolean(TAG_IS_TIME_COMSUMING_FLAG, on).commit();
 	}
 
-	private static SharedPreferences getSP(Context context, String name)
+	private static SharedPreferences getProjectSP(Context context, String name)
 	{
-		SharedPreferences x = context.getSharedPreferences(name, Context.MODE_PRIVATE);
-		return x;
+		return context.getSharedPreferences(name, Context.MODE_PRIVATE);
 	}
 
 	public static class SPCenter

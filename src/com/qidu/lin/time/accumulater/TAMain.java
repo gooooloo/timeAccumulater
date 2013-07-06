@@ -37,8 +37,7 @@ public class TAMain extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		Button x = (Button) this.findViewById(R.id.btn);
-		x.setOnClickListener(new OnClickListener()
+		((Button) this.findViewById(R.id.btn)).setOnClickListener(new OnClickListener()
 		{
 
 			@Override
@@ -48,8 +47,8 @@ public class TAMain extends Activity
 				TAMain.this.updateUI();
 			}
 		});
-		x = (Button) this.findViewById(R.id.project);
-		x.setOnClickListener(new OnClickListener()
+
+		((Button) this.findViewById(R.id.project)).setOnClickListener(new OnClickListener()
 		{
 
 			@Override
@@ -82,10 +81,8 @@ public class TAMain extends Activity
 
 		String spName = TADataCenter.SPCenter.getLastSPName(this);
 
-		Button x = (Button) this.findViewById(R.id.project);
-		x.setText(spName + this.getString(R.string.chooseProject));
-		x = (Button) this.findViewById(R.id.btn);
-		x.setText(TADataCenter.getOnFlag(this, spName) ? R.string.setTimerOff : R.string.setTimerOn);
+		((Button) this.findViewById(R.id.project)).setText(spName + this.getString(R.string.chooseProject));
+		((Button) this.findViewById(R.id.btn)).setText(TADataCenter.getOnFlag(this, spName) ? R.string.setTimerOff : R.string.setTimerOn);
 		this.updateText();
 
 	}
