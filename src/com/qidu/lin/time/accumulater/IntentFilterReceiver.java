@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,8 +21,8 @@ public class IntentFilterReceiver extends Activity
 
 	private class FilterRules
 	{
-		public boolean unaccumalatedOnly = true;
-		public boolean within2DaysOnly = true;
+		public boolean unaccumalatedOnly = false;
+		public boolean within2DaysOnly = false;
 	}
 
 	FilterRules filterRules = new FilterRules();
@@ -142,7 +143,21 @@ public class IntentFilterReceiver extends Activity
 		getMenuInflater().inflate(R.menu.activity_intent_filter_receiver, menu);
 		return true;
 	}
-	
-	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+		case R.id.menu_unaccumulatedOnly:
+			filterRules.unaccumalatedOnly = true;
+			break;
+		case R.id.menu_within2daysonly:
+			filterRules.within2DaysOnly = true;
+			break;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
 
 }
