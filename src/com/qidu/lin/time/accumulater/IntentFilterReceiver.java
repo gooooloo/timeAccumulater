@@ -38,7 +38,7 @@ public class IntentFilterReceiver extends Activity
 		for (final TATomato y : tomatoListReverse)
 		{
 			Button btn = new Button(this);
-			String projectName = TATomatoPersistence.getProjectName(this, y.getId());
+			final String projectName = TATomatoPersistence.getProjectName(this, y.getId());
 			String text = "#" + index + " " + y.getStartTimeString() + "  " + y.getDurationString();
 			if (projectName != null)
 			{
@@ -46,12 +46,18 @@ public class IntentFilterReceiver extends Activity
 			}
 			btn.setText(text);
 			root.addView(btn);
-
+			
 			btn.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
 				public void onClick(View v)
 				{
+					if (projectName != null)
+					{
+						Toast.makeText(IntentFilterReceiver.this, "dont support modify project yet", Toast.LENGTH_SHORT).show();
+						return;
+					}
+					
 					onTomatoClicked(y);
 				}
 			});
