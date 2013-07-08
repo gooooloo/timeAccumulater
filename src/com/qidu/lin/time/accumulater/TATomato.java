@@ -32,5 +32,10 @@ public class TATomato
 		x.setTimeInMillis(startMs);
 		return x.getTime().toLocaleString();
 	}
+	
+	public long getId()
+	{
+		return startMs;
+	}
 
 }
