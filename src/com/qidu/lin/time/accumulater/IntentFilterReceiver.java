@@ -18,6 +18,14 @@ public class IntentFilterReceiver extends Activity
 	private static final String DURATION = "DURATION";
 	private static final String TOMATO_ID = "TOMATO_ID";
 
+	private class FilterRules
+	{
+		public boolean unaccumalatedOnly = true;
+		public boolean within2DaysOnly = true;
+	}
+
+	FilterRules filterRules = new FilterRules();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -34,6 +42,8 @@ public class IntentFilterReceiver extends Activity
 
 		Uri uri = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
 		List<TATomato> tomatoListReverse = TAClockwiseTomatoCSVParser.parseInReverse(uri);
+		filterTomatoListByUISettings(tomatoListReverse, filterRules);
+
 		int index = tomatoListReverse.size();
 		for (final TATomato y : tomatoListReverse)
 		{
@@ -46,7 +56,7 @@ public class IntentFilterReceiver extends Activity
 			}
 			btn.setText(text);
 			root.addView(btn);
-			
+
 			btn.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
@@ -57,12 +67,46 @@ public class IntentFilterReceiver extends Activity
 						Toast.makeText(IntentFilterReceiver.this, "dont support modify project yet", Toast.LENGTH_SHORT).show();
 						return;
 					}
-					
+
 					onTomatoClicked(y);
 				}
 			});
 			index--;
 		}
+	}
+
+	private void filterTomatoListByUISettings(List<TATomato> tomatoListReverse2, FilterRules filterRules)
+	{
+		for (int i = tomatoListReverse2.size() - 1; i >= 0; i--)
+		{
+			if (filterOff(tomatoListReverse2.get(i), filterRules))
+			{
+				tomatoListReverse2.remove(i);
+			}
+		}
+	}
+
+	private boolean filterOff(TATomato tomato, FilterRules filterRules)
+	{
+		if (filterRules.unaccumalatedOnly)
+		{
+			if (TATomatoPersistence.getProjectName(this, tomato.getId()) != null)
+			{
+				return true;
+			}
+		}
+
+		if (filterRules.within2DaysOnly)
+		{
+			long msUntilNow = System.currentTimeMillis() - tomato.startMs;
+			int msPerDay = 1000 * 60 * 60 * 24;
+			if (msUntilNow > msPerDay * 2)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	protected void onTomatoClicked(TATomato y)
