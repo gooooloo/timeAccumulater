@@ -90,7 +90,7 @@ public class TASelect extends Activity
 					@Override
 					public boolean onLongClick(View v)
 					{
-						Toast.makeText(TASelect.this, "Long click feature is to be done", 1000).show();
+						Toast.makeText(TASelect.this, "Long click feature is to be done", Toast.LENGTH_SHORT).show();
 						return true;
 					}
 				});
