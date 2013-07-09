@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class IntentFilterReceiver extends Activity
+public class TAClockwiseTomatoReceiver extends Activity
 {
 	protected static final int selectdode = 0;
 	private static final String DURATION = "DURATION";
@@ -65,7 +65,7 @@ public class IntentFilterReceiver extends Activity
 				{
 					if (projectName != null)
 					{
-						Toast.makeText(IntentFilterReceiver.this, "dont support modify project yet", Toast.LENGTH_SHORT).show();
+						Toast.makeText(TAClockwiseTomatoReceiver.this, "dont support modify project yet", Toast.LENGTH_SHORT).show();
 						return;
 					}
 
