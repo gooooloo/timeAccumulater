@@ -151,9 +151,11 @@ public class IntentFilterReceiver extends Activity
 		{
 		case R.id.menu_unaccumulatedOnly:
 			filterRules.unaccumalatedOnly = true;
+			updateUI();
 			break;
 		case R.id.menu_within2daysonly:
 			filterRules.within2DaysOnly = true;
+			updateUI();
 			break;
 		}
 
