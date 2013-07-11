@@ -18,7 +18,12 @@
  */
 package com.qidu.lin.time.accumulater;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -56,11 +61,42 @@ public class TAClockwiseTomatoReceiver extends Activity
 
 	private void updateUI()
 	{
+		Intent intent = getIntent();
+		assert (intent.getType().equalsIgnoreCase("text/plain"));
+
 		ViewGroup root = (ViewGroup) findViewById(R.id.root);
 		root.removeAllViews();
 
-		Uri uri = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
-		List<TATomato> tomatoListReverse = TAClockwiseTomatoCSVParser.parseInReverse(uri);
+		Uri stream = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+
+		List<TATomato> tomatoListReverse = null;
+		try
+		{
+			tomatoListReverse = TAClockwiseTomatoCSVParser.parseInReverse(stream);
+		}
+		catch (IOException e)
+		{
+			String content = intent.getStringExtra(Intent.EXTRA_TEXT);
+			String regularExpression = "((\\d+):(\\d+)\\.\\d+)";
+			Matcher matcher = Pattern.compile(regularExpression).matcher(content);
+			if (matcher.find())
+			{
+				MatchResult results = matcher.toMatchResult();
+				String min = results.group(2);
+				String sec = results.group(3);
+				int s = Integer.valueOf(min) * 60 + Integer.valueOf(sec);
+				s *= 1000;
+				long curMs = System.currentTimeMillis();
+				tomatoListReverse = new ArrayList<TATomato>();
+				tomatoListReverse.add(new TATomato(curMs - s, curMs));
+			}
+		}
+
+		if (tomatoListReverse == null)
+		{
+			return;
+		}
+
 		filterTomatoListByUISettings(tomatoListReverse, filterRules);
 
 		int index = tomatoListReverse.size();

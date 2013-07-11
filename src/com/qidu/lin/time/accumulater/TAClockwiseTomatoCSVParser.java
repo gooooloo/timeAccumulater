@@ -19,6 +19,7 @@
 
 package com.qidu.lin.time.accumulater;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +28,7 @@ import android.net.Uri;
 
 public class TAClockwiseTomatoCSVParser
 {
-	public static List<TATomato> parse(Uri uri)
+	public static List<TATomato> parse(Uri uri) throws IOException
 	{
 		ArrayList<TATomato> list = new ArrayList<TATomato>();
 
@@ -50,7 +51,7 @@ public class TAClockwiseTomatoCSVParser
 		return list;
 	}
 
-	public static List<TATomato> parseInReverse(Uri uri)
+	public static List<TATomato> parseInReverse(Uri uri) throws IOException
 	{
 		List<TATomato> list = parse(uri);
 		Collections.reverse(list);

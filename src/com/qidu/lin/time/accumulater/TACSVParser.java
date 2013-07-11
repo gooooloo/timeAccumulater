@@ -18,7 +18,6 @@
  */
 package com.qidu.lin.time.accumulater;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -30,26 +29,17 @@ public class TACSVParser
 {
 	private List<String[]> myEntries = null;
 
-	public TACSVParser(Uri uri)
+	public TACSVParser(Uri uri) throws IOException
 	{
-		try
+		if (uri == null)
 		{
-			FileReader fr = new FileReader(uri.getPath());
-			CSVReader reader = new CSVReader(fr);
-			myEntries = reader.readAll();
+			throw new IOException("null uri");
+		}
 
-		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		FileReader fr = new FileReader(uri.getPath());
+		CSVReader reader = new CSVReader(fr);
+		myEntries = reader.readAll();
 	}
-
 
 	public List<String[]> getMyEntries()
 	{
