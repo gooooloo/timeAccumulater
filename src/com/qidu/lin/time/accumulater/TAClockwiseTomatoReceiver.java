@@ -49,6 +49,7 @@ public class TAClockwiseTomatoReceiver extends Activity
 	}
 
 	FilterRules filterRules = new FilterRules();
+	List<TATomato> tomatoListReverse = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -56,46 +57,14 @@ public class TAClockwiseTomatoReceiver extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_intent_filter_receiver);
 
+		tomatoListReverse = parseTomatoListReverse();
 		updateUI();
 	}
 
 	private void updateUI()
 	{
-		Intent intent = getIntent();
-		assert (intent.getType().equalsIgnoreCase("text/plain"));
-
 		ViewGroup root = (ViewGroup) findViewById(R.id.root);
 		root.removeAllViews();
-
-		Uri stream = intent.getParcelableExtra(Intent.EXTRA_STREAM);
-
-		List<TATomato> tomatoListReverse = null;
-		try
-		{
-			tomatoListReverse = TAClockwiseTomatoCSVParser.parseInReverse(stream);
-		}
-		catch (IOException e)
-		{
-			String content = intent.getStringExtra(Intent.EXTRA_TEXT);
-			String regularExpression = "((\\d+):(\\d+)\\.\\d+)";
-			Matcher matcher = Pattern.compile(regularExpression).matcher(content);
-			if (matcher.find())
-			{
-				MatchResult results = matcher.toMatchResult();
-				String min = results.group(2);
-				String sec = results.group(3);
-				int s = Integer.valueOf(min) * 60 + Integer.valueOf(sec);
-				s *= 1000;
-				long curMs = System.currentTimeMillis();
-				tomatoListReverse = new ArrayList<TATomato>();
-				tomatoListReverse.add(new TATomato(curMs - s, curMs));
-			}
-		}
-
-		if (tomatoListReverse == null)
-		{
-			return;
-		}
 
 		filterTomatoListByUISettings(tomatoListReverse, filterRules);
 
@@ -128,6 +97,38 @@ public class TAClockwiseTomatoReceiver extends Activity
 			});
 			index--;
 		}
+	}
+
+	private List<TATomato> parseTomatoListReverse()
+	{
+		Intent intent = getIntent();
+		assert (intent.getType().equalsIgnoreCase("text/plain"));
+		Uri stream = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+
+		List<TATomato> tomatoListReverse = null;
+		try
+		{
+			tomatoListReverse = TAClockwiseTomatoCSVParser.parseInReverse(stream);
+		}
+		catch (IOException e)
+		{
+			String content = intent.getStringExtra(Intent.EXTRA_TEXT);
+			String regularExpression = "((\\d+):(\\d+)\\.\\d+)";
+			Matcher matcher = Pattern.compile(regularExpression).matcher(content);
+			if (matcher.find())
+			{
+				MatchResult results = matcher.toMatchResult();
+				String min = results.group(2);
+				String sec = results.group(3);
+				int s = Integer.valueOf(min) * 60 + Integer.valueOf(sec);
+				s *= 1000;
+				long curMs = System.currentTimeMillis();
+				tomatoListReverse = new ArrayList<TATomato>();
+				tomatoListReverse.add(new TATomato(curMs - s, curMs));
+			}
+		}
+
+		return tomatoListReverse;
 	}
 
 	private void filterTomatoListByUISettings(List<TATomato> tomatoListReverse2, FilterRules filterRules)
