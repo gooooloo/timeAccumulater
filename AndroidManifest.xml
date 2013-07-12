@@ -23,7 +23,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.qidu.lin.time.accumulater.TAClockwiseTomatoReceiver"
+            android:name="com.qidu.lin.time.accumulater.TAClockwiseTomatoSystemAlarmReceiver"
             android:label="@string/title_activity_intent_filter_receiver" >
             <intent-filter > 
                 <action android:name="android.intent.action.SEND" />

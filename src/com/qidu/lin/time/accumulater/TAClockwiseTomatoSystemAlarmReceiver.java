@@ -36,7 +36,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class TAClockwiseTomatoReceiver extends Activity
+public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 {
 	private class FilterRules
 	{
@@ -206,7 +206,7 @@ public class TAClockwiseTomatoReceiver extends Activity
 				{
 					if (projectName != null)
 					{
-						Toast.makeText(TAClockwiseTomatoReceiver.this, "dont support modify project yet", Toast.LENGTH_SHORT).show();
+						Toast.makeText(TAClockwiseTomatoSystemAlarmReceiver.this, "dont support modify project yet", Toast.LENGTH_SHORT).show();
 						return;
 					}
 
