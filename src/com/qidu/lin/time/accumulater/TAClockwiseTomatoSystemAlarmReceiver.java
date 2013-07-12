@@ -19,11 +19,7 @@
 package com.qidu.lin.time.accumulater;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.MatchResult;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -112,6 +108,12 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		setContentView(R.layout.activity_intent_filter_receiver);
 
 		tomatoListReverse = parseTomatoListReverse();
+		if (tomatoListReverse == null)
+		{
+			finish();
+			return;
+		}
+
 		updateUI();
 	}
 
@@ -162,18 +164,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		catch (IOException e)
 		{
 			String content = intent.getStringExtra(Intent.EXTRA_TEXT);
-			String regularExpression = "((\\d+):(\\d+)\\.\\d+)";
-			Matcher matcher = Pattern.compile(regularExpression).matcher(content);
-			if (matcher.find())
-			{
-				MatchResult results = matcher.toMatchResult();
-				String min = results.group(2);
-				String sec = results.group(3);
-				int durationMs = (Integer.valueOf(min) * 60 + Integer.valueOf(sec)) * 1000;
-				long curMs = System.currentTimeMillis();
-				tomatoListReverse = new ArrayList<TATomato>();
-				tomatoListReverse.add(new TATomato(curMs - durationMs, curMs));
-			}
+			tomatoListReverse = TASystemAlarmRecordParser.parse(content);
 		}
 
 		return tomatoListReverse;
@@ -206,7 +197,8 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 				{
 					if (projectName != null)
 					{
-						Toast.makeText(TAClockwiseTomatoSystemAlarmReceiver.this, "dont support modify project yet", Toast.LENGTH_SHORT).show();
+						Toast.makeText(TAClockwiseTomatoSystemAlarmReceiver.this, "dont support modify project yet", Toast.LENGTH_SHORT)
+								.show();
 						return;
 					}
 
