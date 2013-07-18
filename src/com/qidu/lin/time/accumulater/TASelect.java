@@ -21,15 +21,18 @@ package com.qidu.lin.time.accumulater;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.Toast;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class TASelect extends Activity
 {
@@ -40,8 +43,6 @@ public class TASelect extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select);
-
-		TableLayout tableLayout = (TableLayout) this.findViewById(R.id.table);
 
 		final EditText input = (EditText) this.findViewById(R.id.input);
 		((Button) this.findViewById(R.id.add)).setOnClickListener(new OnClickListener()
@@ -63,50 +64,110 @@ public class TASelect extends Activity
 		});
 
 		String[] names = TADataCenter.ProjectCenter.getProjectNames(this);
-		if (names != null && names.length != 0)
+		ListView lv = (ListView) findViewById(R.id.listView);
+		final ListAdapter listAdapter = getListAdapter(names);
+		lv.setAdapter(listAdapter);
+		lv.setOnItemClickListener(new OnItemClickListener()
 		{
-			TableRow tr = new TableRow(this);
-			for (int i = 0; i < names.length; i++)
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
 			{
-				final int numARow = 4;
-				Button btn = new Button(this);
-				btn.setText(names[i]);
-				final int id = i;
-				btn.setTextColor(TADataCenter.getOnFlag(this, names[i])
-						? this.getResources().getColor(R.color.colorForOn)
-								: this.getResources().getColor(R.color.colorForOff));
-				btn.setOnClickListener(new OnClickListener()
-				{
-
-					@Override
-					public void onClick(View v)
-					{
-						TASelect.this.onSelect(id);
-					}
-				});
-				btn.setOnLongClickListener(new OnLongClickListener()
-				{
-
-					@Override
-					public boolean onLongClick(View v)
-					{
-						Toast.makeText(TASelect.this, "Long click feature is to be done", Toast.LENGTH_SHORT).show();
-						return true;
-					}
-				});
-				tr.addView(btn);
-
-				if (tr.getChildCount() == numARow)
-				{
-					tableLayout.addView(tr);
-					tr = new TableRow(this);
-				}
+				onSelect(position);
 			}
-			if (tr.getChildCount() != 0)
+		});
+	}
+
+	private ListAdapter getListAdapter(final String[] names)
+	{
+		ListAdapter la = new ListAdapter()
+		{
+
+			@Override
+			public void unregisterDataSetObserver(DataSetObserver observer)
 			{
-				tableLayout.addView(tr);
+
 			}
-		}
+
+			@Override
+			public void registerDataSetObserver(DataSetObserver observer)
+			{
+
+			}
+
+			@Override
+			public boolean isEmpty()
+			{
+				return false;
+			}
+
+			@Override
+			public boolean hasStableIds()
+			{
+				return false;
+			}
+
+			@Override
+			public int getViewTypeCount()
+			{
+				return 1;
+			}
+
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent)
+			{
+				TextView tv = (convertView != null) ? ((TextView) convertView) : new TextView(TASelect.this);
+				tv.setTextSize(24);
+				tv.setPadding(10, 10, 10, 10);
+				String projectName = getProjectName(position);
+				tv.setText(projectName);
+				int colorForOn = TASelect.this.getResources().getColor(R.color.colorForOn);
+				int colorForOff = TASelect.this.getResources().getColor(R.color.colorForOff);
+				tv.setTextColor(TADataCenter.getOnFlag(TASelect.this, projectName) ? colorForOn : colorForOff);
+				return tv;
+			}
+
+			private String getProjectName(int position)
+			{
+				return (String) getItem(position);
+			}
+
+			@Override
+			public int getItemViewType(int position)
+			{
+				return 0;
+			}
+
+			@Override
+			public long getItemId(int position)
+			{
+				return position;
+			}
+
+			@Override
+			public Object getItem(int position)
+			{
+				return names[position];
+			}
+
+			@Override
+			public int getCount()
+			{
+				return names.length;
+			}
+
+			@Override
+			public boolean isEnabled(int position)
+			{
+				return true;
+			}
+
+			@Override
+			public boolean areAllItemsEnabled()
+			{
+				return false;
+			}
+		};
+		return la;
 	}
 
 	private void onSelect(int id)
