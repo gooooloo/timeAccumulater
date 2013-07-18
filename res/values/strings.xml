@@ -4,7 +4,7 @@
     <string name="app_name">TimeAccum</string>
     <string name="newProject">create new project</string>
     <string name="inputHint">input name here</string>
-    <string name="chooseProject">(choose other project)</string>
+    <string name="chooseProject">(click to choose other project)</string>
     <string name="setTimerOff">set timer off</string>
     <string name="setTimerOn">set timer on</string>
     <string name="timeResult">time accumulated : %1$dhours %2$dminutes %3$dseconds</string>
