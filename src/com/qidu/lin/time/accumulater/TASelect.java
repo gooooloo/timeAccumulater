@@ -45,7 +45,8 @@ public class TASelect extends Activity
 		setContentView(R.layout.select);
 
 		final EditText input = (EditText) this.findViewById(R.id.input);
-		((Button) this.findViewById(R.id.add)).setOnClickListener(new OnClickListener()
+		final Button addButton = (Button) this.findViewById(R.id.add);
+		addButton.setOnClickListener(new OnClickListener()
 		{
 
 			@Override
@@ -59,7 +60,9 @@ public class TASelect extends Activity
 				else
 				{
 					input.setVisibility(View.VISIBLE);
+					addButton.setText(android.R.string.ok);
 				}
+				
 			}
 		});
 
@@ -116,6 +119,7 @@ public class TASelect extends Activity
 			public View getView(int position, View convertView, ViewGroup parent)
 			{
 				TextView tv = (convertView != null) ? ((TextView) convertView) : new TextView(TASelect.this);
+				// FIXME : dimensions are hard coded.
 				tv.setTextSize(24);
 				tv.setPadding(10, 10, 10, 10);
 				String projectName = getProjectName(position);
