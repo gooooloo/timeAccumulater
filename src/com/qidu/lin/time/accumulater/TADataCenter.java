@@ -92,7 +92,7 @@ public class TADataCenter
 		}
 
 		ArrayList<TATomato> list = new ArrayList<TATomato>();
-		for (int i = 0; i < tomatoCount; i++)
+		for (int i = 1; i <= tomatoCount; i++)
 		{
 			long startMs = sp.getLong(getTomatoBeginKey(i), 0);
 			long endMs = sp.getLong(getTomatoEndKey(i), 0);
