@@ -212,6 +212,18 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 					onTomatoClicked(y);
 				}
 			});
+			btn.setOnLongClickListener(new View.OnLongClickListener()
+			{
+				@Override
+				public boolean onLongClick(View v)
+				{
+					if (projectName != null)
+					{
+						startActivity(TATomatoHistoryListActivity.getLauncherIntent(TAClockwiseTomatoSystemAlarmReceiver.this, projectName));
+					}
+					return true;
+				}
+			});
 			index--;
 		}
 	}
