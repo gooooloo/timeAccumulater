@@ -80,17 +80,13 @@ public class TASelect extends Activity
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
 			TextView tv = (convertView != null) ? ((TextView) convertView) : new TextView(TASelect.this);
-			// FIXME : dimensions are hard coded.
-			tv.setTextSize(24);
-			tv.setPadding(10, 10, 10, 10);
 			String projectName = getProjectName(position);
+			TASharedListItemSetting.setupListItemTextView(tv, projectName);
 
 			// TODO : make UI better
 			TATime x = TADataCenter.getAccumulateTime(TASelect.this, projectName);
 			tv.setText(projectName + "         " + TASelect.this.getString(R.string.timeResultShort, x.hours, x.minute, x.second));
-			int colorForOn = TASelect.this.getResources().getColor(R.color.colorForOn);
-			int colorForOff = TASelect.this.getResources().getColor(R.color.colorForOff);
-			tv.setTextColor(TADataCenter.getOnFlag(TASelect.this, projectName) ? colorForOn : colorForOff);
+
 			return tv;
 		}
 
