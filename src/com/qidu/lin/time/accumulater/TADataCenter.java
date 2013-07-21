@@ -55,12 +55,23 @@ public class TADataCenter
 
 	public static void addPastTimeToAccumulate(Context context, String projectName, long pastTimeMs)
 	{
-		setAccumulate(context, projectName, pastTimeMs + getAccumulate(context, projectName));
+		setAccumulate(context, projectName, pastTimeMs + getAccumulateMs(context, projectName));
 	}
 
-	public static long getAccumulate(Context context, String projectName)
+	public static long getAccumulateMs(Context context, String projectName)
 	{
 		return getProjectSP(context, projectName).getLong(TAG_TIME_ACCUMULATE, 0);
+	}
+	
+	public static TATime getAccumulateTime(Context context, String projectName)
+	{
+		int x = (int) TADataCenter.getAccumulateMs(context, projectName);
+		int sec = x / 1000;
+		int min = sec / 60;
+		sec = sec % 60;
+		int hour = min / 60;
+		min = min % 60;
+		return new TATime(hour, min, sec);
 	}
 
 	private static void setAccumulate(Context context, String projectName, long duration)

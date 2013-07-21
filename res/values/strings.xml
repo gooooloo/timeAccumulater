@@ -8,6 +8,7 @@
     <string name="setTimerOff">set timer off</string>
     <string name="setTimerOn">set timer on</string>
     <string name="timeResult">time accumulated : %1$dhours %2$dminutes %3$dseconds</string>
+    <string name="timeResultShort">%1$d:%2$d:%3$d</string>
     <string name="timeAccumulating">time accumulating</string>
     <string name="menu_settings">settings</string>
     <string name="title_activity_intent_filter_receiver">@string/app_name</string>

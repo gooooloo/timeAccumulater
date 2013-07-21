@@ -99,13 +99,8 @@ public class TAMain extends Activity
 		}
 		else
 		{
-			long x = TADataCenter.getAccumulate(this, TADataCenter.ProjectCenter.getLastProjectName(this));
-			long sec = x / 1000;
-			long min = sec / 60;
-			sec = sec % 60;
-			long hour = min / 60;
-			min = min % 60;
-			tv.setText(this.getString(R.string.timeResult, hour, min, sec));
+			TATime x = TADataCenter.getAccumulateTime(this, TADataCenter.ProjectCenter.getLastProjectName(this));
+			tv.setText(this.getString(R.string.timeResult, x.hours, x.minute, x.second));
 		}
 	}
 }

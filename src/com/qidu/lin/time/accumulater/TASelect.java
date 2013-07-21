@@ -62,7 +62,7 @@ public class TASelect extends Activity
 					input.setVisibility(View.VISIBLE);
 					addButton.setText(android.R.string.ok);
 				}
-				
+
 			}
 		});
 
@@ -123,7 +123,10 @@ public class TASelect extends Activity
 				tv.setTextSize(24);
 				tv.setPadding(10, 10, 10, 10);
 				String projectName = getProjectName(position);
-				tv.setText(projectName);
+
+				// TODO : make UI better
+				TATime x = TADataCenter.getAccumulateTime(TASelect.this, projectName);
+				tv.setText(projectName + "         " + TASelect.this.getString(R.string.timeResultShort, x.hours, x.minute, x.second));
 				int colorForOn = TASelect.this.getResources().getColor(R.color.colorForOn);
 				int colorForOff = TASelect.this.getResources().getColor(R.color.colorForOff);
 				tv.setTextColor(TADataCenter.getOnFlag(TASelect.this, projectName) ? colorForOn : colorForOff);
