@@ -19,7 +19,9 @@
 
 package com.qidu.lin.time.accumulater;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -65,9 +67,44 @@ public class TADataCenter
 		int tomatoIndex = tomatoCnt;
 		Editor edit = sp.edit();
 		edit.putInt(TAG_TOMATO_COUNT, tomatoCnt);
-		edit.putLong(TAG_TOMATO_INDEX_BEGIN_KEY+tomatoIndex, beginMs);
-		edit.putLong(TAG_TOMATO_INDEX_END_KEY+tomatoIndex, endMs);
+		edit.putLong(getTomatoBeginKey(tomatoIndex), beginMs);
+		edit.putLong(getTomatoEndKey(tomatoIndex), endMs);
 		edit.commit();
+	}
+
+	private static String getTomatoEndKey(int tomatoIndex)
+	{
+		return TAG_TOMATO_INDEX_END_KEY + tomatoIndex;
+	}
+
+	private static String getTomatoBeginKey(int tomatoIndex)
+	{
+		return TAG_TOMATO_INDEX_BEGIN_KEY + tomatoIndex;
+	}
+
+	public static List<TATomato> getTomatoListForProject(Context context, String projectName)
+	{
+		SharedPreferences sp = getProjectSP(context, projectName);
+		int tomatoCount = sp.getInt(TAG_TOMATO_COUNT, 0);
+		if (tomatoCount <= 0)
+		{
+			return null;
+		}
+
+		ArrayList<TATomato> list = new ArrayList<TATomato>();
+		for (int i = 0; i < tomatoCount; i++)
+		{
+			long startMs = sp.getLong(getTomatoBeginKey(i), 0);
+			long endMs = sp.getLong(getTomatoEndKey(i), 0);
+			if (startMs == 0 || endMs == 0)
+			{
+				continue;
+			}
+			TATomato tomato = new TATomato(startMs, endMs);
+			list.add(tomato);
+		}
+		return list;
+
 	}
 
 	public static void addPastTimeToAccumulate(Context context, String projectName, long pastTimeMs)
@@ -79,7 +116,7 @@ public class TADataCenter
 	{
 		return getProjectSP(context, projectName).getLong(TAG_TIME_ACCUMULATE, 0);
 	}
-	
+
 	public static TATime getAccumulateTime(Context context, String projectName)
 	{
 		int x = (int) TADataCenter.getAccumulateMs(context, projectName);
