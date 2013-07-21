@@ -171,7 +171,7 @@ public class TATomatoHistoryListActivity extends Activity
 			ListView lv = (ListView) findViewById(R.id.listView);
 			lv.setAdapter(new TomatoListAdapter(list));
 			TATime x = TADataCenter.getAccumulateTime(this, projectName);
-			this.setTitle(projectName + "  " + getString(R.string.timeResult, x.hours, x.minute, x.second));
+			this.setTitle(projectName + "  " + getString(R.string.timeResultShort, x.hours, x.minute, x.second));
 		}
 		else
 		{
