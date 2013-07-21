@@ -8,6 +8,7 @@
     <string name="setTimerOff">停止计时</string>
     <string name="setTimerOn">继续计时</string>
     <string name="timeResult">累计时间：%1$d小时%2$d分%3$d秒</string>
+    <string name="timeResultShort">%1$d:%2$d:%3$d</string>
     <string name="timeAccumulating">计时中</string>
     <string name="menu_settings">设置</string>
     <string name="title_activity_intent_filter_receiver">@string/app_name</string>
