@@ -28,6 +28,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -76,6 +77,16 @@ public class TASelect extends Activity
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
 			{
 				onSelect(position);
+			}
+		});
+		lv.setOnItemLongClickListener(new OnItemLongClickListener()
+		{
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+			{
+				startActivity(new Intent(TASelect.this, TATomatoHistoryListActivity.class));
+				return true;
 			}
 		});
 	}

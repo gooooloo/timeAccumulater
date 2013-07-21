@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -55,6 +56,16 @@ public class TAMain extends Activity
 			public void onClick(View arg0)
 			{
 				TAMain.this.startActivityForResult(new Intent(TAMain.this, TASelect.class), TAMain.selectdode);
+			}
+		});
+
+		((Button) this.findViewById(R.id.project)).setOnLongClickListener(new OnLongClickListener()
+		{
+			@Override
+			public boolean onLongClick(View v)
+			{
+				startActivity(new Intent(TAMain.this, TATomatoHistoryListActivity.class));
+				return true;
 			}
 		});
 	}

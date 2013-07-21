@@ -4,7 +4,9 @@
     android:versionCode="2"
     android:versionName="0.11" >
 
-    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17"/>
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
 
     <application
         android:allowBackup="true"
@@ -26,12 +28,17 @@
         <activity
             android:name="com.qidu.lin.time.accumulater.TAClockwiseTomatoSystemAlarmReceiver"
             android:label="@string/title_activity_intent_filter_receiver" >
-            <intent-filter > 
+            <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" /> 
-                </intent-filter>
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.qidu.lin.time.accumulater.TATomatoHistoryListActivity"
+            android:label="@string/title_activity_tatomato_history_list" >
         </activity>
     </application>
 
