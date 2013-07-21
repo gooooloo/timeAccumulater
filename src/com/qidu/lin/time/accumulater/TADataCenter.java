@@ -23,12 +23,16 @@ import java.util.Calendar;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 public class TADataCenter
 {
 	private static final String TAG_IS_TIME_COMSUMING_FLAG = "com.qidu.lin.timeAccumulate.TAG_IS_TIME_COMSUMING_FLAG";
 	private static final String TAG_TIME_ACCUMULATE = "com.qidu.lin.timeAccumulate.TAG_TIME_ACCUMULATE";
 	private static final String TAG_LAST_TOGGLE_TIME = "com.qidu.lin.timeAccumulate.TAG_LAST_TOGGLE_TIME";
+	private static final String TAG_TOMATO_COUNT = "com.qidu.lin.timeAccumulate.TAG_TOMATO_COUNT";
+	private static final String TAG_TOMATO_INDEX_BEGIN_KEY = "com.qidu.lin.timeAccumulate.TAG_TOMATO_INDEX_BEGIN_KEY_";
+	private static final String TAG_TOMATO_INDEX_END_KEY = "com.qidu.lin.timeAccumulate.TAG_TOMATO_INDEX_END_KEY_";
 
 	static boolean getOnFlag(Context context, String projectName)
 	{
@@ -47,10 +51,23 @@ public class TADataCenter
 			long lastTimeMs = getLastTime(context, projectName);
 			long pastTimeMs = curTimeMs - lastTimeMs;
 			addPastTimeToAccumulate(context, projectName, pastTimeMs);
+			saveATomato(context, projectName, lastTimeMs, curTimeMs);
 		}
 		setLastTime(context, projectName, curTimeMs);
 		setOnFlag(context, projectName, !beforeIsOn);
 
+	}
+
+	public static void saveATomato(Context context, String projectName, long beginMs, long endMs)
+	{
+		SharedPreferences sp = getProjectSP(context, projectName);
+		int tomatoCnt = sp.getInt(TAG_TOMATO_COUNT, 0) + 1;
+		int tomatoIndex = tomatoCnt;
+		Editor edit = sp.edit();
+		edit.putInt(TAG_TOMATO_COUNT, tomatoCnt);
+		edit.putLong(TAG_TOMATO_INDEX_BEGIN_KEY+tomatoIndex, beginMs);
+		edit.putLong(TAG_TOMATO_INDEX_END_KEY+tomatoIndex, endMs);
+		edit.commit();
 	}
 
 	public static void addPastTimeToAccumulate(Context context, String projectName, long pastTimeMs)

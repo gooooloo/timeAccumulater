@@ -44,6 +44,8 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 	private static final int selectdode = 0;
 
 	private static final String TOMATO_ID = "TOMATO_ID";
+	private static final String TOMATO_BEGIN_MS = "TOMATO_BEGIN_MS";
+	private static final String TOMATO_END_MS = "TOMATO_END_MS";
 
 	FilterRules filterRules = new FilterRules();
 	List<TATomato> tomatoListReverse = null;
@@ -90,8 +92,11 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 			int projectId = data.getIntExtra(TASelect.ID, 0);
 			int duration = data.getIntExtra(DURATION, 0);
 			long tomatoId = data.getLongExtra(TOMATO_ID, 0);
+			long beginMs = data.getLongExtra(TOMATO_BEGIN_MS, 0);
+			long endMs = data.getLongExtra(TOMATO_END_MS, 0);
 			String projectName = TADataCenter.ProjectCenter.getProjectNameById(this, projectId);
 			TADataCenter.addPastTimeToAccumulate(this, projectName, duration);
+			TADataCenter.saveATomato(this, projectName, beginMs, endMs);
 			TATomatoPersistence.save(this, tomatoId, projectName);
 
 			Toast.makeText(this, "time accumulated!", Toast.LENGTH_SHORT).show();
@@ -147,6 +152,8 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		Intent intent = new Intent(this, TASelect.class);
 		intent.putExtra(DURATION, y.getDurationMs());
 		intent.putExtra(TOMATO_ID, y.getId());
+		intent.putExtra(TOMATO_BEGIN_MS, y.startMs);
+		intent.putExtra(TOMATO_END_MS, y.endMs);
 		startActivityForResult(intent, selectdode);
 	}
 
