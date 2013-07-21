@@ -68,7 +68,7 @@ public class TATomatoHistoryListActivity extends Activity
 			{
 				tv = (TextView) convertView;
 			}
-			tv.setText(item.getStartTimeString());
+			tv.setText(item.getStartEndTimeString(TATomatoHistoryListActivity.this));
 			return tv;
 		}
 

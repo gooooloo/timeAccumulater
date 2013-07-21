@@ -20,6 +20,8 @@ package com.qidu.lin.time.accumulater;
 
 import java.util.Calendar;
 
+import android.content.Context;
+
 public class TATomato
 {
 	public final long startMs;
@@ -30,8 +32,8 @@ public class TATomato
 		this.startMs = startMs;
 		this.endMs = endMs;
 	}
-	
-	public  int getDurationMs()
+
+	public int getDurationMs()
 	{
 		return (int) (endMs - startMs);
 	}
@@ -50,7 +52,21 @@ public class TATomato
 		x.setTimeInMillis(startMs);
 		return x.getTime().toLocaleString();
 	}
-	
+
+	public String getStartEndTimeString(Context context)
+	{
+		Calendar x = Calendar.getInstance();
+		x.setTimeInMillis(startMs);
+		String xString = x.getTime().toLocaleString();
+
+		Calendar y = Calendar.getInstance();
+		y.setTimeInMillis(endMs);
+		String yString = y.getTime().toLocaleString();
+
+		return context.getString(R.string.tomato_start_end_string, xString, yString);
+
+	}
+
 	public long getId()
 	{
 		return startMs;
