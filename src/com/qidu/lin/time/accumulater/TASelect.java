@@ -37,6 +37,105 @@ import android.widget.TextView;
 
 public class TASelect extends Activity
 {
+	private final class ProjectListAdapter implements ListAdapter
+	{
+		private final String[] names;
+
+		private ProjectListAdapter(String[] names)
+		{
+			this.names = names;
+		}
+
+		@Override
+		public void unregisterDataSetObserver(DataSetObserver observer)
+		{
+
+		}
+
+		@Override
+		public void registerDataSetObserver(DataSetObserver observer)
+		{
+
+		}
+
+		@Override
+		public boolean isEmpty()
+		{
+			return false;
+		}
+
+		@Override
+		public boolean hasStableIds()
+		{
+			return false;
+		}
+
+		@Override
+		public int getViewTypeCount()
+		{
+			return 1;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			TextView tv = (convertView != null) ? ((TextView) convertView) : new TextView(TASelect.this);
+			// FIXME : dimensions are hard coded.
+			tv.setTextSize(24);
+			tv.setPadding(10, 10, 10, 10);
+			String projectName = getProjectName(position);
+
+			// TODO : make UI better
+			TATime x = TADataCenter.getAccumulateTime(TASelect.this, projectName);
+			tv.setText(projectName + "         " + TASelect.this.getString(R.string.timeResultShort, x.hours, x.minute, x.second));
+			int colorForOn = TASelect.this.getResources().getColor(R.color.colorForOn);
+			int colorForOff = TASelect.this.getResources().getColor(R.color.colorForOff);
+			tv.setTextColor(TADataCenter.getOnFlag(TASelect.this, projectName) ? colorForOn : colorForOff);
+			return tv;
+		}
+
+		public String getProjectName(int position)
+		{
+			return (String) getItem(position);
+		}
+
+		@Override
+		public int getItemViewType(int position)
+		{
+			return 0;
+		}
+
+		@Override
+		public long getItemId(int position)
+		{
+			return position;
+		}
+
+		@Override
+		public Object getItem(int position)
+		{
+			return names[position];
+		}
+
+		@Override
+		public int getCount()
+		{
+			return names.length;
+		}
+
+		@Override
+		public boolean isEnabled(int position)
+		{
+			return true;
+		}
+
+		@Override
+		public boolean areAllItemsEnabled()
+		{
+			return false;
+		}
+	}
+
 	public static final String ID = "com.qidu.lin.time.accumulater.id";
 
 	@Override
@@ -69,7 +168,7 @@ public class TASelect extends Activity
 
 		String[] names = TADataCenter.ProjectCenter.getProjectNames(this);
 		ListView lv = (ListView) findViewById(R.id.listView);
-		final ListAdapter listAdapter = getListAdapter(names);
+		final ProjectListAdapter listAdapter = new ProjectListAdapter(names);
 		lv.setAdapter(listAdapter);
 		lv.setOnItemClickListener(new OnItemClickListener()
 		{
@@ -83,109 +182,12 @@ public class TASelect extends Activity
 		{
 
 			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3)
 			{
-				startActivity(new Intent(TASelect.this, TATomatoHistoryListActivity.class));
+				startActivity(new Intent(TATomatoHistoryListActivity.getLauncherIntent(TASelect.this, listAdapter.getProjectName(position))));
 				return true;
 			}
 		});
-	}
-
-	private ListAdapter getListAdapter(final String[] names)
-	{
-		ListAdapter la = new ListAdapter()
-		{
-
-			@Override
-			public void unregisterDataSetObserver(DataSetObserver observer)
-			{
-
-			}
-
-			@Override
-			public void registerDataSetObserver(DataSetObserver observer)
-			{
-
-			}
-
-			@Override
-			public boolean isEmpty()
-			{
-				return false;
-			}
-
-			@Override
-			public boolean hasStableIds()
-			{
-				return false;
-			}
-
-			@Override
-			public int getViewTypeCount()
-			{
-				return 1;
-			}
-
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent)
-			{
-				TextView tv = (convertView != null) ? ((TextView) convertView) : new TextView(TASelect.this);
-				// FIXME : dimensions are hard coded.
-				tv.setTextSize(24);
-				tv.setPadding(10, 10, 10, 10);
-				String projectName = getProjectName(position);
-
-				// TODO : make UI better
-				TATime x = TADataCenter.getAccumulateTime(TASelect.this, projectName);
-				tv.setText(projectName + "         " + TASelect.this.getString(R.string.timeResultShort, x.hours, x.minute, x.second));
-				int colorForOn = TASelect.this.getResources().getColor(R.color.colorForOn);
-				int colorForOff = TASelect.this.getResources().getColor(R.color.colorForOff);
-				tv.setTextColor(TADataCenter.getOnFlag(TASelect.this, projectName) ? colorForOn : colorForOff);
-				return tv;
-			}
-
-			private String getProjectName(int position)
-			{
-				return (String) getItem(position);
-			}
-
-			@Override
-			public int getItemViewType(int position)
-			{
-				return 0;
-			}
-
-			@Override
-			public long getItemId(int position)
-			{
-				return position;
-			}
-
-			@Override
-			public Object getItem(int position)
-			{
-				return names[position];
-			}
-
-			@Override
-			public int getCount()
-			{
-				return names.length;
-			}
-
-			@Override
-			public boolean isEnabled(int position)
-			{
-				return true;
-			}
-
-			@Override
-			public boolean areAllItemsEnabled()
-			{
-				return false;
-			}
-		};
-		return la;
 	}
 
 	private void onSelect(int id)

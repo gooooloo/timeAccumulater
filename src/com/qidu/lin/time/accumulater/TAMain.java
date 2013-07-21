@@ -64,7 +64,8 @@ public class TAMain extends Activity
 			@Override
 			public boolean onLongClick(View v)
 			{
-				startActivity(new Intent(TAMain.this, TATomatoHistoryListActivity.class));
+				startActivity(TATomatoHistoryListActivity.getLauncherIntent(TAMain.this,
+						TADataCenter.ProjectCenter.getLastProjectName(TAMain.this)));
 				return true;
 			}
 		});
