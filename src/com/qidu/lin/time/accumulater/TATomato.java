@@ -63,7 +63,7 @@ public class TATomato
 		y.setTimeInMillis(endMs);
 		String yString = y.getTime().toLocaleString();
 
-		return context.getString(R.string.tomato_start_end_string, xString, yString);
+		return context.getString(R.string.tomato_start_end_string, xString, yString, getDurationString());
 
 	}
 
