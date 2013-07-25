@@ -36,9 +36,11 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+        <activity android:name="com.qidu.lin.time.accumulater.TATomatoHistoryListActivity" >
+        </activity>
         <activity
-            android:name="com.qidu.lin.time.accumulater.TATomatoHistoryListActivity"
-            >
+            android:name="com.qidu.lin.time.accumulater.TAManualRecord"
+            android:label="@string/title_activity_tamanual_record" >
         </activity>
     </application>
 

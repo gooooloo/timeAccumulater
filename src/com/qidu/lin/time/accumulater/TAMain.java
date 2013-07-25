@@ -76,7 +76,7 @@ public class TAMain extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
-				TAMain.this.startActivityForResult(new Intent(TAMain.this, TASelect.class), TAMain.selectdode);
+				TAMain.this.startActivity(new Intent(TAMain.this, TAManualRecord.class));
 			}
 		});
 	}
