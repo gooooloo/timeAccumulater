@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
+import android.widget.TimePicker;
 
 public class TAManualRecord extends Activity
 {
 	protected static final int selectdode = 0;
 	Button projectButton = null;
 	private String projectname = "";
+	TimePicker timePickerBegin;
+	TimePicker timePickerEnd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -22,6 +25,9 @@ public class TAManualRecord extends Activity
 		setContentView(R.layout.activity_tamanual_record);
 
 		projectButton = (Button) this.findViewById(R.id.project);
+		timePickerBegin = (TimePicker) this.findViewById(R.id.timePickerBegin);
+		timePickerEnd = (TimePicker) this.findViewById(R.id.timePickerEnd);
+
 		projectButton.setOnClickListener(new OnClickListener()
 		{
 
@@ -42,7 +48,33 @@ public class TAManualRecord extends Activity
 			}
 		});
 
+		findViewById(R.id.ok).setOnClickListener(new OnClickListener()
+		{
+
+			@Override
+			public void onClick(View v)
+			{
+				doRecord();
+			}
+
+		});
+		findViewById(R.id.cancel).setOnClickListener(new OnClickListener()
+		{
+
+			@Override
+			public void onClick(View v)
+			{
+				finish();
+			}
+		});
+
 		updateProjectButtonUI();
+
+	}
+
+	private void doRecord()
+	{
+		// TODO Auto-generated method stub
 
 	}
 

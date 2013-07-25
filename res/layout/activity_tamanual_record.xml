@@ -3,10 +3,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TAManualRecord" >
+
     <Button
         android:id="@+id/project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/chooseProject" >
     </Button>
+
+    <TextView
+        android:id="@+id/tvbegin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/project"
+        android:text="@string/begin_time" />
+
+    <TimePicker
+        android:id="@+id/timePickerBegin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/tvbegin" />
+
+    <TimePicker
+        android:id="@+id/timePickerEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/timePickerBegin" />
+
+    <TextView
+        android:id="@+id/tvend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@id/timePickerEnd"
+        android:text="@string/end_time" />
+
+    <Button
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@android:string/ok" >
+    </Button>
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@android:string/cancel" >
+    </Button>
+
 </RelativeLayout>

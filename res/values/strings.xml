@@ -17,5 +17,7 @@
     <string name="tomato_start_end_string">%1$s -> %2$s \n duration : %3$s</string>
     <string name="manual_record_time_consuming">manual record time consuming</string>
     <string name="title_activity_tamanual_record">@string/manual_record_time_consuming</string>
+    <string name="begin_time">begin time</string>
+    <string name="end_time">end time</string>
 
 </resources>
