@@ -11,35 +11,20 @@
         android:text="@string/chooseProject" >
     </Button>
 
-    <TextView
-        android:id="@+id/tvbegin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+    <Button
+        android:id="@+id/begin"
         android:layout_below="@id/project"
-        android:text="@string/begin_time" />
-
-    <TimePicker
-        android:id="@+id/timePickerBegin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/tvbegin" />
-
-    <TimePicker
-        android:id="@+id/timePickerEnd"
+        android:text="@string/begin_time" >
+    </Button>
+    <Button
+        android:id="@+id/end"
+        android:layout_below="@id/begin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/timePickerBegin" />
-
-    <TextView
-        android:id="@+id/tvend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@id/timePickerEnd"
-        android:text="@string/end_time" />
+        android:text="@string/end_time" >
+    </Button>
 
     <Button
         android:id="@+id/ok"

@@ -1,22 +1,20 @@
 package com.qidu.lin.time.accumulater;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
-import android.widget.TimePicker;
 
 public class TAManualRecord extends Activity
 {
 	protected static final int selectdode = 0;
 	Button projectButton = null;
 	private String projectname = "";
-	TimePicker timePickerBegin;
-	TimePicker timePickerEnd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -25,8 +23,6 @@ public class TAManualRecord extends Activity
 		setContentView(R.layout.activity_tamanual_record);
 
 		projectButton = (Button) this.findViewById(R.id.project);
-		timePickerBegin = (TimePicker) this.findViewById(R.id.timePickerBegin);
-		timePickerEnd = (TimePicker) this.findViewById(R.id.timePickerEnd);
 
 		projectButton.setOnClickListener(new OnClickListener()
 		{
@@ -47,6 +43,24 @@ public class TAManualRecord extends Activity
 				return true;
 			}
 		});
+		findViewById(R.id.begin).setOnClickListener(new OnClickListener()
+		{
+
+			@Override
+			public void onClick(View v)
+			{
+				selectBegin();
+			}
+		});
+		findViewById(R.id.end).setOnClickListener(new OnClickListener()
+		{
+
+			@Override
+			public void onClick(View v)
+			{
+				selectEnd();
+			}
+		});
 
 		findViewById(R.id.ok).setOnClickListener(new OnClickListener()
 		{
@@ -56,7 +70,6 @@ public class TAManualRecord extends Activity
 			{
 				doRecord();
 			}
-
 		});
 		findViewById(R.id.cancel).setOnClickListener(new OnClickListener()
 		{
@@ -70,6 +83,22 @@ public class TAManualRecord extends Activity
 
 		updateProjectButtonUI();
 
+	}
+
+	protected void selectBegin()
+	{
+		selectTime();
+	}
+
+	private void selectTime()
+	{
+		TimePickerDialog d = new TimePickerDialog(this, null, 0, 0, true);
+		d.show();
+	}
+
+	protected void selectEnd()
+	{
+		selectTime();
 	}
 
 	private void doRecord()
