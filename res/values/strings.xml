@@ -15,5 +15,6 @@
     <string name="unaccumulatedOnly">show unaccumulated only</string>
     <string name="within2daysonly">show within 2 days only</string>
     <string name="tomato_start_end_string">%1$s -> %2$s \n duration : %3$s</string>
+    <string name="manual_record_time_consuming">manual record time consuming</string>
 
 </resources>

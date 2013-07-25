@@ -69,6 +69,16 @@ public class TAMain extends Activity
 				return true;
 			}
 		});
+		
+		((Button) this.findViewById(R.id.manualrecord)).setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View arg0)
+			{
+				TAMain.this.startActivityForResult(new Intent(TAMain.this, TASelect.class), TAMain.selectdode);
+			}
+		});
 	}
 
 	@Override
