@@ -108,6 +108,7 @@ public class TAManualRecord extends Activity
 
 	private void selectTime(final boolean isBegin)
 	{
+		Calendar c = isBegin ? begin : end;
 		TimePickerDialog d = new TimePickerDialog(this, new OnTimeSetListener()
 		{
 
@@ -120,7 +121,7 @@ public class TAManualRecord extends Activity
 				onBeginOrEndTimeSet(isBegin, calendar);
 			}
 
-		}, 0, 0, true);
+		}, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true);
 		d.show();
 	}
 
