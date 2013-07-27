@@ -33,6 +33,12 @@ public class TATomato
 		this.endMs = endMs;
 	}
 
+	public TATomato(Calendar startCalendar, Calendar endCalendar)
+	{
+		this.startMs = startCalendar.getTimeInMillis();
+		this.endMs = endCalendar.getTimeInMillis();
+	}
+
 	public int getDurationMs()
 	{
 		return (int) (endMs - startMs);

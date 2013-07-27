@@ -27,8 +27,13 @@ public class TAManualRecord extends Activity
 
 	private void doRecord()
 	{
-		// TODO Auto-generated method stub
+		long beginMs = begin.getTimeInMillis();
+		long endMs = end.getTimeInMillis();
+		long durationMs = endMs - beginMs;
+		TADataCenter.addPastTimeToAccumulate(this, projectname, durationMs);
+		TADataCenter.saveATomato(this, projectname, beginMs, endMs);
 
+		finish();
 	}
 
 	@Override
