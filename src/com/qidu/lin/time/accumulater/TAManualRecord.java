@@ -16,14 +16,46 @@ import android.widget.TimePicker;
 
 public class TAManualRecord extends Activity
 {
-	protected static final int selectdode = 0;
 	private static final long defaultMsDuration = 1000 * 60 * 25;
+	protected static final int selectdode = 0;
+	Calendar begin;
+	private Button beginButton;
+	Calendar end;
+	private Button endButton;
 	Button projectButton = null;
 	private String projectname = "";
-	Calendar begin;
-	Calendar end;
-	private Button beginButton;
-	private Button endButton;
+
+	private void doRecord()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (requestCode == selectdode && resultCode == Activity.RESULT_OK)
+		{
+			int id = data.getIntExtra(TASelect.ID, 0);
+			projectname = TADataCenter.ProjectCenter.getProjectNameById(this, id);
+			updateUI();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	private void onBeginOrEndTimeSet(boolean isBegin, Calendar calendar)
+	{
+		if (isBegin)
+		{
+			begin = calendar;
+		}
+		else
+		{
+			end = calendar;
+		}
+
+		updateUI();
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -101,9 +133,22 @@ public class TAManualRecord extends Activity
 
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.activity_tamanual_record, menu);
+		return true;
+	}
+
 	protected void selectBegin()
 	{
 		selectTime(true);
+	}
+
+	protected void selectEnd()
+	{
+		selectTime(false);
 	}
 
 	private void selectTime(final boolean isBegin)
@@ -123,51 +168,6 @@ public class TAManualRecord extends Activity
 
 		}, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true);
 		d.show();
-	}
-
-	private void onBeginOrEndTimeSet(boolean isBegin, Calendar calendar)
-	{
-		if (isBegin)
-		{
-			begin = calendar;
-		}
-		else
-		{
-			end = calendar;
-		}
-
-		updateUI();
-	}
-
-	protected void selectEnd()
-	{
-		selectTime(false);
-	}
-
-	private void doRecord()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_tamanual_record, menu);
-		return true;
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		if (requestCode == selectdode && resultCode == Activity.RESULT_OK)
-		{
-			int id = data.getIntExtra(TASelect.ID, 0);
-			projectname = TADataCenter.ProjectCenter.getProjectNameById(this, id);
-			updateUI();
-		}
-		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	public void updateUI()
