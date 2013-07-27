@@ -82,7 +82,7 @@ public class TADataCenter
 		return TAG_TOMATO_INDEX_BEGIN_KEY + tomatoIndex;
 	}
 
-	public static List<TATomato> getTomatoListForProject(Context context, String projectName)
+	public static List<TATomato> getReverseTomatoListForProject(Context context, String projectName)
 	{
 		SharedPreferences sp = getProjectSP(context, projectName);
 		int tomatoCount = sp.getInt(TAG_TOMATO_COUNT, 0);
@@ -92,7 +92,7 @@ public class TADataCenter
 		}
 
 		ArrayList<TATomato> list = new ArrayList<TATomato>();
-		for (int i = 1; i <= tomatoCount; i++)
+		for (int i = tomatoCount; i >= 1; i--)
 		{
 			long startMs = sp.getLong(getTomatoBeginKey(i), 0);
 			long endMs = sp.getLong(getTomatoEndKey(i), 0);

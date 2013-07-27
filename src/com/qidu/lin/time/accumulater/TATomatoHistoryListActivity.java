@@ -165,7 +165,7 @@ public class TATomatoHistoryListActivity extends Activity
 			return;
 		}
 
-		List<TATomato> list = TADataCenter.getTomatoListForProject(this, projectName);
+		List<TATomato> list = TADataCenter.getReverseTomatoListForProject(this, projectName);
 		if (list != null)
 		{
 			ListView lv = (ListView) findViewById(R.id.listView);
