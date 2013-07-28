@@ -95,7 +95,13 @@ public class TATomatoHistoryListActivity extends Activity
 			{
 				tv = (TextView) convertView;
 			}
-			tv.setText(item.getStartEndTimeString(TATomatoHistoryListActivity.this));
+			String string = item.getStartEndTimeString(TATomatoHistoryListActivity.this);
+			String tomatoNote = TATomatoPersistence.getTomatoNote(TATomatoHistoryListActivity.this, item.getId());
+			if (tomatoNote != null)
+			{
+				string += "\n"+tomatoNote;
+			}
+			tv.setText(string);
 			return tv;
 		}
 
