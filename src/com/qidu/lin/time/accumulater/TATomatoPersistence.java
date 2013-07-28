@@ -24,6 +24,7 @@ public class TATomatoPersistence
 {
 	private static final String KEY_TOMATO_ID = "KEY_TOMATO_ID_";
 	private static final String TAG_TOMATO_PERSISTANCE = "TAG_TOMATO_PERSISTANCE";
+	private static final String TAG_TOMATO_NOTE = "TAG_TOMATO_NOTE";
 
 	public static void saveProjectName(Context context, long tomatoId, String projectName)
 	{
@@ -43,6 +44,26 @@ public class TATomatoPersistence
 			return null;
 		}
 		return context.getSharedPreferences(TAG_TOMATO_PERSISTANCE, Context.MODE_PRIVATE).getString(getKeyByTomatoId(tomatoId), null);
+	}
+
+	public static void saveTomatoNote(Context context, long tomatoId, String note)
+	{
+
+		if (invalidId(tomatoId))
+		{
+			return;
+		}
+
+		context.getSharedPreferences(TAG_TOMATO_NOTE, Context.MODE_PRIVATE).edit().putString(getKeyByTomatoId(tomatoId), note).commit();
+	}
+
+	public static String getTomatoNote(Context context, long tomatoId)
+	{
+		if (invalidId(tomatoId))
+		{
+			return null;
+		}
+		return context.getSharedPreferences(TAG_TOMATO_NOTE, Context.MODE_PRIVATE).getString(getKeyByTomatoId(tomatoId), null);
 	}
 
 	private static boolean invalidId(long tomatoId)

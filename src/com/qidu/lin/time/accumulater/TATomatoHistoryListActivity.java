@@ -199,8 +199,7 @@ public class TATomatoHistoryListActivity extends Activity
 									TATomato tomato = adapter.getTomato(position);
 									long id = tomato.getId();
 									
-									// TODO : save s for id
-									
+									TATomatoPersistence.saveTomatoNote(TATomatoHistoryListActivity.this, id, s);
 								}
 							}).setNegativeButton(android.R.string.cancel, null).show();
 
