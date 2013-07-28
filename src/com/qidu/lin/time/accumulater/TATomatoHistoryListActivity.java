@@ -29,6 +29,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -169,9 +171,23 @@ public class TATomatoHistoryListActivity extends Activity
 		if (list != null)
 		{
 			ListView lv = (ListView) findViewById(R.id.listView);
-			lv.setAdapter(new TomatoListAdapter(list));
+			final TomatoListAdapter adapter = new TomatoListAdapter(list);
+			lv.setAdapter(adapter);
 			TATime x = TADataCenter.getAccumulateTime(this, projectName);
 			this.setTitle(projectName + "  " + getString(R.string.timeResultShort, x.hours, x.minute, x.second));
+
+			lv.setOnItemClickListener(new OnItemClickListener()
+			{
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
+				{
+					// TODO : input UI for note.
+					TATomato tomato = adapter.getTomato(position);
+					long id = tomato.getId();
+					
+				}
+			});
 		}
 		else
 		{
