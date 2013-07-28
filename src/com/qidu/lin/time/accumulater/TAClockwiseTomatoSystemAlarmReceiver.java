@@ -97,7 +97,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 			String projectName = TADataCenter.ProjectCenter.getProjectNameById(this, projectId);
 			TADataCenter.addPastTimeToAccumulate(this, projectName, duration);
 			TADataCenter.saveATomato(this, projectName, beginMs, endMs);
-			TATomatoPersistence.save(this, tomatoId, projectName);
+			TATomatoPersistence.saveProjectName(this, tomatoId, projectName);
 
 			Toast.makeText(this, "time accumulated!", Toast.LENGTH_SHORT).show();
 

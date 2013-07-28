@@ -25,7 +25,7 @@ public class TATomatoPersistence
 	private static final String KEY_TOMATO_ID = "KEY_TOMATO_ID_";
 	private static final String TAG_TOMATO_PERSISTANCE = "TAG_TOMATO_PERSISTANCE";
 
-	public static void save(Context context, long tomatoId, String projectName)
+	public static void saveProjectName(Context context, long tomatoId, String projectName)
 	{
 		if (invalidId(tomatoId))
 		{
