@@ -195,11 +195,8 @@ public class TATomatoHistoryListActivity extends Activity
 								@Override
 								public void onClick(DialogInterface dialog, int which)
 								{
-									String s = editText.getText().toString();
-									TATomato tomato = adapter.getTomato(position);
-									long id = tomato.getId();
-									
-									TATomatoPersistence.saveTomatoNote(TATomatoHistoryListActivity.this, id, s);
+									TATomatoPersistence.saveTomatoNote(TATomatoHistoryListActivity.this, adapter.getTomato(position)
+											.getId(), editText.getText().toString());
 								}
 							}).setNegativeButton(android.R.string.cancel, null).show();
 
