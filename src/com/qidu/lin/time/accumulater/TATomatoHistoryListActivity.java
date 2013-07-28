@@ -187,8 +187,8 @@ public class TATomatoHistoryListActivity extends Activity
 				public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
 				{
 					final EditText editText = new EditText(TATomatoHistoryListActivity.this);
-					editText.setHint("input your note here");
-					new AlertDialog.Builder(TATomatoHistoryListActivity.this).setTitle("input your note here").setView(editText)
+					editText.setHint(R.string.input_tomato_note_hint);
+					new AlertDialog.Builder(TATomatoHistoryListActivity.this).setTitle(R.string.input_tomato_note_hint).setView(editText)
 							.setPositiveButton(android.R.string.ok, new OnClickListener()
 							{
 

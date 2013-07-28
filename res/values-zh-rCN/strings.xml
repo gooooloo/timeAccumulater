@@ -19,5 +19,6 @@
     <string name="title_activity_tamanual_record">@string/manual_record_time_consuming</string>
     <string name="begin_time">开始时间</string>
     <string name="end_time">结束时间</string>
+    <string name="input_tomato_note_hint">输入备注</string>
 
 </resources>
