@@ -188,6 +188,12 @@ public class TATomatoHistoryListActivity extends Activity
 				{
 					final EditText editText = new EditText(TATomatoHistoryListActivity.this);
 					editText.setHint(R.string.input_tomato_note_hint);
+					final long tomatoId = adapter.getTomato(position).getId();
+					String note = TATomatoPersistence.getTomatoNote(TATomatoHistoryListActivity.this, tomatoId);
+					if (note != null)
+					{
+						editText.setText(note);
+					}
 					new AlertDialog.Builder(TATomatoHistoryListActivity.this).setTitle(R.string.input_tomato_note_hint).setView(editText)
 							.setPositiveButton(android.R.string.ok, new OnClickListener()
 							{
@@ -195,8 +201,8 @@ public class TATomatoHistoryListActivity extends Activity
 								@Override
 								public void onClick(DialogInterface dialog, int which)
 								{
-									TATomatoPersistence.saveTomatoNote(TATomatoHistoryListActivity.this, adapter.getTomato(position)
-											.getId(), editText.getText().toString());
+									TATomatoPersistence.saveTomatoNote(TATomatoHistoryListActivity.this, tomatoId, editText.getText()
+											.toString());
 								}
 							}).setNegativeButton(android.R.string.cancel, null).show();
 
