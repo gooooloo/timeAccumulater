@@ -22,7 +22,10 @@ package com.qidu.lin.time.accumulater;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -31,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -180,12 +184,26 @@ public class TATomatoHistoryListActivity extends Activity
 			{
 
 				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
+				public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
 				{
-					// TODO : input UI for note.
-					TATomato tomato = adapter.getTomato(position);
-					long id = tomato.getId();
-					
+					final EditText editText = new EditText(TATomatoHistoryListActivity.this);
+					editText.setHint("input your note here");
+					new AlertDialog.Builder(TATomatoHistoryListActivity.this).setTitle("input your note here").setView(editText)
+							.setPositiveButton(android.R.string.ok, new OnClickListener()
+							{
+
+								@Override
+								public void onClick(DialogInterface dialog, int which)
+								{
+									String s = editText.getText().toString();
+									TATomato tomato = adapter.getTomato(position);
+									long id = tomato.getId();
+									
+									// TODO : save s for id
+									
+								}
+							}).setNegativeButton(android.R.string.cancel, null).show();
+
 				}
 			});
 		}
