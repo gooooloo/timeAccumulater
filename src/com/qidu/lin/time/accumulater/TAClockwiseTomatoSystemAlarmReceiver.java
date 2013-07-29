@@ -87,7 +87,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if (requestCode == TAMain.selectdode && resultCode == Activity.RESULT_OK)
+		if (requestCode == selectdode && resultCode == Activity.RESULT_OK)
 		{
 			int projectId = data.getIntExtra(TASelect.ID, 0);
 			int duration = data.getIntExtra(DURATION, 0);

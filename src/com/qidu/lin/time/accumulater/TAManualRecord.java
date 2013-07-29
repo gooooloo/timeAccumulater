@@ -10,14 +10,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.TimePicker;
 
 public class TAManualRecord extends Activity
 {
 	private static final long defaultMsDuration = 1000 * 60 * 25;
-	protected static final int selectdode = 0;
 	Calendar begin;
 	private Button beginButton;
 	Calendar end;
@@ -39,7 +37,7 @@ public class TAManualRecord extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if (requestCode == selectdode && resultCode == Activity.RESULT_OK)
+		if (requestCode == TAProjectButton.selectdode && resultCode == Activity.RESULT_OK)
 		{
 			int id = data.getIntExtra(TASelect.ID, 0);
 			projectname = TADataCenter.ProjectCenter.getProjectNameById(this, id);
@@ -75,25 +73,8 @@ public class TAManualRecord extends Activity
 		begin.setTimeInMillis(end.getTimeInMillis() - defaultMsDuration);
 
 		projectButton = (Button) this.findViewById(R.id.project);
-		projectButton.setOnClickListener(new OnClickListener()
-		{
+		((TAProjectButton) projectButton).setup(this);
 
-			@Override
-			public void onClick(View arg0)
-			{
-				TAManualRecord.this.startActivityForResult(new Intent(TAManualRecord.this, TASelect.class), TAMain.selectdode);
-			}
-		});
-
-		projectButton.setOnLongClickListener(new OnLongClickListener()
-		{
-			@Override
-			public boolean onLongClick(View v)
-			{
-				startActivity(TATomatoHistoryListActivity.getLauncherIntent(TAManualRecord.this, projectname));
-				return true;
-			}
-		});
 		beginButton = (Button) findViewById(R.id.begin);
 		beginButton.setOnClickListener(new OnClickListener()
 		{
