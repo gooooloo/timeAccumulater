@@ -20,5 +20,8 @@
     <string name="begin_time">begin time</string>
     <string name="end_time">end time</string>
     <string name="input_tomato_note_hint">input your note here</string>
+    <string name="history">history</string>
+    <string name="rename">rename</string>
+    <string name="delete">delete</string>
 
 </resources>

@@ -21,6 +21,7 @@ package com.qidu.lin.time.accumulater;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.DataSetObserver;
@@ -182,8 +183,10 @@ public class TASelect extends Activity
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
 			{
-				new AlertDialog.Builder(TASelect.this).setItems(new CharSequence[] { "history", "rename", "delete" },
-						new android.content.DialogInterface.OnClickListener()
+				Context context = TASelect.this;
+				new AlertDialog.Builder(context).setItems(
+						new CharSequence[] { context.getString(R.string.history), context.getString(R.string.rename),
+								context.getString(R.string.delete) }, new android.content.DialogInterface.OnClickListener()
 						{
 							@Override
 							public void onClick(DialogInterface dialog, int which)

@@ -20,5 +20,8 @@
     <string name="begin_time">开始时间</string>
     <string name="end_time">结束时间</string>
     <string name="input_tomato_note_hint">输入备注</string>
+    <string name="history">历史记录</string>
+    <string name="rename">改名</string>
+    <string name="delete">删除</string>
 
 </resources>
