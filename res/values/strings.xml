@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TimeAccum</string>
+    <string name="app_name">DiDaDiDa</string>
     <string name="newProject">create new project</string>
     <string name="inputHint">input name here</string>
     <string name="chooseProject">(click to choose other project, long click to see project history)</string>
