@@ -29,8 +29,6 @@ import android.widget.Button;
 public class TAProjectButton extends Button
 {
 
-	public static final int selectdode = 1;
-
 	public TAProjectButton(Context context, AttributeSet attrs, int defStyle)
 	{
 		super(context, attrs, defStyle);
@@ -46,7 +44,7 @@ public class TAProjectButton extends Button
 		super(context);
 	}
 	
-	public void setup(final Activity activity)
+	public void setup(final Activity activity, final int electdode)
 	{
 
 		((Button) this.findViewById(R.id.project)).setOnClickListener(new OnClickListener()
@@ -55,7 +53,7 @@ public class TAProjectButton extends Button
 			@Override
 			public void onClick(View arg0)
 			{
-				activity.startActivityForResult(new Intent(activity, TASelect.class), TAProjectButton.selectdode);
+				activity.startActivityForResult(new Intent(activity, TASelect.class), electdode);
 			}
 		});
 

@@ -16,6 +16,7 @@ import android.widget.TimePicker;
 public class TAManualRecord extends Activity
 {
 	private static final long defaultMsDuration = 1000 * 60 * 25;
+	private static final int selectdode = 0;
 	Calendar begin;
 	private Button beginButton;
 	Calendar end;
@@ -37,7 +38,7 @@ public class TAManualRecord extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if (requestCode == TAProjectButton.selectdode && resultCode == Activity.RESULT_OK)
+		if (requestCode == selectdode && resultCode == Activity.RESULT_OK)
 		{
 			int id = data.getIntExtra(TASelect.ID, 0);
 			projectname = TADataCenter.ProjectCenter.getProjectNameById(this, id);
@@ -73,7 +74,7 @@ public class TAManualRecord extends Activity
 		begin.setTimeInMillis(end.getTimeInMillis() - defaultMsDuration);
 
 		projectButton = (Button) this.findViewById(R.id.project);
-		((TAProjectButton) projectButton).setup(this);
+		((TAProjectButton) projectButton).setup(this, selectdode);
 
 		beginButton = (Button) findViewById(R.id.begin);
 		beginButton.setOnClickListener(new OnClickListener()

@@ -30,6 +30,8 @@ import android.widget.TextView;
 
 public class TAMain extends Activity
 {
+	private static final int selectdode = 0;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -47,11 +49,11 @@ public class TAMain extends Activity
 			}
 		});
 
-		((TAProjectButton) findViewById(R.id.project)).setup(this);
-		
+		((TAProjectButton) findViewById(R.id.project)).setup(this, selectdode);
+
 		((Button) this.findViewById(R.id.manualrecord)).setOnClickListener(new OnClickListener()
 		{
-			
+
 			@Override
 			public void onClick(View arg0)
 			{
@@ -63,7 +65,7 @@ public class TAMain extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if (requestCode == TAProjectButton.selectdode && resultCode == Activity.RESULT_OK)
+		if (requestCode == selectdode && resultCode == Activity.RESULT_OK)
 		{
 			int id = data.getIntExtra(TASelect.ID, 0);
 			TADataCenter.ProjectCenter.setLastProjectId(this, id);
