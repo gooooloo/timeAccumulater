@@ -30,8 +30,6 @@ import android.widget.TextView;
 
 public class TAMain extends Activity
 {
-	protected static final int selectdode = 0;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -49,26 +47,7 @@ public class TAMain extends Activity
 			}
 		});
 
-		((Button) this.findViewById(R.id.project)).setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick(View arg0)
-			{
-				TAMain.this.startActivityForResult(new Intent(TAMain.this, TASelect.class), TAMain.selectdode);
-			}
-		});
-
-		((Button) this.findViewById(R.id.project)).setOnLongClickListener(new OnLongClickListener()
-		{
-			@Override
-			public boolean onLongClick(View v)
-			{
-				startActivity(TATomatoHistoryListActivity.getLauncherIntent(TAMain.this,
-						TADataCenter.ProjectCenter.getLastProjectName(TAMain.this)));
-				return true;
-			}
-		});
+		((TAProjectButton) findViewById(R.id.project)).setup(this);
 		
 		((Button) this.findViewById(R.id.manualrecord)).setOnClickListener(new OnClickListener()
 		{
@@ -84,7 +63,7 @@ public class TAMain extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if (requestCode == TAMain.selectdode && resultCode == Activity.RESULT_OK)
+		if (requestCode == TAProjectButton.selectdode && resultCode == Activity.RESULT_OK)
 		{
 			int id = data.getIntExtra(TASelect.ID, 0);
 			TADataCenter.ProjectCenter.setLastProjectId(this, id);
