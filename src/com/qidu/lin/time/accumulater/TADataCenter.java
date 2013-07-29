@@ -180,12 +180,16 @@ public class TADataCenter
 			{
 				return new String[] {};
 			}
-			String[] rlt = new String[cnt];
+			ArrayList<String> arr = new ArrayList<String>();
 			for (int i = 0; i < cnt; i++)
 			{
-				rlt[i] = x.getString(ProjectCenter.makeKey(i), "");
+				String name = x.getString(ProjectCenter.makeKey(i), null);
+				if (name != null)
+				{
+					arr.add(name);
+				}
 			}
-			return rlt;
+			return arr.toArray(new String[]{});
 		}
 
 		public static String getLastProjectName(Context context)
