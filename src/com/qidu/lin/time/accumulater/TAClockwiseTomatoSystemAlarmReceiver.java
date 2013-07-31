@@ -36,7 +36,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 {
 	private enum DataSource
 	{
-		ClockwiseTomato, SystemAlarm,
+		none, ClockwiseTomato, SystemAlarm,
 	}
 
 	private class TomatoListReverseWithSource
@@ -63,10 +63,11 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 	private static final String TOMATO_ID = "TOMATO_ID";
 	private static final String TOMATO_BEGIN_MS = "TOMATO_BEGIN_MS";
 	private static final String TOMATO_END_MS = "TOMATO_END_MS";
+	private static final String TOMATO_SOURCE = "TOMATO_SOURCE";
 
 	FilterRules filterRules = new FilterRules();
 	List<TATomato> tomatoListReverse = null;
-	DataSource source = null;
+	DataSource source = DataSource.none;
 
 	private boolean filterOff(TATomato tomato, FilterRules filterRules)
 	{
@@ -112,10 +113,13 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 			long tomatoId = data.getLongExtra(TOMATO_ID, 0);
 			long beginMs = data.getLongExtra(TOMATO_BEGIN_MS, 0);
 			long endMs = data.getLongExtra(TOMATO_END_MS, 0);
+			int source = data.getIntExtra(TOMATO_SOURCE, 0);
 			String projectName = TADataCenter.ProjectCenter.getProjectNameById(this, projectId);
 			TADataCenter.addPastTimeToAccumulate(this, projectName, duration);
 			TADataCenter.saveATomato(this, projectName, beginMs, endMs);
 			TATomatoPersistence.saveProjectName(this, tomatoId, projectName);
+			TATomatoPersistence.saveTomatoNote(this, tomatoId, source == DataSource.ClockwiseTomato.ordinal() ? "tomato"
+					: source == DataSource.SystemAlarm.ordinal() ? "alarm" : "");
 
 			Toast.makeText(this, "time accumulated!", Toast.LENGTH_SHORT).show();
 
@@ -174,6 +178,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		intent.putExtra(TOMATO_ID, y.getId());
 		intent.putExtra(TOMATO_BEGIN_MS, y.startMs);
 		intent.putExtra(TOMATO_END_MS, y.endMs);
+		intent.putExtra(TOMATO_SOURCE, source.ordinal());
 		startActivityForResult(intent, selectdode);
 	}
 
