@@ -183,7 +183,7 @@ public class TASelect extends Activity
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
 			{
-				Context context = TASelect.this;
+				final Context context = TASelect.this;
 
 				final int index_history = 0;
 				final int index_rename = 1;
@@ -210,7 +210,7 @@ public class TASelect extends Activity
 						}
 						else if (which == index_delete)
 						{
-							// TODO
+							TADataCenter.ProjectCenter.removeProjectName(context, listAdapter.getProjectName(position));
 						}
 					}
 				}).show();
