@@ -172,7 +172,10 @@ public class TASelect extends Activity
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
 			{
-				onSelect(position);
+				ProjectListAdapter listAdapter = (ProjectListAdapter) lv.getAdapter();
+				String projectName = listAdapter.getProjectName(position);
+				
+				onSelect(TADataCenter.ProjectCenter.getProjectIdByName(TASelect.this, projectName));
 			}
 		});
 		lv.setOnItemLongClickListener(new OnItemLongClickListener()
@@ -210,6 +213,7 @@ public class TASelect extends Activity
 						}
 						else if (which == index_delete)
 						{
+							TADataCenter.deleteAllTomatoForProject(context, projectName);
 							TADataCenter.ProjectCenter.removeProjectName(context, projectName);
 
 							// force UI refresh

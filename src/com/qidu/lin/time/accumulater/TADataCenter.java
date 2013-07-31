@@ -81,6 +81,12 @@ public class TADataCenter
 	{
 		return TAG_TOMATO_INDEX_BEGIN_KEY + tomatoIndex;
 	}
+	
+	public static void deleteAllTomatoForProject(Context context, String projectName)
+	{
+		SharedPreferences sp = getProjectSP(context, projectName);
+		sp.edit().clear().commit();
+	}
 
 	public static List<TATomato> getReverseTomatoListForProject(Context context, String projectName)
 	{
