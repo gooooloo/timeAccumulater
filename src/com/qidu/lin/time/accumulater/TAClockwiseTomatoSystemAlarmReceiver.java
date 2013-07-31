@@ -34,6 +34,23 @@ import android.widget.Toast;
 
 public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 {
+	private enum DataSource
+	{
+		ClockwiseTomato, SystemAlarm,
+	}
+
+	private class TomatoListReverseWithSource
+	{
+		final public DataSource source;
+		final List<TATomato> tomatoListReverse;
+
+		public TomatoListReverseWithSource(DataSource source, List<TATomato> tomatoListReverse)
+		{
+			this.source = source;
+			this.tomatoListReverse = tomatoListReverse;
+		}
+	}
+
 	private class FilterRules
 	{
 		public boolean unaccumalatedOnly = false;
@@ -49,6 +66,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 
 	FilterRules filterRules = new FilterRules();
 	List<TATomato> tomatoListReverse = null;
+	DataSource source = null;
 
 	private boolean filterOff(TATomato tomato, FilterRules filterRules)
 	{
@@ -112,12 +130,14 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_intent_filter_receiver);
 
-		tomatoListReverse = parseTomatoListReverse();
-		if (tomatoListReverse == null)
+		TomatoListReverseWithSource data = parseTomatoListReverseAndSource();
+		if (data == null || data.tomatoListReverse == null)
 		{
 			finish();
 			return;
 		}
+		tomatoListReverse = data.tomatoListReverse;
+		source = data.source;
 
 		updateUI();
 	}
@@ -157,24 +177,27 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		startActivityForResult(intent, selectdode);
 	}
 
-	private List<TATomato> parseTomatoListReverse()
+	private TomatoListReverseWithSource parseTomatoListReverseAndSource()
 	{
 		Intent intent = getIntent();
 		assert (intent.getType().equalsIgnoreCase("text/plain"));
 		Uri stream = intent.getParcelableExtra(Intent.EXTRA_STREAM);
 
 		List<TATomato> tomatoListReverse = null;
+		DataSource source = null;
 		try
 		{
 			tomatoListReverse = TAClockwiseTomatoCSVParser.parseInReverse(stream);
+			source = DataSource.ClockwiseTomato;
 		}
 		catch (IOException e)
 		{
 			String content = intent.getStringExtra(Intent.EXTRA_TEXT);
 			tomatoListReverse = TASystemAlarmRecordParser.parse(content);
+			source = DataSource.SystemAlarm;
 		}
 
-		return tomatoListReverse;
+		return new TomatoListReverseWithSource(source, tomatoListReverse);
 	}
 
 	private void updateUI()
