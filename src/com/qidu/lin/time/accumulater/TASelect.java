@@ -199,16 +199,16 @@ public class TASelect extends Activity
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
-						if (which == 0)
+						if (which == index_history)
 						{
 							startActivity(new Intent(TATomatoHistoryListActivity.getLauncherIntent(TASelect.this,
 									listAdapter.getProjectName(position))));
 						}
-						else if (which == 1)
+						else if (which == index_rename)
 						{
 							// TODO
 						}
-						else if (which == 2)
+						else if (which == index_delete)
 						{
 							// TODO
 						}
