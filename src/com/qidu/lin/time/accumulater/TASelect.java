@@ -184,28 +184,36 @@ public class TASelect extends Activity
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
 			{
 				Context context = TASelect.this;
-				new AlertDialog.Builder(context).setItems(
-						new CharSequence[] { context.getString(R.string.history), context.getString(R.string.rename),
-								context.getString(R.string.delete) }, new android.content.DialogInterface.OnClickListener()
+
+				final int index_history = 0;
+				final int index_rename = 1;
+				final int index_delete = 2;
+				final int index_count = index_delete + 1;
+				CharSequence[] xx = new CharSequence[index_count];
+				xx[index_history] = context.getString(R.string.history);
+				xx[index_rename] = context.getString(R.string.rename);
+				xx[index_delete] = context.getString(R.string.delete);
+
+				new AlertDialog.Builder(context).setItems(xx, new android.content.DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						if (which == 0)
 						{
-							@Override
-							public void onClick(DialogInterface dialog, int which)
-							{
-								if (which == 0)
-								{
-									startActivity(new Intent(TATomatoHistoryListActivity.getLauncherIntent(TASelect.this,
-											listAdapter.getProjectName(position))));
-								}
-								else if (which == 1)
-								{
-									// TODO
-								}
-								else if (which == 2)
-								{
-									// TODO
-								}
-							}
-						}).show();
+							startActivity(new Intent(TATomatoHistoryListActivity.getLauncherIntent(TASelect.this,
+									listAdapter.getProjectName(position))));
+						}
+						else if (which == 1)
+						{
+							// TODO
+						}
+						else if (which == 2)
+						{
+							// TODO
+						}
+					}
+				}).show();
 				return true;
 			}
 		});
