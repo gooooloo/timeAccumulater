@@ -165,10 +165,8 @@ public class TASelect extends Activity
 			}
 		});
 
-		String[] names = TADataCenter.ProjectCenter.getProjectNames(this);
-		ListView lv = (ListView) findViewById(R.id.listView);
-		final ProjectListAdapter listAdapter = new ProjectListAdapter(names);
-		lv.setAdapter(listAdapter);
+		final ListView lv = (ListView) findViewById(R.id.listView);
+		lv.setAdapter(new ProjectListAdapter(TADataCenter.ProjectCenter.getProjectNames(this)));
 		lv.setOnItemClickListener(new OnItemClickListener()
 		{
 			@Override
@@ -199,10 +197,12 @@ public class TASelect extends Activity
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
+						ProjectListAdapter listAdapter = (ProjectListAdapter) lv.getAdapter();
+						String projectName = listAdapter.getProjectName(position);
+
 						if (which == index_history)
 						{
-							startActivity(new Intent(TATomatoHistoryListActivity.getLauncherIntent(TASelect.this,
-									listAdapter.getProjectName(position))));
+							startActivity(new Intent(TATomatoHistoryListActivity.getLauncherIntent(TASelect.this, projectName)));
 						}
 						else if (which == index_rename)
 						{
@@ -210,7 +210,10 @@ public class TASelect extends Activity
 						}
 						else if (which == index_delete)
 						{
-							TADataCenter.ProjectCenter.removeProjectName(context, listAdapter.getProjectName(position));
+							TADataCenter.ProjectCenter.removeProjectName(context, projectName);
+
+							// force UI refresh
+							lv.setAdapter(new ProjectListAdapter(TADataCenter.ProjectCenter.getProjectNames(TASelect.this)));
 						}
 					}
 				}).show();
