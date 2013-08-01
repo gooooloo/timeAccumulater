@@ -22,6 +22,7 @@ package com.qidu.lin.time.accumulater;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -81,7 +82,45 @@ public class TADataCenter
 	{
 		return TAG_TOMATO_INDEX_BEGIN_KEY + tomatoIndex;
 	}
-	
+
+	public static void moveTomatoToAnotherProject(Context context, String projectNameSrc, String projectNameDesc)
+	{
+		SharedPreferences spSrc = getProjectSP(context, projectNameSrc);
+		SharedPreferences spDesc = getProjectSP(context, projectNameDesc);
+		Editor editDesc = spDesc.edit();
+
+		for (Map.Entry<String, ?> each : ((Map<String, ?>) spSrc.getAll()).entrySet())
+		{
+			String key = each.getKey();
+			Object value = each.getValue();
+
+			if (value instanceof String)
+			{
+				editDesc.putString(key, (String) value);
+			}
+			else if (value instanceof Long)
+			{
+				editDesc.putLong(key, (Long) value);
+			}
+			else if (value instanceof Integer)
+			{
+				editDesc.putInt(key, (Integer) value);
+			}
+			else if (value instanceof Boolean)
+			{
+				editDesc.putBoolean(key, (Boolean) value);
+			}
+			else if (value instanceof Float)
+			{
+				editDesc.putFloat(key, (Float) value);
+			}
+		}
+
+		editDesc.commit();
+		
+		spSrc.edit().clear().commit();
+	}
+
 	public static void deleteAllTomatoForProject(Context context, String projectName)
 	{
 		SharedPreferences sp = getProjectSP(context, projectName);
@@ -218,6 +257,29 @@ public class TADataCenter
 
 			SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
 			x.edit().putString(ProjectCenter.makeKey(id), null).commit();
+		}
+
+		public static void changeProjectName(Context context, String nameSrc, String nameDesc)
+		{
+			if (nameSrc == null || nameSrc.length() == 0)
+			{
+				return;
+			}
+			
+			if (getProjectIdByName(context, nameDesc) != INVALID_ID)
+			{
+				// don:t support change to existing 
+				return;
+			}
+
+			int id = getProjectIdByName(context, nameSrc);
+			if (id == INVALID_ID)
+			{
+				return;
+			}
+
+			SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
+			x.edit().putString(ProjectCenter.makeKey(id), nameDesc).commit();
 		}
 
 		public static int addProjectName(Context context, String name)
