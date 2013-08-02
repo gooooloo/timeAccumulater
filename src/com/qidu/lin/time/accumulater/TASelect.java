@@ -211,7 +211,7 @@ public class TASelect extends Activity
 						{
 							final EditText editText = new EditText(context);
 							editText.setText(projectName);
-							new AlertDialog.Builder(context).setTitle(R.string.input_tomato_note_hint).setView(editText)
+							new AlertDialog.Builder(context).setTitle(R.string.rename).setView(editText)
 									.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
 									{
 
