@@ -201,7 +201,7 @@ public class TASelect extends Activity
 					public void onClick(DialogInterface dialog, int which)
 					{
 						ProjectListAdapter listAdapter = (ProjectListAdapter) lv.getAdapter();
-						String projectName = listAdapter.getProjectName(position);
+						final String projectName = listAdapter.getProjectName(position);
 
 						if (which == index_history)
 						{
@@ -218,7 +218,12 @@ public class TASelect extends Activity
 										@Override
 										public void onClick(DialogInterface dialog, int which)
 										{
-											// TODO
+											String projectNameNew = editText.getText().toString();
+											TADataCenter.moveTomatoToAnotherProject(context, projectName, projectNameNew);
+											TADataCenter.ProjectCenter.changeProjectName(context, projectName, projectNameNew);
+
+											// force UI refresh
+											lv.setAdapter(new ProjectListAdapter(TADataCenter.ProjectCenter.getProjectNames(TASelect.this)));
 										}
 									}).setNegativeButton(android.R.string.cancel, null).show();
 						}
