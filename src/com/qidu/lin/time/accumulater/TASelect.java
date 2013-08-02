@@ -174,7 +174,7 @@ public class TASelect extends Activity
 			{
 				ProjectListAdapter listAdapter = (ProjectListAdapter) lv.getAdapter();
 				String projectName = listAdapter.getProjectName(position);
-				
+
 				onSelect(TADataCenter.ProjectCenter.getProjectIdByName(TASelect.this, projectName));
 			}
 		});
@@ -209,7 +209,18 @@ public class TASelect extends Activity
 						}
 						else if (which == index_rename)
 						{
-							// TODO
+							final EditText editText = new EditText(context);
+							editText.setText(projectName);
+							new AlertDialog.Builder(context).setTitle(R.string.input_tomato_note_hint).setView(editText)
+									.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+									{
+
+										@Override
+										public void onClick(DialogInterface dialog, int which)
+										{
+											// TODO
+										}
+									}).setNegativeButton(android.R.string.cancel, null).show();
 						}
 						else if (which == index_delete)
 						{
