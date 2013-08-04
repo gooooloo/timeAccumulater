@@ -1,4 +1,4 @@
-package com.qidu.lin.time.accumulater;
+package com.qidu.lin.time.accumulater.fg;
 
 import java.util.Calendar;
 
@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TimePicker;
+
+import com.qidu.lin.time.accumulater.R;
+import com.qidu.lin.time.accumulater.bg.TADataCenter;
 
 public class TAManualRecord extends Activity
 {

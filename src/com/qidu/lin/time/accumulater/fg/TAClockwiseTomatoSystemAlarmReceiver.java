@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * TimeAccumulater. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.qidu.lin.time.accumulater;
+package com.qidu.lin.time.accumulater.fg;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,6 +31,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.qidu.lin.time.accumulater.R;
+import com.qidu.lin.time.accumulater.bg.TAClockwiseTomatoCSVParser;
+import com.qidu.lin.time.accumulater.bg.TADataCenter;
+import com.qidu.lin.time.accumulater.bg.TASystemAlarmRecordParser;
+import com.qidu.lin.time.accumulater.bg.TATomato;
+import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
 
 public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 {

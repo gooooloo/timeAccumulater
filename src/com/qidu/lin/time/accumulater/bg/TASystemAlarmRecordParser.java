@@ -17,7 +17,7 @@
  * TimeAccumulater. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.qidu.lin.time.accumulater;
+package com.qidu.lin.time.accumulater.bg;
 
 import java.util.ArrayList;
 import java.util.List;

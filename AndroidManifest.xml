@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name="com.qidu.lin.time.accumulater.TAMain"
+            android:name="com.qidu.lin.time.accumulater.fg.TAMain"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.qidu.lin.time.accumulater.TASelect"
+            android:name="com.qidu.lin.time.accumulater.fg.TASelect"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.qidu.lin.time.accumulater.TAClockwiseTomatoSystemAlarmReceiver"
+            android:name="com.qidu.lin.time.accumulater.fg.TAClockwiseTomatoSystemAlarmReceiver"
             android:label="@string/title_activity_intent_filter_receiver" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -36,10 +36,10 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name="com.qidu.lin.time.accumulater.TATomatoHistoryListActivity" >
+        <activity android:name="com.qidu.lin.time.accumulater.fg.TATomatoHistoryListActivity" >
         </activity>
         <activity
-            android:name="com.qidu.lin.time.accumulater.TAManualRecord"
+            android:name="com.qidu.lin.time.accumulater.fg.TAManualRecord"
             android:label="@string/title_activity_tamanual_record" >
         </activity>
     </application>

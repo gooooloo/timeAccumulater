@@ -17,7 +17,7 @@
  * TimeAccumulater. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.qidu.lin.time.accumulater;
+package com.qidu.lin.time.accumulater.fg;
 
 import java.util.List;
 
@@ -38,6 +38,12 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.qidu.lin.time.accumulater.R;
+import com.qidu.lin.time.accumulater.bg.TADataCenter;
+import com.qidu.lin.time.accumulater.bg.TATime;
+import com.qidu.lin.time.accumulater.bg.TATomato;
+import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
 
 public class TATomatoHistoryListActivity extends Activity
 {

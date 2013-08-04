@@ -16,33 +16,23 @@
  * You should have received a copy of the GNU General Public License along with
  * TimeAccumulater. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.qidu.lin.time.accumulater;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.List;
+package com.qidu.lin.time.accumulater.fg;
 
-import android.net.Uri;
-import au.com.bytecode.opencsv.CSVReader;
+import android.widget.TextView;
 
-public class TACSVParser
+import com.qidu.lin.time.accumulater.R;
+import com.qidu.lin.time.accumulater.bg.TADataCenter;
+
+public class TASharedListItemSetting
 {
-	private List<String[]> myEntries = null;
-
-	public TACSVParser(Uri uri) throws IOException
+	public static void setupListItemTextView(TextView tv, String projectName)
 	{
-		if (uri == null)
-		{
-			throw new IOException("null uri");
-		}
-
-		FileReader fr = new FileReader(uri.getPath());
-		CSVReader reader = new CSVReader(fr);
-		myEntries = reader.readAll();
-	}
-
-	public List<String[]> getMyEntries()
-	{
-		return myEntries;
+		// FIXME : dimensions are hard coded.
+		tv.setTextSize(24);
+		tv.setPadding(10, 10, 10, 10);
+		int colorForOn = tv.getResources().getColor(R.color.colorForOn);
+		int colorForOff = tv.getResources().getColor(R.color.colorForOff);
+		tv.setTextColor(TADataCenter.getOnFlag(tv.getContext(), projectName) ? colorForOn : colorForOff);
 	}
 }

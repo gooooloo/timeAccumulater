@@ -17,7 +17,7 @@
  * TimeAccumulater. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.qidu.lin.time.accumulater;
+package com.qidu.lin.time.accumulater.bg;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,7 +37,7 @@ public class TADataCenter
 	private static final String TAG_TOMATO_INDEX_BEGIN_KEY = "com.qidu.lin.timeAccumulate.TAG_TOMATO_INDEX_BEGIN_KEY_";
 	private static final String TAG_TOMATO_INDEX_END_KEY = "com.qidu.lin.timeAccumulate.TAG_TOMATO_INDEX_END_KEY_";
 
-	static boolean getOnFlag(Context context, String projectName)
+	public static boolean getOnFlag(Context context, String projectName)
 	{
 
 		return TADataCenter.getProjectSP(context, projectName).getBoolean(TAG_IS_TIME_COMSUMING_FLAG, false);

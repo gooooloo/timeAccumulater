@@ -16,9 +16,11 @@
  * You should have received a copy of the GNU General Public License along with
  * TimeAccumulater. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.qidu.lin.time.accumulater;
+package com.qidu.lin.time.accumulater.bg;
 
 import java.util.Calendar;
+
+import com.qidu.lin.time.accumulater.R;
 
 import android.content.Context;
 

@@ -16,20 +16,33 @@
  * You should have received a copy of the GNU General Public License along with
  * TimeAccumulater. If not, see <http://www.gnu.org/licenses/>.
  */
+package com.qidu.lin.time.accumulater.bg;
 
-package com.qidu.lin.time.accumulater;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
 
-public class TATime
+import android.net.Uri;
+import au.com.bytecode.opencsv.CSVReader;
+
+public class TACSVParser
 {
-	public final int hours;
-	public final int minute;
-	public final int second;
+	private List<String[]> myEntries = null;
 
-	public TATime(int hour, int minute, int second)
+	public TACSVParser(Uri uri) throws IOException
 	{
-		this.hours = hour;
-		this.minute = minute;
-		this.second = second;
+		if (uri == null)
+		{
+			throw new IOException("null uri");
+		}
+
+		FileReader fr = new FileReader(uri.getPath());
+		CSVReader reader = new CSVReader(fr);
+		myEntries = reader.readAll();
 	}
 
+	public List<String[]> getMyEntries()
+	{
+		return myEntries;
+	}
 }

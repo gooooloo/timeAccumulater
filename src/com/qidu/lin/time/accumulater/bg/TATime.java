@@ -17,19 +17,19 @@
  * TimeAccumulater. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.qidu.lin.time.accumulater;
+package com.qidu.lin.time.accumulater.bg;
 
-import android.widget.TextView;
-
-public class TASharedListItemSetting
+public class TATime
 {
-	public static void setupListItemTextView(TextView tv, String projectName)
+	public final int hours;
+	public final int minute;
+	public final int second;
+
+	public TATime(int hour, int minute, int second)
 	{
-		// FIXME : dimensions are hard coded.
-		tv.setTextSize(24);
-		tv.setPadding(10, 10, 10, 10);
-		int colorForOn = tv.getResources().getColor(R.color.colorForOn);
-		int colorForOff = tv.getResources().getColor(R.color.colorForOff);
-		tv.setTextColor(TADataCenter.getOnFlag(tv.getContext(), projectName) ? colorForOn : colorForOff);
+		this.hours = hour;
+		this.minute = minute;
+		this.second = second;
 	}
+
 }

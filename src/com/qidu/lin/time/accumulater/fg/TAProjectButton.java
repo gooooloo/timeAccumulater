@@ -17,7 +17,7 @@
  * TimeAccumulater. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.qidu.lin.time.accumulater;
+package com.qidu.lin.time.accumulater.fg;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,6 +25,9 @@ import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
+
+import com.qidu.lin.time.accumulater.R;
+import com.qidu.lin.time.accumulater.bg.TADataCenter;
 
 public class TAProjectButton extends Button
 {
