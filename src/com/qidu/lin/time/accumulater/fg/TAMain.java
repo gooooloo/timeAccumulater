@@ -27,11 +27,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
 import com.qidu.lin.time.accumulater.bg.TATime;
 
-public class TAMain extends Activity
+public class TAMain extends SlidingActivity
 {
 	private static final int selectdode = 0;
 
@@ -40,7 +41,9 @@ public class TAMain extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
+		setBehindContentView(R.layout.behind);
+getSlidingMenu().setBehindOffset(400);
+		
 		((Button) this.findViewById(R.id.btn)).setOnClickListener(new OnClickListener()
 		{
 
