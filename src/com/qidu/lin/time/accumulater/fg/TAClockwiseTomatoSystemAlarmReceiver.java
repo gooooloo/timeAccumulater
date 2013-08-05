@@ -67,40 +67,6 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 	List<TATomato> tomatoListReverse = null;
 	DataSource source = DataSource.none;
 
-	private boolean filterOff(TATomato tomato, FilterRules filterRules)
-	{
-		if (filterRules.unaccumalatedOnly)
-		{
-			if (TATomatoPersistence.getProjectName(this, tomato.getId()) != null)
-			{
-				return true;
-			}
-		}
-
-		if (filterRules.within2DaysOnly)
-		{
-			long msUntilNow = System.currentTimeMillis() - tomato.startMs;
-			int msPerDay = 1000 * 60 * 60 * 24;
-			if (msUntilNow > msPerDay * 2)
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	private void filterTomatoListByUISettings(List<TATomato> tomatoListReverse2, FilterRules filterRules)
-	{
-		for (int i = tomatoListReverse2.size() - 1; i >= 0; i--)
-		{
-			if (filterOff(tomatoListReverse2.get(i), filterRules))
-			{
-				tomatoListReverse2.remove(i);
-			}
-		}
-	}
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
@@ -208,7 +174,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		ViewGroup root = (ViewGroup) findViewById(R.id.root);
 		root.removeAllViews();
 
-		filterTomatoListByUISettings(tomatoListReverse, filterRules);
+		filterRules.filterTomatoListByUISettings(this, tomatoListReverse, filterRules);
 
 		int index = tomatoListReverse.size();
 		for (final TATomato y : tomatoListReverse)
