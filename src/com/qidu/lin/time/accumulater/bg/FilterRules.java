@@ -27,9 +27,9 @@ public class FilterRules
 	public boolean unaccumalatedOnly = false;
 	public boolean within2DaysOnly = false;
 
-	private boolean filterOff(Context context, TATomato tomato, FilterRules filterRules)
+	private boolean filterOff(Context context, TATomato tomato)
 	{
-		if (filterRules.unaccumalatedOnly)
+		if (unaccumalatedOnly)
 		{
 			if (TATomatoPersistence.getProjectName(context, tomato.getId()) != null)
 			{
@@ -37,7 +37,7 @@ public class FilterRules
 			}
 		}
 
-		if (filterRules.within2DaysOnly)
+		if (within2DaysOnly)
 		{
 			long msUntilNow = System.currentTimeMillis() - tomato.startMs;
 			int msPerDay = 1000 * 60 * 60 * 24;
@@ -50,13 +50,13 @@ public class FilterRules
 		return false;
 	}
 
-	public void filterTomatoListByUISettings(Context context, List<TATomato> tomatoListReverse2, FilterRules filterRules)
+	public void applyToTomatoList(Context context, List<TATomato> tomatoList)
 	{
-		for (int i = tomatoListReverse2.size() - 1; i >= 0; i--)
+		for (int i = tomatoList.size() - 1; i >= 0; i--)
 		{
-			if (filterOff(context, tomatoListReverse2.get(i), filterRules))
+			if (filterOff(context, tomatoList.get(i)))
 			{
-				tomatoListReverse2.remove(i);
+				tomatoList.remove(i);
 			}
 		}
 	}

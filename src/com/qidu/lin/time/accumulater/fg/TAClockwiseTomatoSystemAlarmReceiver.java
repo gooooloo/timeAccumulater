@@ -174,7 +174,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		ViewGroup root = (ViewGroup) findViewById(R.id.root);
 		root.removeAllViews();
 
-		filterRules.filterTomatoListByUISettings(this, tomatoListReverse, filterRules);
+		filterRules.applyToTomatoList(this, tomatoListReverse);
 
 		int index = tomatoListReverse.size();
 		for (final TATomato y : tomatoListReverse)
