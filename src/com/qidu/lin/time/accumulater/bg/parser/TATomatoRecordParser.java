@@ -17,13 +17,16 @@
  * TimeAccumulater. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.qidu.lin.time.accumulater.bg;
+package com.qidu.lin.time.accumulater.bg.parser;
 
 import java.io.IOException;
 import java.util.List;
 
 import android.content.Intent;
 import android.net.Uri;
+
+import com.qidu.lin.time.accumulater.bg.DataSource;
+import com.qidu.lin.time.accumulater.bg.TATomato;
 
 public class TATomatoRecordParser
 {

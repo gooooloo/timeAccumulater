@@ -17,13 +17,15 @@
  * TimeAccumulater. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.qidu.lin.time.accumulater.bg;
+package com.qidu.lin.time.accumulater.bg.parser;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.qidu.lin.time.accumulater.bg.TATomato;
 
 public class TASystemAlarmRecordParser
 {

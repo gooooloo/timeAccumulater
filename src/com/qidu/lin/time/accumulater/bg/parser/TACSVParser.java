@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * TimeAccumulater. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.qidu.lin.time.accumulater.bg;
+package com.qidu.lin.time.accumulater.bg.parser;
 
 import java.io.FileReader;
 import java.io.IOException;

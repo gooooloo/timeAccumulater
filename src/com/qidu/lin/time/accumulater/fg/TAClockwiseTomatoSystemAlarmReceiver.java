@@ -36,8 +36,8 @@ import com.qidu.lin.time.accumulater.bg.FilterRules;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
 import com.qidu.lin.time.accumulater.bg.TATomato;
 import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
-import com.qidu.lin.time.accumulater.bg.TATomatoRecordParser;
-import com.qidu.lin.time.accumulater.bg.TATomatoRecordParser.TomatoListReverseWithSource;
+import com.qidu.lin.time.accumulater.bg.parser.TATomatoRecordParser;
+import com.qidu.lin.time.accumulater.bg.parser.TATomatoRecordParser.TomatoListReverseWithSource;
 
 public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 {
