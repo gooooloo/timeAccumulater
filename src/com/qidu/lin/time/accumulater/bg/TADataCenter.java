@@ -83,7 +83,7 @@ public class TADataCenter
 		return TAG_TOMATO_INDEX_BEGIN_KEY + tomatoIndex;
 	}
 
-	public static void moveTomatoToAnotherProject(Context context, String projectNameSrc, String projectNameDesc)
+	public static void moveAllTomatoToAnotherProject(Context context, String projectNameSrc, String projectNameDesc)
 	{
 		SharedPreferences spSrc = getProjectSP(context, projectNameSrc);
 		SharedPreferences spDesc = getProjectSP(context, projectNameDesc);

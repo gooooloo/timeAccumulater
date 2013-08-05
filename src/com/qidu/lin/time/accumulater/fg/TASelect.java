@@ -123,7 +123,7 @@ public class TASelect extends Activity
 										public void onClick(DialogInterface dialog, int which)
 										{
 											String projectNameNew = editText.getText().toString();
-											TADataCenter.moveTomatoToAnotherProject(context, projectName, projectNameNew);
+											TADataCenter.moveAllTomatoToAnotherProject(context, projectName, projectNameNew);
 											TADataCenter.ProjectCenter.changeProjectName(context, projectName, projectNameNew);
 
 											// force UI refresh
