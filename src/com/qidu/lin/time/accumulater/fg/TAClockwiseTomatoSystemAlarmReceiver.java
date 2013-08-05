@@ -33,6 +33,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.qidu.lin.time.accumulater.R;
+import com.qidu.lin.time.accumulater.bg.DataSource;
 import com.qidu.lin.time.accumulater.bg.FilterRules;
 import com.qidu.lin.time.accumulater.bg.TAClockwiseTomatoCSVParser;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
@@ -42,11 +43,6 @@ import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
 
 public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 {
-	private enum DataSource
-	{
-		none, ClockwiseTomato, SystemAlarm,
-	}
-
 	private class TomatoListReverseWithSource
 	{
 		final public DataSource source;
