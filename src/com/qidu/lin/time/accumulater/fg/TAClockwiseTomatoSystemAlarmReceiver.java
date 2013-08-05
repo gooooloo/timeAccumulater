@@ -18,12 +18,10 @@
  */
 package com.qidu.lin.time.accumulater.fg;
 
-import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,26 +33,14 @@ import android.widget.Toast;
 import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.DataSource;
 import com.qidu.lin.time.accumulater.bg.FilterRules;
-import com.qidu.lin.time.accumulater.bg.TAClockwiseTomatoCSVParser;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
-import com.qidu.lin.time.accumulater.bg.TASystemAlarmRecordParser;
 import com.qidu.lin.time.accumulater.bg.TATomato;
 import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
+import com.qidu.lin.time.accumulater.bg.TATomatoRecordParser;
+import com.qidu.lin.time.accumulater.bg.TATomatoRecordParser.TomatoListReverseWithSource;
 
 public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 {
-	private class TomatoListReverseWithSource
-	{
-		final public DataSource source;
-		final List<TATomato> tomatoListReverse;
-
-		public TomatoListReverseWithSource(DataSource source, List<TATomato> tomatoListReverse)
-		{
-			this.source = source;
-			this.tomatoListReverse = tomatoListReverse;
-		}
-	}
-
 	private static final String DURATION = "DURATION";
 	private static final int selectdode = 0;
 
@@ -98,7 +84,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_intent_filter_receiver);
 
-		TomatoListReverseWithSource data = parseTomatoListReverseAndSource();
+		TomatoListReverseWithSource data = TATomatoRecordParser.parseTomatoListReverseAndSource(getIntent());
 		if (data == null || data.tomatoListReverse == null)
 		{
 			finish();
@@ -144,29 +130,6 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		intent.putExtra(TOMATO_END_MS, y.endMs);
 		intent.putExtra(TOMATO_SOURCE, source.ordinal());
 		startActivityForResult(intent, selectdode);
-	}
-
-	private TomatoListReverseWithSource parseTomatoListReverseAndSource()
-	{
-		Intent intent = getIntent();
-		assert (intent.getType().equalsIgnoreCase("text/plain"));
-		Uri stream = intent.getParcelableExtra(Intent.EXTRA_STREAM);
-
-		List<TATomato> tomatoListReverse = null;
-		DataSource source = null;
-		try
-		{
-			tomatoListReverse = TAClockwiseTomatoCSVParser.parseInReverse(stream);
-			source = DataSource.ClockwiseTomato;
-		}
-		catch (IOException e)
-		{
-			String content = intent.getStringExtra(Intent.EXTRA_TEXT);
-			tomatoListReverse = TASystemAlarmRecordParser.parse(content);
-			source = DataSource.SystemAlarm;
-		}
-
-		return new TomatoListReverseWithSource(source, tomatoListReverse);
 	}
 
 	private void updateUI()
