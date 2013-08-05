@@ -33,6 +33,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.qidu.lin.time.accumulater.R;
+import com.qidu.lin.time.accumulater.bg.FilterRules;
 import com.qidu.lin.time.accumulater.bg.TAClockwiseTomatoCSVParser;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
 import com.qidu.lin.time.accumulater.bg.TASystemAlarmRecordParser;
@@ -56,12 +57,6 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 			this.source = source;
 			this.tomatoListReverse = tomatoListReverse;
 		}
-	}
-
-	private class FilterRules
-	{
-		public boolean unaccumalatedOnly = false;
-		public boolean within2DaysOnly = false;
 	}
 
 	private static final String DURATION = "DURATION";
