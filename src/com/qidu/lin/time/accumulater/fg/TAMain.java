@@ -42,8 +42,8 @@ public class TAMain extends SlidingActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		setBehindContentView(R.layout.behind);
-getSlidingMenu().setBehindOffset(400);
-		
+		getSlidingMenu().setBehindOffset(400);
+
 		((Button) this.findViewById(R.id.btn)).setOnClickListener(new OnClickListener()
 		{
 

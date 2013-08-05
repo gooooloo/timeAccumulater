@@ -24,121 +24,21 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
-import com.qidu.lin.time.accumulater.bg.TATime;
 
 public class TASelect extends Activity
 {
-	private final class ProjectListAdapter implements ListAdapter
-	{
-		private final String[] names;
-
-		private ProjectListAdapter(String[] names)
-		{
-			this.names = names;
-		}
-
-		@Override
-		public void unregisterDataSetObserver(DataSetObserver observer)
-		{
-
-		}
-
-		@Override
-		public void registerDataSetObserver(DataSetObserver observer)
-		{
-
-		}
-
-		@Override
-		public boolean isEmpty()
-		{
-			return false;
-		}
-
-		@Override
-		public boolean hasStableIds()
-		{
-			return false;
-		}
-
-		@Override
-		public int getViewTypeCount()
-		{
-			return 1;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent)
-		{
-			TextView tv = (convertView != null) ? ((TextView) convertView) : new TextView(TASelect.this);
-			String projectName = getProjectName(position);
-			TASharedListItemSetting.setupListItemTextView(tv, projectName);
-
-			// TODO : make UI better
-			TATime x = TADataCenter.getAccumulateTime(TASelect.this, projectName);
-			tv.setText(projectName + "         " + TASelect.this.getString(R.string.timeResultShort, x.hours, x.minute, x.second));
-
-			return tv;
-		}
-
-		public String getProjectName(int position)
-		{
-			return (String) getItem(position);
-		}
-
-		@Override
-		public int getItemViewType(int position)
-		{
-			return 0;
-		}
-
-		@Override
-		public long getItemId(int position)
-		{
-			return position;
-		}
-
-		@Override
-		public Object getItem(int position)
-		{
-			return names[position];
-		}
-
-		@Override
-		public int getCount()
-		{
-			return names.length;
-		}
-
-		@Override
-		public boolean isEnabled(int position)
-		{
-			return true;
-		}
-
-		@Override
-		public boolean areAllItemsEnabled()
-		{
-			return false;
-		}
-	}
-
 	public static final String ID = "com.qidu.lin.time.accumulater.id";
 
 	@Override
@@ -170,13 +70,13 @@ public class TASelect extends Activity
 		});
 
 		final ListView lv = (ListView) findViewById(R.id.listView);
-		lv.setAdapter(new ProjectListAdapter(TADataCenter.ProjectCenter.getProjectNames(this)));
+		lv.setAdapter(new TAProjectListAdapter(this, TADataCenter.ProjectCenter.getProjectNames(this)));
 		lv.setOnItemClickListener(new OnItemClickListener()
 		{
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
 			{
-				ProjectListAdapter listAdapter = (ProjectListAdapter) lv.getAdapter();
+				TAProjectListAdapter listAdapter = (TAProjectListAdapter) lv.getAdapter();
 				String projectName = listAdapter.getProjectName(position);
 
 				onSelect(TADataCenter.ProjectCenter.getProjectIdByName(TASelect.this, projectName));
@@ -204,7 +104,7 @@ public class TASelect extends Activity
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
-						ProjectListAdapter listAdapter = (ProjectListAdapter) lv.getAdapter();
+						TAProjectListAdapter listAdapter = (TAProjectListAdapter) lv.getAdapter();
 						final String projectName = listAdapter.getProjectName(position);
 
 						if (which == index_history)
@@ -227,7 +127,7 @@ public class TASelect extends Activity
 											TADataCenter.ProjectCenter.changeProjectName(context, projectName, projectNameNew);
 
 											// force UI refresh
-											lv.setAdapter(new ProjectListAdapter(TADataCenter.ProjectCenter.getProjectNames(TASelect.this)));
+											lv.setAdapter(new TAProjectListAdapter(TASelect.this, TADataCenter.ProjectCenter.getProjectNames(TASelect.this)));
 										}
 									}).setNegativeButton(android.R.string.cancel, null).show();
 						}
@@ -237,7 +137,7 @@ public class TASelect extends Activity
 							TADataCenter.ProjectCenter.removeProjectName(context, projectName);
 
 							// force UI refresh
-							lv.setAdapter(new ProjectListAdapter(TADataCenter.ProjectCenter.getProjectNames(TASelect.this)));
+							lv.setAdapter(new TAProjectListAdapter(TASelect.this, TADataCenter.ProjectCenter.getProjectNames(TASelect.this)));
 						}
 					}
 				}).show();
