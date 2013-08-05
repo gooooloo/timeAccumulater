@@ -28,7 +28,7 @@ import android.net.Uri;
 import com.qidu.lin.time.accumulater.bg.DataSource;
 import com.qidu.lin.time.accumulater.bg.TATomato;
 
-public class TATomatoRecordParser
+public class TA3rdPartyRecordParser
 {
 	public static class TomatoListReverseWithSource
 	{

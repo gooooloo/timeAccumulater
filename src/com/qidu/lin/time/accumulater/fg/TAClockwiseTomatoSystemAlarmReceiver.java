@@ -36,8 +36,8 @@ import com.qidu.lin.time.accumulater.bg.FilterRules;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
 import com.qidu.lin.time.accumulater.bg.TATomato;
 import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
-import com.qidu.lin.time.accumulater.bg.parser.TATomatoRecordParser;
-import com.qidu.lin.time.accumulater.bg.parser.TATomatoRecordParser.TomatoListReverseWithSource;
+import com.qidu.lin.time.accumulater.bg.parser.TA3rdPartyRecordParser;
+import com.qidu.lin.time.accumulater.bg.parser.TA3rdPartyRecordParser.TomatoListReverseWithSource;
 
 public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 {
@@ -84,7 +84,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_intent_filter_receiver);
 
-		TomatoListReverseWithSource data = TATomatoRecordParser.parseTomatoListReverseAndSource(getIntent());
+		TomatoListReverseWithSource data = TA3rdPartyRecordParser.parseTomatoListReverseAndSource(getIntent());
 		if (data == null || data.tomatoListReverse == null)
 		{
 			finish();
