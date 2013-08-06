@@ -23,5 +23,6 @@
     <string name="history">历史记录</string>
     <string name="rename">改名</string>
     <string name="delete">删除</string>
+    <string name="past_24_hours">24小时内历史</string>
 
 </resources>

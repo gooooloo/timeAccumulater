@@ -23,5 +23,6 @@
     <string name="history">history</string>
     <string name="rename">rename</string>
     <string name="delete">delete</string>
+    <string name="past_24_hours">records within 24 hours</string>
 
 </resources>
