@@ -66,14 +66,14 @@ public class TAMain extends SlidingActivity
 				TAMain.this.startActivity(new Intent(TAMain.this, TAManualRecord.class));
 			}
 		});
-		
+
 		((Button) this.findViewById(R.id.past24)).setOnClickListener(new OnClickListener()
 		{
-			
+
 			@Override
 			public void onClick(View arg0)
 			{
-				TAMain.this.startActivity(new Intent(TAMain.this, TAManualRecord.class));
+				TAMain.this.startActivity(TATomatoHistoryListActivity.getLauncherIntentForPast24Hours(TAMain.this));
 			}
 		});
 	}

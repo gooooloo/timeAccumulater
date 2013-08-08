@@ -48,6 +48,8 @@ import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
 public class TATomatoHistoryListActivity extends Activity
 {
 	private static final String TAG_PROJECT_NAME = "TAG_PROJECT_NAME";
+	private static final String TAG_ONLY_PAST_24_HOURS = "TAG_PROJECT_NAME";
+	private static final String NAME_PRESENTING_ALL_PROJECTS = "thisIsATagPresentingAllProjectsAndWeAssumeNoRealProjectWillUseThisNameSoNoConflict";
 
 	private final class TomatoListAdapter implements ListAdapter
 	{
@@ -105,7 +107,7 @@ public class TATomatoHistoryListActivity extends Activity
 			String tomatoNote = TATomatoPersistence.getTomatoNote(TATomatoHistoryListActivity.this, item.getId());
 			if (tomatoNote != null)
 			{
-				string += "\n"+tomatoNote;
+				string += "\n" + tomatoNote;
 			}
 			tv.setText(string);
 			return tv;
@@ -163,8 +165,19 @@ public class TATomatoHistoryListActivity extends Activity
 
 	public static Intent getLauncherIntent(Context context, String projectName)
 	{
+		return getLauncherIntent(context, projectName, false);
+	}
+
+	public static Intent getLauncherIntentForPast24Hours(Context context)
+	{
+		return getLauncherIntent(context, NAME_PRESENTING_ALL_PROJECTS, true);
+	}
+
+	private static Intent getLauncherIntent(Context context, String projectName, boolean onlyPast24Hours)
+	{
 		Intent intent = new Intent(context, TATomatoHistoryListActivity.class);
 		intent.putExtra(TAG_PROJECT_NAME, projectName);
+		intent.putExtra(TAG_ONLY_PAST_24_HOURS, onlyPast24Hours);
 		return intent;
 	}
 
@@ -183,49 +196,64 @@ public class TATomatoHistoryListActivity extends Activity
 			return;
 		}
 
-		List<TATomato> list = TADataCenter.getReverseTomatoListForProject(this, projectName);
-		if (list != null)
+		List<TATomato> list = null;
+		if (projectName.equals(NAME_PRESENTING_ALL_PROJECTS))
 		{
-			ListView lv = (ListView) findViewById(R.id.listView);
-			final TomatoListAdapter adapter = new TomatoListAdapter(list);
-			lv.setAdapter(adapter);
-			TATime x = TADataCenter.getAccumulateTime(this, projectName);
-			this.setTitle(projectName + "  " + getString(R.string.timeResultShort, x.hours, x.minute, x.second));
-
-			lv.setOnItemClickListener(new OnItemClickListener()
+			boolean onlyPast24Hours = getIntent().getBooleanExtra(TAG_ONLY_PAST_24_HOURS, false);
+			if (onlyPast24Hours)
 			{
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
-				{
-					final EditText editText = new EditText(TATomatoHistoryListActivity.this);
-					editText.setHint(R.string.input_tomato_note_hint);
-					final long tomatoId = adapter.getTomato(position).getId();
-					String note = TATomatoPersistence.getTomatoNote(TATomatoHistoryListActivity.this, tomatoId);
-					if (note != null)
-					{
-						editText.setText(note);
-					}
-					new AlertDialog.Builder(TATomatoHistoryListActivity.this).setTitle(R.string.input_tomato_note_hint).setView(editText)
-							.setPositiveButton(android.R.string.ok, new OnClickListener()
-							{
-
-								@Override
-								public void onClick(DialogInterface dialog, int which)
-								{
-									TATomatoPersistence.saveTomatoNote(TATomatoHistoryListActivity.this, tomatoId, editText.getText()
-											.toString());
-								}
-							}).setNegativeButton(android.R.string.cancel, null).show();
-
-				}
-			});
+				list = TADataCenter.getAllReverseTomatosWithin24Hours(this);
+			}
+			else
+			{
+				// do nothing.
+			}
 		}
 		else
+		{
+			list = TADataCenter.getReverseTomatoListForProject(this, projectName);
+		}
+
+		if (list == null)
 		{
 			finish();
 			return;
 		}
+
+		ListView lv = (ListView) findViewById(R.id.listView);
+		final TomatoListAdapter adapter = new TomatoListAdapter(list);
+		lv.setAdapter(adapter);
+		TATime x = TADataCenter.getAccumulateTime(this, projectName);
+		this.setTitle(projectName + "  " + getString(R.string.timeResultShort, x.hours, x.minute, x.second));
+
+		lv.setOnItemClickListener(new OnItemClickListener()
+		{
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
+			{
+				final EditText editText = new EditText(TATomatoHistoryListActivity.this);
+				editText.setHint(R.string.input_tomato_note_hint);
+				final long tomatoId = adapter.getTomato(position).getId();
+				String note = TATomatoPersistence.getTomatoNote(TATomatoHistoryListActivity.this, tomatoId);
+				if (note != null)
+				{
+					editText.setText(note);
+				}
+				new AlertDialog.Builder(TATomatoHistoryListActivity.this).setTitle(R.string.input_tomato_note_hint).setView(editText)
+						.setPositiveButton(android.R.string.ok, new OnClickListener()
+						{
+
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								TATomatoPersistence.saveTomatoNote(TATomatoHistoryListActivity.this, tomatoId, editText.getText()
+										.toString());
+							}
+						}).setNegativeButton(android.R.string.cancel, null).show();
+
+			}
+		});
 	}
 
 	@Override

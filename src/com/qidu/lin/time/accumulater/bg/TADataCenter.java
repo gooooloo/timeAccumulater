@@ -36,7 +36,7 @@ public class TADataCenter
 	private static final String TAG_TOMATO_COUNT = "com.qidu.lin.timeAccumulate.TAG_TOMATO_COUNT";
 	private static final String TAG_TOMATO_INDEX_BEGIN_KEY = "com.qidu.lin.timeAccumulate.TAG_TOMATO_INDEX_BEGIN_KEY_";
 	private static final String TAG_TOMATO_INDEX_END_KEY = "com.qidu.lin.timeAccumulate.TAG_TOMATO_INDEX_END_KEY_";
-
+	
 	public static boolean getOnFlag(Context context, String projectName)
 	{
 
@@ -336,5 +336,11 @@ public class TADataCenter
 		{
 			return "" + i;
 		}
+	}
+
+	public static List<TATomato> getAllReverseTomatosWithin24Hours(Context context)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
