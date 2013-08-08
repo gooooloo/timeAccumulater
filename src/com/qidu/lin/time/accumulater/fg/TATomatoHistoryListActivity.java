@@ -48,7 +48,7 @@ import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
 public class TATomatoHistoryListActivity extends Activity
 {
 	private static final String TAG_PROJECT_NAME = "TAG_PROJECT_NAME";
-	private static final String TAG_ONLY_PAST_24_HOURS = "TAG_PROJECT_NAME";
+	private static final String TAG_ONLY_PAST_24_HOURS = "TAG_ONLY_PAST_24_HOURS";
 	private static final String NAME_PRESENTING_ALL_PROJECTS = "thisIsATagPresentingAllProjectsAndWeAssumeNoRealProjectWillUseThisNameSoNoConflict";
 
 	private final class TomatoListAdapter implements ListAdapter

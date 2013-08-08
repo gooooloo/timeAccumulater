@@ -127,6 +127,12 @@ public class TADataCenter
 		sp.edit().clear().commit();
 	}
 
+	public static List<TATomato> getAllReverseTomatosWithin24Hours(Context context)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public static List<TATomato> getReverseTomatoListForProject(Context context, String projectName)
 	{
 		SharedPreferences sp = getProjectSP(context, projectName);
@@ -336,11 +342,5 @@ public class TADataCenter
 		{
 			return "" + i;
 		}
-	}
-
-	public static List<TATomato> getAllReverseTomatosWithin24Hours(Context context)
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
