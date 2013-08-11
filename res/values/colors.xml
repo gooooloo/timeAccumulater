@@ -3,5 +3,5 @@
 	<color
 		name="colorForOn">#ffff0000</color>
 	<color
-		name="colorForOff">#ff00ff00</color>
+		name="colorForOff">#ff000000</color>
 </resources>

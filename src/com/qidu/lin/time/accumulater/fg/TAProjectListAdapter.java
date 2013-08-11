@@ -18,7 +18,7 @@
  */
 package com.qidu.lin.time.accumulater.fg;
 
-import android.content.Context;
+import android.app.Activity;
 import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,17 +27,20 @@ import android.widget.TextView;
 
 import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
-import com.qidu.lin.time.accumulater.bg.TATime;
 
 final class TAProjectListAdapter implements ListAdapter
 {
 	private final String[] names;
-	private final Context context;
+	private final Activity activity;
+	private int colorForOn;
+	private int colorForOff;
 
-	TAProjectListAdapter(Context context, String[] names)
+	TAProjectListAdapter(Activity context, String[] names)
 	{
-		this.context = context;
+		this.activity = context;
 		this.names = names;
+		colorForOn = activity.getResources().getColor(R.color.colorForOn);
+		colorForOff = activity.getResources().getColor(R.color.colorForOff);
 	}
 
 	@Override
@@ -73,15 +76,22 @@ final class TAProjectListAdapter implements ListAdapter
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		TextView tv = (convertView != null) ? ((TextView) convertView) : new TextView(context);
-		String projectName = getProjectName(position);
-		TASharedListItemSetting.setupListItemTextView(tv, projectName);
+		View v = convertView;
+		if (v == null)
+		{
+			v = activity.getLayoutInflater().inflate(R.layout.project, null);
+		}
 
-		// TODO : make UI better
-		TATime x = TADataCenter.getAccumulateTime(context, projectName);
-		tv.setText(projectName + "         " + context.getString(R.string.timeResultShort, x.hours, x.minute, x.second));
+		final String projectName = getProjectName(position);
 
-		return tv;
+		((TextView) v.findViewById(R.id.name)).setText(projectName);
+		((TextView) v.findViewById(R.id.duration)).setText(TADataCenter.getAccumulateTime(activity, projectName).toString());
+
+		int textcolor = TADataCenter.getOnFlag(v.getContext(), projectName) ? colorForOn : colorForOff;
+
+		((TextView) v.findViewById(R.id.name)).setTextColor(textcolor);
+		((TextView) v.findViewById(R.id.duration)).setTextColor(textcolor);
+		return v;
 	}
 
 	public String getProjectName(int position)
