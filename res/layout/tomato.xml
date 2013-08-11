@@ -44,18 +44,43 @@
 
     <TextView
         android:id="@+id/project"
-        android:layout_toRightOf="@id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-         />
+        android:layout_toRightOf="@id/date" />
 
     <TextView
         android:id="@+id/note"
-        android:paddingLeft="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/project"
         android:layout_toRightOf="@id/project"
-        />
+        android:paddingLeft="12dp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@id/date"
+        android:orientation="horizontal" >
+
+        <View
+            android:id="@+id/pastInDay"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent" >
+        </View>
+
+        <View
+            android:id="@+id/nowInDay"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:background="@android:color/darker_gray" >
+        </View>
+
+        <View
+            android:id="@+id/futureInDay"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent" >
+        </View>
+    </LinearLayout>
 
 </RelativeLayout>

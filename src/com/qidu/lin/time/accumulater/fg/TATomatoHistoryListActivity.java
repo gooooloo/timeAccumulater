@@ -19,6 +19,8 @@
 
 package com.qidu.lin.time.accumulater.fg;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -35,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -115,7 +118,30 @@ public class TATomatoHistoryListActivity extends Activity
 			{
 				((TextView) v.findViewById(R.id.note)).setText(tomatoNote);
 			}
+
+			Date date = new Date();
+			date.setTime(item.startMs);
+			date.setHours(0);
+			date.setMinutes(0);
+			date.setSeconds(0);
+			int msPerDay = 1000 * 60 * 60 * 24;
+			float x1 = item.startMs - date.getTime();
+			x1 /= msPerDay;
+			float x2 = item.getDurationMs();
+			x2 /= msPerDay;
+
+			setWeight(v, R.id.pastInDay, x1);
+			setWeight(v, R.id.nowInDay, x2);
+			setWeight(v, R.id.futureInDay, 1 - x1 - x2);
 			return v;
+		}
+
+		private void setWeight(View v, int id, float w)
+		{
+			View vv = v.findViewById(id);
+			LinearLayout.LayoutParams xxx = (android.widget.LinearLayout.LayoutParams) vv.getLayoutParams();
+			xxx.weight = w;
+			vv.setLayoutParams(xxx);
 		}
 
 		@Override
