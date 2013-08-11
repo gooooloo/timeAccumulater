@@ -25,8 +25,6 @@ import java.util.Locale;
 
 import android.content.Context;
 
-import com.qidu.lin.time.accumulater.R;
-
 public class TATomato
 {
 	public enum StringFilter
@@ -71,34 +69,8 @@ public class TATomato
 
 	public String getString(Context context, StringFilter filter)
 	{
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-		SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 		Calendar x = Calendar.getInstance();
-
-		SimpleDateFormat format = null;
 		Date d = null;
-
-		switch (filter)
-		{
-		case StartDate:
-		case EndDate:
-			format = dateFormat;
-			break;
-		case StartTime:
-		case EndTime:
-			format = timeFormat;
-			break;
-		case StartTimeWithDate:
-		case EndTimeWithDate:
-			format = dateTimeFormat;
-			break;
-		case Duration:
-			return getDurationString();
-		default:
-			return "ERROR";
-		}
-
 		switch (filter)
 		{
 		case StartDate:
@@ -115,11 +87,35 @@ public class TATomato
 			break;
 		case Duration:
 			d = new Date();
-			d.setTime(endMs - startMs);
+			d.setHours(0);
+			d.setMinutes((getDurationMs() / 1000) / 60);
+			d.setSeconds((getDurationMs() / 1000) % 60);
+			break;
+		default:
+			return "ERROR";
+		}
+
+		String formatTemplate = null;
+		switch (filter)
+		{
+		case StartDate:
+		case EndDate:
+			formatTemplate = "yyyy-MM-dd";
+			break;
+		case StartTime:
+		case EndTime:
+			formatTemplate = "HH:mm:ss";
+			break;
+		case StartTimeWithDate:
+		case EndTimeWithDate:
+			formatTemplate = "yyyy-MM-dd HH:mm:ss";
+			break;
+		case Duration:
+			formatTemplate = d.getHours() > 0 ? "HH:mm:ss" : "mm:ss";
 			break;
 		}
 
-		return format.format(d);
+		return new SimpleDateFormat(formatTemplate, Locale.getDefault()).format(d);
 	}
 
 	public long getId()
