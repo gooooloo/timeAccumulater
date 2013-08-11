@@ -30,6 +30,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
@@ -46,6 +47,7 @@ public class TAMain extends SlidingActivity
 		setContentView(R.layout.main);
 		setBehindContentView(R.layout.behind);
 		getSlidingMenu().setBehindOffset(400);
+		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		setupActionBar();
 
 		((Button) this.findViewById(R.id.btn)).setOnClickListener(new OnClickListener()
