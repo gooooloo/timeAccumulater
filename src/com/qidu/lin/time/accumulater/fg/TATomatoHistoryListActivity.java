@@ -136,7 +136,17 @@ public class TATomatoHistoryListActivity extends Activity
 			setWeight(v, R.id.nowInDay, x2);
 			setWeight(v, R.id.futureInDay, 1 - x1 - x2);
 
-			((RatingBar) v.findViewById(R.id.rating)).setRating(TATomatoPersistence.getTomatoRating(context, item.getId()));
+			final RatingBar ratingbar = (RatingBar) v.findViewById(R.id.rating);
+			final float rating = TATomatoPersistence.getTomatoRating(context, item.getId());
+			if (rating > 0)
+			{
+				ratingbar.setVisibility(View.VISIBLE);
+				ratingbar.setNumStars((int) rating);
+			}
+			else
+			{
+				ratingbar.setVisibility(View.INVISIBLE);
+			}
 			return v;
 		}
 
