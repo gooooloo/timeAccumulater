@@ -46,7 +46,7 @@ public class TAProjectButton extends Button
 	{
 		super(context);
 	}
-	
+
 	public void setup(final Activity activity, final int electdode)
 	{
 
@@ -56,7 +56,7 @@ public class TAProjectButton extends Button
 			@Override
 			public void onClick(View arg0)
 			{
-				activity.startActivityForResult(new Intent(activity, TASelect.class), electdode);
+				activity.startActivityForResult(TASelect.getProjectsIntent(activity, TASelect.ActivityPurpose.select), electdode);
 			}
 		});
 

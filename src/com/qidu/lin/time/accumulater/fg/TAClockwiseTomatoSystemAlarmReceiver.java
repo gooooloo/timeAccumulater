@@ -124,7 +124,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 
 	protected void onTomatoClicked(TATomato y)
 	{
-		Intent intent = new Intent(this, TASelect.class);
+		Intent intent = TASelect.getProjectsIntent(this, TASelect.ActivityPurpose.select);
 		intent.putExtra(DURATION, y.getDurationMs());
 		intent.putExtra(TOMATO_ID, y.getId());
 		intent.putExtra(TOMATO_BEGIN_MS, y.startMs);

@@ -40,6 +40,19 @@ import com.qidu.lin.time.accumulater.bg.TADataCenter;
 public class TASelect extends Activity
 {
 	public static final String ID = "com.qidu.lin.time.accumulater.id";
+	private static final String TAG_PURPOSE = "TAG_PURPOSE";
+
+	public enum ActivityPurpose
+	{
+		select, manage,
+	}
+
+	public static Intent getProjectsIntent(Context context, ActivityPurpose purpose)
+	{
+		Intent intent = new Intent(context, TASelect.class);
+		intent.putExtra(TAG_PURPOSE, purpose.ordinal());
+		return intent;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -127,7 +140,8 @@ public class TASelect extends Activity
 											TADataCenter.ProjectCenter.changeProjectName(context, projectName, projectNameNew);
 
 											// force UI refresh
-											lv.setAdapter(new TAProjectListAdapter(TASelect.this, TADataCenter.ProjectCenter.getProjectNames(TASelect.this)));
+											lv.setAdapter(new TAProjectListAdapter(TASelect.this, TADataCenter.ProjectCenter
+													.getProjectNames(TASelect.this)));
 										}
 									}).setNegativeButton(android.R.string.cancel, null).show();
 						}

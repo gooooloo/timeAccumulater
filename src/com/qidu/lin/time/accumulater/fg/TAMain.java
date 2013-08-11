@@ -82,24 +82,24 @@ public class TAMain extends SlidingActivity
 				TAMain.this.startActivity(TATomatoListActivity.getLauncherIntentForPast24Hours(TAMain.this));
 			}
 		});
-		
+
 		((Button) this.findViewById(R.id.past7days)).setOnClickListener(new OnClickListener()
 		{
-			
+
 			@Override
 			public void onClick(View arg0)
 			{
 				TAMain.this.startActivity(TATomatoListActivity.getLauncherIntentForPast7Days(TAMain.this));
 			}
 		});
-		
+
 		((Button) this.findViewById(R.id.manageproject)).setOnClickListener(new OnClickListener()
 		{
-			
+
 			@Override
 			public void onClick(View arg0)
 			{
-				TAMain.this.startActivity(new Intent(TAMain.this, TASelect.class));
+				TAMain.this.startActivity(TASelect.getProjectsIntent(TAMain.this, TASelect.ActivityPurpose.manage));
 			}
 		});
 	}
