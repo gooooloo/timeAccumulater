@@ -38,6 +38,17 @@ import com.qidu.lin.time.accumulater.bg.TATime;
 
 public class TAMain extends SlidingActivity
 {
+	@Override
+	protected void onRestart()
+	{
+		super.onRestart();
+
+		if (getSlidingMenu().isMenuShowing())
+		{
+			getSlidingMenu().toggle(false);
+		}
+	}
+
 	private static final int selectdode = 0;
 
 	@Override
@@ -99,7 +110,8 @@ public class TAMain extends SlidingActivity
 			@Override
 			public void onClick(View arg0)
 			{
-				TAMain.this.startActivity(TAProjectListActivity.getProjectsIntent(TAMain.this, TAProjectListActivity.ActivityPurpose.manage));
+				TAMain.this.startActivity(TAProjectListActivity
+						.getProjectsIntent(TAMain.this, TAProjectListActivity.ActivityPurpose.manage));
 			}
 		});
 	}
