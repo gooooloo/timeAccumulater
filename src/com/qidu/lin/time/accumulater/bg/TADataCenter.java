@@ -49,16 +49,17 @@ public class TADataCenter
 	{
 		boolean beforeIsOn = getOnFlag(context, projectName);
 
-		long curTimeMs = Calendar.getInstance().getTimeInMillis();
+		long endTimeMs = Calendar.getInstance().getTimeInMillis();
 
 		if (beforeIsOn)
 		{
-			long lastTimeMs = getLastTime(context, projectName);
-			long pastTimeMs = curTimeMs - lastTimeMs;
-			addPastTimeToAccumulate(context, projectName, pastTimeMs);
-			saveATomato(context, projectName, lastTimeMs, curTimeMs);
+			long startTimeMs = getLastTime(context, projectName);
+			long durationTimeMs = endTimeMs - startTimeMs;
+			addPastTimeToAccumulate(context, projectName, durationTimeMs);
+			saveATomato(context, projectName, startTimeMs, endTimeMs);
+			TATomatoPersistence.saveProjectName(context, new TATomato(startTimeMs, endTimeMs).getId(), projectName);
 		}
-		setLastTime(context, projectName, curTimeMs);
+		setLastTime(context, projectName, endTimeMs);
 		setOnFlag(context, projectName, !beforeIsOn);
 
 	}
