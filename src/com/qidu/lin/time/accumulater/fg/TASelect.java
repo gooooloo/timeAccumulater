@@ -54,8 +54,8 @@ public class TASelect extends Activity
 		return intent;
 	}
 
-	private ActivityPurpose purpose = ActivityPurpose.select; // by default it
-																// is select.
+	// by default it is select.
+	private ActivityPurpose purpose = ActivityPurpose.select;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
