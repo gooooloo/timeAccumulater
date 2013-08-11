@@ -93,28 +93,29 @@ public class TATomatoHistoryListActivity extends Activity
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
-			TextView tv = null;
+			View v = null;
 			TATomato item = getTomato(position);
 			Context context = TATomatoHistoryListActivity.this;
 			if (convertView == null)
 			{
-				tv = new TextView(TATomatoHistoryListActivity.this);
-				TASharedListItemSetting.setupListItemTextView(tv, projectName);
+				v = getLayoutInflater().inflate(R.layout.tomato, null);
 			}
 			else
 			{
-				tv = (TextView) convertView;
+				v = convertView;
 			}
-			String string = getString(R.string.tomato_start_end_string, item.getString(context, StringFilter.StartDate),
-					item.getString(context, StringFilter.StartTime), item.getString(context, StringFilter.EndTime),
-					item.getString(context, StringFilter.Duration));
-			String tomatoNote = TATomatoPersistence.getTomatoNote(TATomatoHistoryListActivity.this, item.getId());
+
+			((TextView) v.findViewById(R.id.date)).setText(item.getString(context, StringFilter.StartDate));
+			((TextView) v.findViewById(R.id.start)).setText(item.getString(context, StringFilter.StartTime));
+			((TextView) v.findViewById(R.id.end)).setText(item.getString(context, StringFilter.EndTime));
+			((TextView) v.findViewById(R.id.duration)).setText(item.getString(context, StringFilter.Duration));
+
+			String tomatoNote = TATomatoPersistence.getTomatoNote(context, item.getId());
 			if (tomatoNote != null)
 			{
-				string += "\n" + tomatoNote;
+				((TextView) v.findViewById(R.id.note)).setText(tomatoNote);
 			}
-			tv.setText(string);
-			return tv;
+			return v;
 		}
 
 		@Override
