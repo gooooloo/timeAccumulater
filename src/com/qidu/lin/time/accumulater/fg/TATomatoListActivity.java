@@ -265,7 +265,7 @@ public class TATomatoListActivity extends Activity
 			int withInHours = getIntent().getIntExtra(TAG_WITHIN_HOURS, 0);
 			if (withInHours > 0)
 			{
-				list = TADataCenter.getAllReverseTomatosWithin24Hours(this, withInHours);
+				list = TADataCenter.getAllReverseTomatosWithinHours(this, withInHours);
 			}
 			else
 			{

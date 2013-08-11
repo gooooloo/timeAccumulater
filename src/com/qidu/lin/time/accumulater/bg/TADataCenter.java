@@ -129,7 +129,7 @@ public class TADataCenter
 		sp.edit().clear().commit();
 	}
 
-	public static List<TATomato> getAllReverseTomatosWithin24Hours(Context context, int withinHoursNum)
+	public static List<TATomato> getAllReverseTomatosWithinHours(Context context, int withinHoursNum)
 	{
 		final int msWithin = 1000 * 60 * 60 * withinHoursNum;
 		final long nt = System.currentTimeMillis();
