@@ -54,11 +54,16 @@ public class TASelect extends Activity
 		return intent;
 	}
 
+	private ActivityPurpose purpose = ActivityPurpose.select; // by default it
+																// is select.
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select);
+		purpose = (getIntent().getIntExtra(TAG_PURPOSE, ActivityPurpose.select.ordinal()) == ActivityPurpose.manage.ordinal()) ? ActivityPurpose.manage
+				: ActivityPurpose.select;
 
 		final EditText input = (EditText) this.findViewById(R.id.input);
 		final Button addButton = (Button) this.findViewById(R.id.add);
@@ -87,12 +92,66 @@ public class TASelect extends Activity
 		lv.setOnItemClickListener(new OnItemClickListener()
 		{
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
+			public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
 			{
-				TAProjectListAdapter listAdapter = (TAProjectListAdapter) lv.getAdapter();
+				final TAProjectListAdapter listAdapter = (TAProjectListAdapter) lv.getAdapter();
 				String projectName = listAdapter.getProjectName(position);
 
-				onSelect(TADataCenter.ProjectCenter.getProjectIdByName(TASelect.this, projectName));
+				if (purpose == ActivityPurpose.select)
+				{
+					onSelect(TADataCenter.ProjectCenter.getProjectIdByName(TASelect.this, projectName));
+				}
+				else if (purpose == ActivityPurpose.manage)
+				{
+					final Context context = TASelect.this;
+
+					final int index_rename = 0;
+					final int index_delete = 1;
+					final int index_count = index_delete + 1;
+					CharSequence[] xx = new CharSequence[index_count];
+					xx[index_rename] = context.getString(R.string.rename);
+					xx[index_delete] = context.getString(R.string.delete);
+
+					new AlertDialog.Builder(context).setItems(xx, new android.content.DialogInterface.OnClickListener()
+					{
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							final String projectName = listAdapter.getProjectName(position);
+
+							if (which == index_rename)
+							{
+								final EditText editText = new EditText(context);
+								editText.setText(projectName);
+								new AlertDialog.Builder(context).setTitle(R.string.rename).setView(editText)
+										.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+										{
+
+											@Override
+											public void onClick(DialogInterface dialog, int which)
+											{
+												String projectNameNew = editText.getText().toString();
+												TADataCenter.moveAllTomatoToAnotherProject(context, projectName, projectNameNew);
+												TADataCenter.ProjectCenter.changeProjectName(context, projectName, projectNameNew);
+
+												// force UI refresh
+												lv.setAdapter(new TAProjectListAdapter(TASelect.this, TADataCenter.ProjectCenter
+														.getProjectNames(TASelect.this)));
+											}
+										}).setNegativeButton(android.R.string.cancel, null).show();
+							}
+							else if (which == index_delete)
+							{
+								TADataCenter.deleteAllTomatoForProject(context, projectName);
+								TADataCenter.ProjectCenter.removeProjectName(context, projectName);
+
+								// force UI refresh
+								lv.setAdapter(new TAProjectListAdapter(TASelect.this, TADataCenter.ProjectCenter
+										.getProjectNames(TASelect.this)));
+							}
+						}
+					}).show();
+				}
 			}
 		});
 		lv.setOnItemLongClickListener(new OnItemLongClickListener()
@@ -101,60 +160,10 @@ public class TASelect extends Activity
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
 			{
-				final Context context = TASelect.this;
+				TAProjectListAdapter listAdapter = (TAProjectListAdapter) lv.getAdapter();
+				final String projectName = listAdapter.getProjectName(position);
+				startActivity(new Intent(TATomatoListActivity.getLauncherIntent(TASelect.this, projectName)));
 
-				final int index_history = 0;
-				final int index_rename = 1;
-				final int index_delete = 2;
-				final int index_count = index_delete + 1;
-				CharSequence[] xx = new CharSequence[index_count];
-				xx[index_history] = context.getString(R.string.history);
-				xx[index_rename] = context.getString(R.string.rename);
-				xx[index_delete] = context.getString(R.string.delete);
-
-				new AlertDialog.Builder(context).setItems(xx, new android.content.DialogInterface.OnClickListener()
-				{
-					@Override
-					public void onClick(DialogInterface dialog, int which)
-					{
-						TAProjectListAdapter listAdapter = (TAProjectListAdapter) lv.getAdapter();
-						final String projectName = listAdapter.getProjectName(position);
-
-						if (which == index_history)
-						{
-							startActivity(new Intent(TATomatoListActivity.getLauncherIntent(TASelect.this, projectName)));
-						}
-						else if (which == index_rename)
-						{
-							final EditText editText = new EditText(context);
-							editText.setText(projectName);
-							new AlertDialog.Builder(context).setTitle(R.string.rename).setView(editText)
-									.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
-									{
-
-										@Override
-										public void onClick(DialogInterface dialog, int which)
-										{
-											String projectNameNew = editText.getText().toString();
-											TADataCenter.moveAllTomatoToAnotherProject(context, projectName, projectNameNew);
-											TADataCenter.ProjectCenter.changeProjectName(context, projectName, projectNameNew);
-
-											// force UI refresh
-											lv.setAdapter(new TAProjectListAdapter(TASelect.this, TADataCenter.ProjectCenter
-													.getProjectNames(TASelect.this)));
-										}
-									}).setNegativeButton(android.R.string.cancel, null).show();
-						}
-						else if (which == index_delete)
-						{
-							TADataCenter.deleteAllTomatoForProject(context, projectName);
-							TADataCenter.ProjectCenter.removeProjectName(context, projectName);
-
-							// force UI refresh
-							lv.setAdapter(new TAProjectListAdapter(TASelect.this, TADataCenter.ProjectCenter.getProjectNames(TASelect.this)));
-						}
-					}
-				}).show();
 				return true;
 			}
 		});
