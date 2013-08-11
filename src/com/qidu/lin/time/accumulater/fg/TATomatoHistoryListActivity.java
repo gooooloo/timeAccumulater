@@ -37,6 +37,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -277,10 +278,16 @@ public class TATomatoHistoryListActivity extends Activity
 				final LinearLayout ll = new LinearLayout(context);
 				ll.setOrientation(LinearLayout.VERTICAL);
 				final EditText editText = new EditText(context);
-				editText.setHint(R.string.input_tomato_note_hint);
 				ll.addView(editText);
 				RatingBar ratingBar = new RatingBar(context);
 				ll.addView(ratingBar);
+
+				editText.setHint(R.string.input_tomato_note_hint);
+
+				ratingBar.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+				ratingBar.setNumStars(5);
+				ratingBar.setRating(3);
+				ratingBar.setStepSize(1.0f);
 				final long tomatoId = adapter.getTomato(position).getId();
 				String note = TATomatoPersistence.getTomatoNote(context, tomatoId);
 				if (note != null)
