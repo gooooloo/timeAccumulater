@@ -21,6 +21,8 @@ package com.qidu.lin.time.accumulater.bg;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +38,7 @@ public class TADataCenter
 	private static final String TAG_TOMATO_COUNT = "com.qidu.lin.timeAccumulate.TAG_TOMATO_COUNT";
 	private static final String TAG_TOMATO_INDEX_BEGIN_KEY = "com.qidu.lin.timeAccumulate.TAG_TOMATO_INDEX_BEGIN_KEY_";
 	private static final String TAG_TOMATO_INDEX_END_KEY = "com.qidu.lin.timeAccumulate.TAG_TOMATO_INDEX_END_KEY_";
-	
+
 	public static boolean getOnFlag(Context context, String projectName)
 	{
 
@@ -117,7 +119,7 @@ public class TADataCenter
 		}
 
 		editDesc.commit();
-		
+
 		spSrc.edit().clear().commit();
 	}
 
@@ -129,8 +131,40 @@ public class TADataCenter
 
 	public static List<TATomato> getAllReverseTomatosWithin24Hours(Context context)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		final int msPerDay = 1000 * 60 * 60 * 24;
+		final long nt = System.currentTimeMillis();
+		String[] pns = ProjectCenter.getProjectNames(context);
+		List<TATomato> ret = new ArrayList<TATomato>();
+		for (String pn : pns)
+		{
+			long lt = getLastTime(context, pn);
+			if (nt - lt > msPerDay)
+			{
+				continue;
+			}
+
+			List<TATomato> list = getReverseTomatoListForProject(context, pn);
+			for (TATomato tomato : list)
+			{
+				if (nt - tomato.startMs > msPerDay)
+				{
+					continue;
+				}
+				ret.add(tomato);
+			}
+		}
+
+		Comparator<TATomato> comparator = new Comparator<TATomato>()
+		{
+
+			@Override
+			public int compare(TATomato lhs, TATomato rhs)
+			{
+				return (int) (rhs.startMs - lhs.startMs);
+			}
+		};
+		Collections.sort(ret, comparator);
+		return ret;
 	}
 
 	public static List<TATomato> getReverseTomatoListForProject(Context context, String projectName)
@@ -271,10 +305,10 @@ public class TADataCenter
 			{
 				return;
 			}
-			
+
 			if (getProjectIdByName(context, nameDesc) != INVALID_ID)
 			{
-				// don:t support change to existing 
+				// don:t support change to existing
 				return;
 			}
 
