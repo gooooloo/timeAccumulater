@@ -52,21 +52,6 @@ public class TATomato
 		return (int) (endMs - startMs);
 	}
 
-	public String getDurationString()
-	{
-		int durationSec = getDurationMs() / 1000;
-		int seconds = durationSec % 60;
-		int minutes = durationSec / 60;
-		return "" + minutes + ":" + seconds;
-	}
-
-	public String getStartTimeString()
-	{
-		Calendar x = Calendar.getInstance();
-		x.setTimeInMillis(startMs);
-		return x.getTime().toLocaleString();
-	}
-
 	public String getString(Context context, StringFilter filter)
 	{
 		Calendar x = Calendar.getInstance();

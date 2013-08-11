@@ -36,6 +36,7 @@ import com.qidu.lin.time.accumulater.bg.FilterRules;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
 import com.qidu.lin.time.accumulater.bg.TATomato;
 import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
+import com.qidu.lin.time.accumulater.bg.TATomato.StringFilter;
 import com.qidu.lin.time.accumulater.bg.parser.TA3rdPartyRecordParser;
 import com.qidu.lin.time.accumulater.bg.parser.TA3rdPartyRecordParser.TomatoListReverseWithSource;
 
@@ -144,10 +145,11 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		{
 			Button btn = new Button(this);
 			final String projectName = TATomatoPersistence.getProjectName(this, y.getId());
-			String text = "#" + index + " " + y.getStartTimeString() + "  " + y.getDurationString();
+			String text = "#" + index + " " + y.getString(this, StringFilter.StartTimeWithDate) + "  "
+					+ y.getString(this, StringFilter.Duration);
 			if (projectName != null)
 			{
-				text += " " + projectName;
+				text += "\n" + projectName;
 			}
 			btn.setText(text);
 			root.addView(btn);
