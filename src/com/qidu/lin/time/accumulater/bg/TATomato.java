@@ -18,14 +18,22 @@
  */
 package com.qidu.lin.time.accumulater.bg;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import com.qidu.lin.time.accumulater.R;
+import java.util.Date;
+import java.util.Locale;
 
 import android.content.Context;
 
+import com.qidu.lin.time.accumulater.R;
+
 public class TATomato
 {
+	public enum StringFilter
+	{
+		StartDate, EndDate, StartTime, StartTimeWithDate, EndTime, EndTimeWithDate, Duration,
+	}
+
 	public final long startMs;
 	public final long endMs;
 
@@ -61,18 +69,57 @@ public class TATomato
 		return x.getTime().toLocaleString();
 	}
 
-	public String getStartEndTimeString(Context context)
+	public String getString(Context context, StringFilter filter)
 	{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+		SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 		Calendar x = Calendar.getInstance();
-		x.setTimeInMillis(startMs);
-		String xString = x.getTime().toLocaleString();
 
-		Calendar y = Calendar.getInstance();
-		y.setTimeInMillis(endMs);
-		String yString = y.getTime().toLocaleString();
+		SimpleDateFormat format = null;
+		Date d = null;
 
-		return context.getString(R.string.tomato_start_end_string, xString, yString, getDurationString());
+		switch (filter)
+		{
+		case StartDate:
+		case EndDate:
+			format = dateFormat;
+			break;
+		case StartTime:
+		case EndTime:
+			format = timeFormat;
+			break;
+		case StartTimeWithDate:
+		case EndTimeWithDate:
+			format = dateTimeFormat;
+			break;
+		case Duration:
+			return getDurationString();
+		default:
+			return "ERROR";
+		}
 
+		switch (filter)
+		{
+		case StartDate:
+		case StartTime:
+		case StartTimeWithDate:
+			x.setTimeInMillis(startMs);
+			d = x.getTime();
+			break;
+		case EndDate:
+		case EndTime:
+		case EndTimeWithDate:
+			x.setTimeInMillis(endMs);
+			d = x.getTime();
+			break;
+		case Duration:
+			d = new Date();
+			d.setTime(endMs - startMs);
+			break;
+		}
+
+		return format.format(d);
 	}
 
 	public long getId()

@@ -14,7 +14,7 @@
     <string name="title_activity_intent_filter_receiver">@string/app_name</string>
     <string name="unaccumulatedOnly">仅显示未处理</string>
     <string name="within2daysonly">仅显示2天内</string>
-    <string name="tomato_start_end_string">%1$s -> %2$s \n 时长 : %3$s</string>
+    <string name="tomato_start_end_string">%1$s\n%2$s -> %3$s 时长: %4$s</string>
     <string name="manual_record_time_consuming">手工记录</string>
     <string name="title_activity_tamanual_record">@string/manual_record_time_consuming</string>
     <string name="begin_time">开始时间</string>

@@ -43,6 +43,7 @@ import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
 import com.qidu.lin.time.accumulater.bg.TATime;
 import com.qidu.lin.time.accumulater.bg.TATomato;
+import com.qidu.lin.time.accumulater.bg.TATomato.StringFilter;
 import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
 
 public class TATomatoHistoryListActivity extends Activity
@@ -94,6 +95,7 @@ public class TATomatoHistoryListActivity extends Activity
 		{
 			TextView tv = null;
 			TATomato item = getTomato(position);
+			Context context = TATomatoHistoryListActivity.this;
 			if (convertView == null)
 			{
 				tv = new TextView(TATomatoHistoryListActivity.this);
@@ -103,7 +105,9 @@ public class TATomatoHistoryListActivity extends Activity
 			{
 				tv = (TextView) convertView;
 			}
-			String string = item.getStartEndTimeString(TATomatoHistoryListActivity.this);
+			String string = getString(R.string.tomato_start_end_string, item.getString(context, StringFilter.StartDate),
+					item.getString(context, StringFilter.StartTime), item.getString(context, StringFilter.EndTime),
+					item.getString(context, StringFilter.Duration));
 			String tomatoNote = TATomatoPersistence.getTomatoNote(TATomatoHistoryListActivity.this, item.getId());
 			if (tomatoNote != null)
 			{
