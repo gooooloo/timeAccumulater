@@ -114,10 +114,11 @@ public class TATomatoHistoryListActivity extends Activity
 			((TextView) v.findViewById(R.id.duration)).setText(item.getString(context, StringFilter.Duration));
 
 			String tomatoNote = TATomatoPersistence.getTomatoNote(context, item.getId());
-			if (tomatoNote != null)
+			if (tomatoNote == null)
 			{
-				((TextView) v.findViewById(R.id.note)).setText(tomatoNote);
+				tomatoNote = "";
 			}
+			((TextView) v.findViewById(R.id.note)).setText(tomatoNote);
 
 			Date date = new Date();
 			date.setTime(item.startMs);
