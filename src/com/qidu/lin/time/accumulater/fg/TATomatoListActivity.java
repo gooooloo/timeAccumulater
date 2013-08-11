@@ -282,7 +282,7 @@ public class TATomatoListActivity extends Activity
 		lv.setAdapter(adapter);
 		TATime x = TADataCenter.getAccumulateTime(this, projectName);
 
-		if (isActivityForMultiProjects())
+		if (!isActivityForMultiProjects())
 		{
 			this.setTitle(projectName + "  " + getString(R.string.timeResultShort, x.hours, x.minute, x.second));
 		}
