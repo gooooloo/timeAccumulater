@@ -197,10 +197,11 @@ public class TATomatoHistoryListActivity extends Activity
 		}
 
 		List<TATomato> list = null;
+		boolean forAllProjectsIn24Hours = false;
 		if (projectName.equals(NAME_PRESENTING_ALL_PROJECTS))
 		{
-			boolean onlyPast24Hours = getIntent().getBooleanExtra(TAG_ONLY_PAST_24_HOURS, false);
-			if (onlyPast24Hours)
+			forAllProjectsIn24Hours = getIntent().getBooleanExtra(TAG_ONLY_PAST_24_HOURS, false);
+			if (forAllProjectsIn24Hours)
 			{
 				list = TADataCenter.getAllReverseTomatosWithin24Hours(this);
 			}
@@ -224,7 +225,15 @@ public class TATomatoHistoryListActivity extends Activity
 		final TomatoListAdapter adapter = new TomatoListAdapter(list);
 		lv.setAdapter(adapter);
 		TATime x = TADataCenter.getAccumulateTime(this, projectName);
-		this.setTitle(projectName + "  " + getString(R.string.timeResultShort, x.hours, x.minute, x.second));
+
+		if (forAllProjectsIn24Hours)
+		{
+			this.setTitle(getString(R.string.past_24_hours));
+		}
+		else
+		{
+			this.setTitle(projectName + "  " + getString(R.string.timeResultShort, x.hours, x.minute, x.second));
+		}
 
 		lv.setOnItemClickListener(new OnItemClickListener()
 		{
