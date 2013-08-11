@@ -274,21 +274,22 @@ public class TATomatoHistoryListActivity extends Activity
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
 			{
+				final long tomatoId = adapter.getTomato(position).getId();
 				final Context context = TATomatoHistoryListActivity.this;
 				final LinearLayout ll = new LinearLayout(context);
 				ll.setOrientation(LinearLayout.VERTICAL);
 				final EditText editText = new EditText(context);
 				ll.addView(editText);
-				RatingBar ratingBar = new RatingBar(context);
+				final RatingBar ratingBar = new RatingBar(context);
 				ll.addView(ratingBar);
 
 				editText.setHint(R.string.input_tomato_note_hint);
 
 				ratingBar.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+				final float tomatoRating = TATomatoPersistence.getTomatoRating(context, tomatoId);
 				ratingBar.setNumStars(5);
-				ratingBar.setRating(3);
+				ratingBar.setRating(tomatoRating);
 				ratingBar.setStepSize(1.0f);
-				final long tomatoId = adapter.getTomato(position).getId();
 				String note = TATomatoPersistence.getTomatoNote(context, tomatoId);
 				if (note != null)
 				{
@@ -302,6 +303,7 @@ public class TATomatoHistoryListActivity extends Activity
 							public void onClick(DialogInterface dialog, int which)
 							{
 								TATomatoPersistence.saveTomatoNote(context, tomatoId, editText.getText().toString());
+								TATomatoPersistence.saveTomatoRating(context, tomatoId, ratingBar.getRating());
 							}
 						}).setNegativeButton(android.R.string.cancel, null).show();
 

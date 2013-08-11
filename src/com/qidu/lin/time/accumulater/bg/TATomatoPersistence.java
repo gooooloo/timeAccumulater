@@ -25,6 +25,7 @@ public class TATomatoPersistence
 	private static final String KEY_TOMATO_ID = "KEY_TOMATO_ID_";
 	private static final String TAG_TOMATO_PERSISTANCE = "TAG_TOMATO_PERSISTANCE";
 	private static final String TAG_TOMATO_NOTE = "TAG_TOMATO_NOTE";
+	private static final String TAG_TOMATO_RATING = "TAG_TOMATO_RATING";
 
 	public static void saveProjectName(Context context, long tomatoId, String projectName)
 	{
@@ -64,6 +65,27 @@ public class TATomatoPersistence
 			return null;
 		}
 		return context.getSharedPreferences(TAG_TOMATO_NOTE, Context.MODE_PRIVATE).getString(getKeyByTomatoId(tomatoId), null);
+	}
+
+	public static void saveTomatoRating(Context context, long tomatoId, float numStars)
+	{
+		if (invalidId(tomatoId))
+		{
+			return;
+		}
+
+		context.getSharedPreferences(TAG_TOMATO_RATING, Context.MODE_PRIVATE).edit().putFloat(getKeyByTomatoId(tomatoId), numStars)
+				.commit();
+
+	}
+
+	public static float getTomatoRating(Context context, long tomatoId)
+	{
+		if (invalidId(tomatoId))
+		{
+			return 0;
+		}
+		return context.getSharedPreferences(TAG_TOMATO_RATING, Context.MODE_PRIVATE).getFloat(getKeyByTomatoId(tomatoId), 0);
 	}
 
 	private static boolean invalidId(long tomatoId)
