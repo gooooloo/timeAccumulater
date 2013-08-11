@@ -135,6 +135,8 @@ public class TATomatoHistoryListActivity extends Activity
 			setWeight(v, R.id.pastInDay, x1);
 			setWeight(v, R.id.nowInDay, x2);
 			setWeight(v, R.id.futureInDay, 1 - x1 - x2);
+
+			((RatingBar) v.findViewById(R.id.rating)).setRating(TATomatoPersistence.getTomatoRating(context, item.getId()));
 			return v;
 		}
 

@@ -52,15 +52,14 @@
         android:id="@+id/note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/project"
-        android:layout_toRightOf="@id/project"
-        android:paddingLeft="12dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/start" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="40dp"
-        android:layout_alignParentTop="true"
         android:layout_alignBottom="@id/date"
+        android:layout_alignParentTop="true"
         android:orientation="horizontal" >
 
         <View
@@ -82,5 +81,13 @@
             android:layout_height="fill_parent" >
         </View>
     </LinearLayout>
+
+    <RatingBar
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:isIndicator="true" />
 
 </RelativeLayout>
