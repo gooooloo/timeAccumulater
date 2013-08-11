@@ -11,6 +11,12 @@
         android:text="@string/past_24_hours" />
 
     <Button
+        android:id="@+id/past7days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/past_7_days" />
+
+    <Button
         android:id="@+id/manualrecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

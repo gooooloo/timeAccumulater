@@ -53,7 +53,8 @@ import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
 public class TATomatoListActivity extends Activity
 {
 	private static final String TAG_PROJECT_NAME = "TAG_PROJECT_NAME";
-	private static final String TAG_ONLY_PAST_24_HOURS = "TAG_ONLY_PAST_24_HOURS";
+	private static final String TAG_TITLE = "TAG_TITLE";
+	private static final String TAG_WITHIN_HOURS = "TAG_WITHIN_HOURS";
 	private static final String NAME_PRESENTING_ALL_PROJECTS = "thisIsATagPresentingAllProjectsAndWeAssumeNoRealProjectWillUseThisNameSoNoConflict";
 
 	private final class TomatoListAdapter implements ListAdapter
@@ -221,19 +222,25 @@ public class TATomatoListActivity extends Activity
 
 	public static Intent getLauncherIntent(Context context, String projectName)
 	{
-		return getLauncherIntent(context, projectName, false);
+		return getLauncherIntent(context, projectName, 0, null);
 	}
 
 	public static Intent getLauncherIntentForPast24Hours(Context context)
 	{
-		return getLauncherIntent(context, NAME_PRESENTING_ALL_PROJECTS, true);
+		return getLauncherIntent(context, NAME_PRESENTING_ALL_PROJECTS, 24, context.getString(R.string.past_24_hours));
 	}
 
-	private static Intent getLauncherIntent(Context context, String projectName, boolean onlyPast24Hours)
+	public static Intent getLauncherIntentForPast7Days(Context context)
+	{
+		return getLauncherIntent(context, NAME_PRESENTING_ALL_PROJECTS, 24 * 7, context.getString(R.string.past_7_days));
+	}
+
+	private static Intent getLauncherIntent(Context context, String projectName, int hoursWithin, String title)
 	{
 		Intent intent = new Intent(context, TATomatoListActivity.class);
 		intent.putExtra(TAG_PROJECT_NAME, projectName);
-		intent.putExtra(TAG_ONLY_PAST_24_HOURS, onlyPast24Hours);
+		intent.putExtra(TAG_WITHIN_HOURS, hoursWithin);
+		intent.putExtra(TAG_TITLE, title);
 		return intent;
 	}
 
@@ -253,13 +260,12 @@ public class TATomatoListActivity extends Activity
 		}
 
 		List<TATomato> list = null;
-		boolean forAllProjectsIn24Hours = false;
 		if (isActivityForMultiProjects())
 		{
-			forAllProjectsIn24Hours = getIntent().getBooleanExtra(TAG_ONLY_PAST_24_HOURS, false);
-			if (forAllProjectsIn24Hours)
+			int withInHours = getIntent().getIntExtra(TAG_WITHIN_HOURS, 0);
+			if (withInHours > 0)
 			{
-				list = TADataCenter.getAllReverseTomatosWithin24Hours(this);
+				list = TADataCenter.getAllReverseTomatosWithin24Hours(this, withInHours);
 			}
 			else
 			{
@@ -282,13 +288,14 @@ public class TATomatoListActivity extends Activity
 		lv.setAdapter(adapter);
 		TATime x = TADataCenter.getAccumulateTime(this, projectName);
 
-		if (!isActivityForMultiProjects())
+		final String title = getIntent().getStringExtra(TAG_TITLE);
+		if (title != null)
+		{
+			this.setTitle(title);
+		}
+		else if (!isActivityForMultiProjects())
 		{
 			this.setTitle(projectName + "  " + getString(R.string.timeResultShort, x.hours, x.minute, x.second));
-		}
-		else if (forAllProjectsIn24Hours)
-		{
-			this.setTitle(getString(R.string.past_24_hours));
 		}
 		else
 		{

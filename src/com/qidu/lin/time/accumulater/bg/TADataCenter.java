@@ -129,16 +129,16 @@ public class TADataCenter
 		sp.edit().clear().commit();
 	}
 
-	public static List<TATomato> getAllReverseTomatosWithin24Hours(Context context)
+	public static List<TATomato> getAllReverseTomatosWithin24Hours(Context context, int withinHoursNum)
 	{
-		final int msPerDay = 1000 * 60 * 60 * 24;
+		final int msWithin = 1000 * 60 * 60 * withinHoursNum;
 		final long nt = System.currentTimeMillis();
 		String[] pns = ProjectCenter.getProjectNames(context);
 		List<TATomato> ret = new ArrayList<TATomato>();
 		for (String pn : pns)
 		{
 			long lt = getLastTime(context, pn);
-			if (nt - lt > msPerDay)
+			if (nt - lt > msWithin)
 			{
 				continue;
 			}
@@ -146,7 +146,7 @@ public class TADataCenter
 			List<TATomato> list = getReverseTomatoListForProject(context, pn);
 			for (TATomato tomato : list)
 			{
-				if (nt - tomato.startMs > msPerDay)
+				if (nt - tomato.startMs > msWithin)
 				{
 					continue;
 				}
