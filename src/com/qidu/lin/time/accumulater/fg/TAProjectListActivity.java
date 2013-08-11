@@ -37,7 +37,7 @@ import android.widget.ListView;
 import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
 
-public class TASelect extends Activity
+public class TAProjectListActivity extends Activity
 {
 	public static final String ID = "com.qidu.lin.time.accumulater.id";
 	private static final String TAG_PURPOSE = "TAG_PURPOSE";
@@ -49,7 +49,7 @@ public class TASelect extends Activity
 
 	public static Intent getProjectsIntent(Context context, ActivityPurpose purpose)
 	{
-		Intent intent = new Intent(context, TASelect.class);
+		Intent intent = new Intent(context, TAProjectListActivity.class);
 		intent.putExtra(TAG_PURPOSE, purpose.ordinal());
 		return intent;
 	}
@@ -75,8 +75,8 @@ public class TASelect extends Activity
 			{
 				if (input.getVisibility() == View.VISIBLE)
 				{
-					int id = TADataCenter.ProjectCenter.addProjectName(TASelect.this, input.getText().toString());
-					TASelect.this.onSelect(id);
+					int id = TADataCenter.ProjectCenter.addProjectName(TAProjectListActivity.this, input.getText().toString());
+					TAProjectListActivity.this.onSelect(id);
 				}
 				else
 				{
@@ -99,11 +99,11 @@ public class TASelect extends Activity
 
 				if (purpose == ActivityPurpose.select)
 				{
-					onSelect(TADataCenter.ProjectCenter.getProjectIdByName(TASelect.this, projectName));
+					onSelect(TADataCenter.ProjectCenter.getProjectIdByName(TAProjectListActivity.this, projectName));
 				}
 				else if (purpose == ActivityPurpose.manage)
 				{
-					final Context context = TASelect.this;
+					final Context context = TAProjectListActivity.this;
 
 					final int index_rename = 0;
 					final int index_delete = 1;
@@ -135,8 +135,8 @@ public class TASelect extends Activity
 												TADataCenter.ProjectCenter.changeProjectName(context, projectName, projectNameNew);
 
 												// force UI refresh
-												lv.setAdapter(new TAProjectListAdapter(TASelect.this, TADataCenter.ProjectCenter
-														.getProjectNames(TASelect.this)));
+												lv.setAdapter(new TAProjectListAdapter(TAProjectListActivity.this, TADataCenter.ProjectCenter
+														.getProjectNames(TAProjectListActivity.this)));
 											}
 										}).setNegativeButton(android.R.string.cancel, null).show();
 							}
@@ -146,8 +146,8 @@ public class TASelect extends Activity
 								TADataCenter.ProjectCenter.removeProjectName(context, projectName);
 
 								// force UI refresh
-								lv.setAdapter(new TAProjectListAdapter(TASelect.this, TADataCenter.ProjectCenter
-										.getProjectNames(TASelect.this)));
+								lv.setAdapter(new TAProjectListAdapter(TAProjectListActivity.this, TADataCenter.ProjectCenter
+										.getProjectNames(TAProjectListActivity.this)));
 							}
 						}
 					}).show();
@@ -162,7 +162,7 @@ public class TASelect extends Activity
 			{
 				TAProjectListAdapter listAdapter = (TAProjectListAdapter) lv.getAdapter();
 				final String projectName = listAdapter.getProjectName(position);
-				startActivity(new Intent(TATomatoListActivity.getLauncherIntent(TASelect.this, projectName)));
+				startActivity(new Intent(TATomatoListActivity.getLauncherIntent(TAProjectListActivity.this, projectName)));
 
 				return true;
 			}
@@ -174,6 +174,6 @@ public class TASelect extends Activity
 		Intent intent = getIntent();
 		intent.putExtra(ID, id);
 		setResult(RESULT_OK, intent);
-		TASelect.this.finish();
+		TAProjectListActivity.this.finish();
 	}
 }

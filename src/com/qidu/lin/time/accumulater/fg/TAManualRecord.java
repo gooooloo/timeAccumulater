@@ -46,7 +46,7 @@ public class TAManualRecord extends Activity
 	{
 		if (requestCode == selectdode && resultCode == Activity.RESULT_OK)
 		{
-			int id = data.getIntExtra(TASelect.ID, 0);
+			int id = data.getIntExtra(TAProjectListActivity.ID, 0);
 			projectname = TADataCenter.ProjectCenter.getProjectNameById(this, id);
 			updateUI();
 		}

@@ -56,7 +56,7 @@ public class TAProjectButton extends Button
 			@Override
 			public void onClick(View arg0)
 			{
-				activity.startActivityForResult(TASelect.getProjectsIntent(activity, TASelect.ActivityPurpose.select), electdode);
+				activity.startActivityForResult(TAProjectListActivity.getProjectsIntent(activity, TAProjectListActivity.ActivityPurpose.select), electdode);
 			}
 		});
 

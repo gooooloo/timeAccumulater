@@ -59,7 +59,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 	{
 		if (requestCode == selectdode && resultCode == Activity.RESULT_OK)
 		{
-			int projectId = data.getIntExtra(TASelect.ID, 0);
+			int projectId = data.getIntExtra(TAProjectListActivity.ID, 0);
 			int duration = data.getIntExtra(DURATION, 0);
 			long tomatoId = data.getLongExtra(TOMATO_ID, 0);
 			long beginMs = data.getLongExtra(TOMATO_BEGIN_MS, 0);
@@ -124,7 +124,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 
 	protected void onTomatoClicked(TATomato y)
 	{
-		Intent intent = TASelect.getProjectsIntent(this, TASelect.ActivityPurpose.select);
+		Intent intent = TAProjectListActivity.getProjectsIntent(this, TAProjectListActivity.ActivityPurpose.select);
 		intent.putExtra(DURATION, y.getDurationMs());
 		intent.putExtra(TOMATO_ID, y.getId());
 		intent.putExtra(TOMATO_BEGIN_MS, y.startMs);

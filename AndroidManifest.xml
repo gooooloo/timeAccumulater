@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.qidu.lin.time.accumulater.fg.TASelect"
+            android:name="com.qidu.lin.time.accumulater.fg.TAProjectListActivity"
             android:label="@string/app_name" >
         </activity>
         <activity

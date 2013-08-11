@@ -99,7 +99,7 @@ public class TAMain extends SlidingActivity
 			@Override
 			public void onClick(View arg0)
 			{
-				TAMain.this.startActivity(TASelect.getProjectsIntent(TAMain.this, TASelect.ActivityPurpose.manage));
+				TAMain.this.startActivity(TAProjectListActivity.getProjectsIntent(TAMain.this, TAProjectListActivity.ActivityPurpose.manage));
 			}
 		});
 	}
@@ -115,7 +115,7 @@ public class TAMain extends SlidingActivity
 	{
 		if (requestCode == selectdode && resultCode == Activity.RESULT_OK)
 		{
-			int id = data.getIntExtra(TASelect.ID, 0);
+			int id = data.getIntExtra(TAProjectListActivity.ID, 0);
 			TADataCenter.ProjectCenter.setLastProjectId(this, id);
 			this.updateUI();
 		}
