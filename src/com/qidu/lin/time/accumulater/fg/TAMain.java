@@ -19,9 +19,12 @@
 
 package com.qidu.lin.time.accumulater.fg;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -43,6 +46,7 @@ public class TAMain extends SlidingActivity
 		setContentView(R.layout.main);
 		setBehindContentView(R.layout.behind);
 		getSlidingMenu().setBehindOffset(400);
+		setupActionBar();
 
 		((Button) this.findViewById(R.id.btn)).setOnClickListener(new OnClickListener()
 		{
@@ -78,6 +82,12 @@ public class TAMain extends SlidingActivity
 		});
 	}
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void setupActionBar()
+	{
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
@@ -95,6 +105,17 @@ public class TAMain extends SlidingActivity
 	{
 		super.onResume();
 		this.updateUI();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		if (item.getItemId() == android.R.id.home)
+		{
+			getSlidingMenu().toggle();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void updateUI()
