@@ -121,6 +121,17 @@ public class TATomatoHistoryListActivity extends Activity
 			}
 			((TextView) v.findViewById(R.id.note)).setText(tomatoNote);
 
+			if (isActivityForMultiProjects())
+			{
+				String name = TATomatoPersistence.getProjectName(context, item.getId());
+				if (name == null)
+				{
+					name = "no project";
+				}
+				((TextView) v.findViewById(R.id.project)).setText(name);
+
+			}
+
 			Date date = new Date();
 			date.setTime(item.startMs);
 			date.setHours(0);
@@ -243,7 +254,7 @@ public class TATomatoHistoryListActivity extends Activity
 
 		List<TATomato> list = null;
 		boolean forAllProjectsIn24Hours = false;
-		if (projectName.equals(NAME_PRESENTING_ALL_PROJECTS))
+		if (isActivityForMultiProjects())
 		{
 			forAllProjectsIn24Hours = getIntent().getBooleanExtra(TAG_ONLY_PAST_24_HOURS, false);
 			if (forAllProjectsIn24Hours)
@@ -271,13 +282,16 @@ public class TATomatoHistoryListActivity extends Activity
 		lv.setAdapter(adapter);
 		TATime x = TADataCenter.getAccumulateTime(this, projectName);
 
-		if (forAllProjectsIn24Hours)
+		if (isActivityForMultiProjects())
+		{
+			this.setTitle(projectName + "  " + getString(R.string.timeResultShort, x.hours, x.minute, x.second));
+		}
+		else if (forAllProjectsIn24Hours)
 		{
 			this.setTitle(getString(R.string.past_24_hours));
 		}
 		else
 		{
-			this.setTitle(projectName + "  " + getString(R.string.timeResultShort, x.hours, x.minute, x.second));
 		}
 
 		lv.setOnItemClickListener(new OnItemClickListener()
@@ -321,6 +335,11 @@ public class TATomatoHistoryListActivity extends Activity
 
 			}
 		});
+	}
+
+	private boolean isActivityForMultiProjects()
+	{
+		return projectName.equals(NAME_PRESENTING_ALL_PROJECTS);
 	}
 
 	@Override

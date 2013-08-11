@@ -15,6 +15,8 @@ import android.widget.TimePicker;
 
 import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
+import com.qidu.lin.time.accumulater.bg.TATomato;
+import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
 
 public class TAManualRecord extends Activity
 {
@@ -34,7 +36,8 @@ public class TAManualRecord extends Activity
 		long durationMs = endMs - beginMs;
 		TADataCenter.addPastTimeToAccumulate(this, projectname, durationMs);
 		TADataCenter.saveATomato(this, projectname, beginMs, endMs);
-
+		TATomatoPersistence.saveProjectName(this, new TATomato(beginMs, endMs).getId(), projectname);
+		
 		finish();
 	}
 
