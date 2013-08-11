@@ -23,5 +23,11 @@
         android:layout_marginTop="50dp"
         android:text="@string/manual_record_time_consuming" >
     </Button>
+    <Button
+        android:id="@+id/manageproject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/managerproject" >
+    </Button>
 
 </LinearLayout>

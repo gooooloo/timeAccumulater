@@ -26,5 +26,6 @@
     <string name="past_24_hours">24小时内历史</string>
     <string name="symbol_to">" --- "</string>
     <string name="past_7_days">7天内历史</string>
+    <string name="managerproject">管理项目</string>
 
 </resources>

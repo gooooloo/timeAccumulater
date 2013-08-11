@@ -92,6 +92,16 @@ public class TAMain extends SlidingActivity
 				TAMain.this.startActivity(TATomatoListActivity.getLauncherIntentForPast7Days(TAMain.this));
 			}
 		});
+		
+		((Button) this.findViewById(R.id.manageproject)).setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View arg0)
+			{
+				TAMain.this.startActivity(new Intent(TAMain.this, TASelect.class));
+			}
+		});
 	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)

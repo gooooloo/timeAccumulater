@@ -26,5 +26,6 @@
     <string name="past_24_hours">records within 24 hours</string>
     <string name="symbol_to">" --- "</string>
     <string name="past_7_days">records within 7 days</string>
+    <string name="managerproject">manage projects</string>
 
 </resources>
