@@ -50,7 +50,7 @@ import com.qidu.lin.time.accumulater.bg.TATomato;
 import com.qidu.lin.time.accumulater.bg.TATomato.StringFilter;
 import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
 
-public class TATomatoHistoryListActivity extends Activity
+public class TATomatoListActivity extends Activity
 {
 	private static final String TAG_PROJECT_NAME = "TAG_PROJECT_NAME";
 	private static final String TAG_ONLY_PAST_24_HOURS = "TAG_ONLY_PAST_24_HOURS";
@@ -99,7 +99,7 @@ public class TATomatoHistoryListActivity extends Activity
 		{
 			View v = null;
 			TATomato item = getTomato(position);
-			Context context = TATomatoHistoryListActivity.this;
+			Context context = TATomatoListActivity.this;
 			if (convertView == null)
 			{
 				v = getLayoutInflater().inflate(R.layout.tomato, null);
@@ -231,7 +231,7 @@ public class TATomatoHistoryListActivity extends Activity
 
 	private static Intent getLauncherIntent(Context context, String projectName, boolean onlyPast24Hours)
 	{
-		Intent intent = new Intent(context, TATomatoHistoryListActivity.class);
+		Intent intent = new Intent(context, TATomatoListActivity.class);
 		intent.putExtra(TAG_PROJECT_NAME, projectName);
 		intent.putExtra(TAG_ONLY_PAST_24_HOURS, onlyPast24Hours);
 		return intent;
@@ -301,7 +301,7 @@ public class TATomatoHistoryListActivity extends Activity
 			public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
 			{
 				final long tomatoId = adapter.getTomato(position).getId();
-				final Context context = TATomatoHistoryListActivity.this;
+				final Context context = TATomatoListActivity.this;
 				final LinearLayout ll = new LinearLayout(context);
 				ll.setOrientation(LinearLayout.VERTICAL);
 				final EditText editText = new EditText(context);

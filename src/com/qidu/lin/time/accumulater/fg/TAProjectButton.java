@@ -65,7 +65,7 @@ public class TAProjectButton extends Button
 			@Override
 			public boolean onLongClick(View v)
 			{
-				activity.startActivity(TATomatoHistoryListActivity.getLauncherIntent(activity,
+				activity.startActivity(TATomatoListActivity.getLauncherIntent(activity,
 						TADataCenter.ProjectCenter.getLastProjectName(activity)));
 				return true;
 			}

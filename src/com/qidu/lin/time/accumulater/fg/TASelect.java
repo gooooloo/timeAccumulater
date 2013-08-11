@@ -109,7 +109,7 @@ public class TASelect extends Activity
 
 						if (which == index_history)
 						{
-							startActivity(new Intent(TATomatoHistoryListActivity.getLauncherIntent(TASelect.this, projectName)));
+							startActivity(new Intent(TATomatoListActivity.getLauncherIntent(TASelect.this, projectName)));
 						}
 						else if (which == index_rename)
 						{

@@ -77,7 +77,7 @@ public class TAMain extends SlidingActivity
 			@Override
 			public void onClick(View arg0)
 			{
-				TAMain.this.startActivity(TATomatoHistoryListActivity.getLauncherIntentForPast24Hours(TAMain.this));
+				TAMain.this.startActivity(TATomatoListActivity.getLauncherIntentForPast24Hours(TAMain.this));
 			}
 		});
 	}

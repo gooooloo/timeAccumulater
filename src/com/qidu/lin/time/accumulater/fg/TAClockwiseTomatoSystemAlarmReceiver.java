@@ -176,7 +176,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 				{
 					if (projectName != null)
 					{
-						startActivity(TATomatoHistoryListActivity.getLauncherIntent(TAClockwiseTomatoSystemAlarmReceiver.this, projectName));
+						startActivity(TATomatoListActivity.getLauncherIntent(TAClockwiseTomatoSystemAlarmReceiver.this, projectName));
 					}
 					return true;
 				}
