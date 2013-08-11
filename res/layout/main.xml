@@ -21,12 +21,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
     </Button>
-    <Button
-        android:layout_marginTop="50dp"
-        android:id="@+id/manualrecord"
-        android:text="@string/manual_record_time_consuming"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </Button>
 
 </LinearLayout>
