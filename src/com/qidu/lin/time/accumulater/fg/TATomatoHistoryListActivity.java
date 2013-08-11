@@ -19,7 +19,6 @@
 
 package com.qidu.lin.time.accumulater.fg;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +39,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.qidu.lin.time.accumulater.R;
@@ -272,23 +272,28 @@ public class TATomatoHistoryListActivity extends Activity
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
 			{
-				final EditText editText = new EditText(TATomatoHistoryListActivity.this);
+				final Context context = TATomatoHistoryListActivity.this;
+				final LinearLayout ll = new LinearLayout(context);
+				ll.setOrientation(LinearLayout.VERTICAL);
+				final EditText editText = new EditText(context);
 				editText.setHint(R.string.input_tomato_note_hint);
+				ll.addView(editText);
+				RatingBar ratingBar = new RatingBar(context);
+				ll.addView(ratingBar);
 				final long tomatoId = adapter.getTomato(position).getId();
-				String note = TATomatoPersistence.getTomatoNote(TATomatoHistoryListActivity.this, tomatoId);
+				String note = TATomatoPersistence.getTomatoNote(context, tomatoId);
 				if (note != null)
 				{
 					editText.setText(note);
 				}
-				new AlertDialog.Builder(TATomatoHistoryListActivity.this).setTitle(R.string.input_tomato_note_hint).setView(editText)
+				new AlertDialog.Builder(context).setTitle(R.string.input_tomato_note_hint).setView(ll)
 						.setPositiveButton(android.R.string.ok, new OnClickListener()
 						{
 
 							@Override
 							public void onClick(DialogInterface dialog, int which)
 							{
-								TATomatoPersistence.saveTomatoNote(TATomatoHistoryListActivity.this, tomatoId, editText.getText()
-										.toString());
+								TATomatoPersistence.saveTomatoNote(context, tomatoId, editText.getText().toString());
 							}
 						}).setNegativeButton(android.R.string.cancel, null).show();
 
