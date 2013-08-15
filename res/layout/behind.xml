@@ -64,4 +64,12 @@
         tools:ignore="NewApi" >
     </Button>
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="4dip"
+        android:layout_marginRight="4dip"
+        android:background="?android:attr/dividerVertical"
+        tools:ignore="NewApi" />
+
 </LinearLayout>
