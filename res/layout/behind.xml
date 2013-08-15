@@ -1,34 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:background="@android:color/background_light"
     android:layout_height="fill_parent"
+    android:background="@android:color/background_light"
     android:orientation="vertical" >
 
     <Button
         android:id="@+id/past24"
-        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/past_24_hours" />
+        android:text="@string/past_24_hours"
+        tools:ignore="NewApi" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="4dip"
+        android:layout_marginRight="4dip"
+        android:background="?android:attr/dividerVertical"
+        tools:ignore="NewApi" />
 
     <Button
         android:id="@+id/past7days"
-        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/past_7_days" />
+        android:text="@string/past_7_days"
+        tools:ignore="NewApi" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="4dip"
+        android:layout_marginRight="4dip"
+        android:background="?android:attr/dividerVertical"
+        tools:ignore="NewApi" />
 
     <Button
         android:id="@+id/manualrecord"
-        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/manual_record_time_consuming" >
+        android:text="@string/manual_record_time_consuming"
+        tools:ignore="NewApi" >
     </Button>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="4dip"
+        android:layout_marginRight="4dip"
+        android:background="?android:attr/dividerVertical"
+        tools:ignore="NewApi" />
+
     <Button
         android:id="@+id/manageproject"
-        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/managerproject" >
+        android:text="@string/managerproject"
+        tools:ignore="NewApi" >
     </Button>
 
 </LinearLayout>
