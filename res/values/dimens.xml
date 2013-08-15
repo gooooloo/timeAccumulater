@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="tomato_start_end_time_textsize">35sp</dimen>
+    <dimen name="project_name_textsize">24sp</dimen>
     
 </resources>

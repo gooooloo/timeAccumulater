@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 
     <Button
         android:id="@+id/add"
-        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/newProject" >
+        android:text="@string/newProject"
+        android:textColor="@color/colorForOff"
+        android:textSize="@dimen/project_name_textsize"
+        tools:ignore="NewApi" >
     </Button>
 
-    <EditText
+    <View
+        android:id="@+id/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
         android:layout_below="@id/add"
+        android:layout_marginLeft="4dip"
+        android:layout_marginRight="4dip"
+        android:background="?android:attr/dividerVertical"
+        tools:ignore="NewApi" />
+
+    <EditText
         android:id="@+id/input"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_below="@id/divider"
         android:hint="@string/inputHint"
         android:visibility="gone" >
     </EditText>
