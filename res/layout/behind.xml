@@ -14,13 +14,7 @@
         android:text="@string/past_24_hours"
         tools:ignore="NewApi" />
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:layout_marginLeft="4dip"
-        android:layout_marginRight="4dip"
-        android:background="?android:attr/dividerVertical"
-        tools:ignore="NewApi" />
+    <include layout="@layout/divider" />
 
     <Button
         android:id="@+id/past7days"
@@ -29,6 +23,8 @@
         android:layout_height="wrap_content"
         android:text="@string/past_7_days"
         tools:ignore="NewApi" />
+
+    <include layout="@layout/divider" />
 
     <View
         android:layout_width="fill_parent"
@@ -47,13 +43,7 @@
         tools:ignore="NewApi" >
     </Button>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:layout_marginLeft="4dip"
-        android:layout_marginRight="4dip"
-        android:background="?android:attr/dividerVertical"
-        tools:ignore="NewApi" />
+    <include layout="@layout/divider" />
 
     <Button
         android:id="@+id/manageproject"
@@ -64,12 +54,6 @@
         tools:ignore="NewApi" >
     </Button>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:layout_marginLeft="4dip"
-        android:layout_marginRight="4dip"
-        android:background="?android:attr/dividerVertical"
-        tools:ignore="NewApi" />
+    <include layout="@layout/divider" />
 
 </LinearLayout>
