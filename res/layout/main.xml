@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
     <com.qidu.lin.time.accumulater.fg.TAProjectButton
         android:id="@+id/project"
-        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/chooseProject" >
+        android:gravity="left|center_vertical"
+        android:text="@string/chooseProject"
+        tools:ignore="NewApi" >
     </com.qidu.lin.time.accumulater.fg.TAProjectButton>
 
-    <TextView
+    <include layout="@layout/divider" />
+
+    <Button
         android:id="@+id/tv"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        tools:ignore="NewApi" />
+
+    <include layout="@layout/divider" />
 
     <Button
         android:id="@+id/btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        tools:ignore="NewApi" >
     </Button>
+
+    <include layout="@layout/divider" />
 
 </LinearLayout>
