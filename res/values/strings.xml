@@ -2,9 +2,9 @@
 <resources>
 
     <string name="app_name">DiDaDiDa</string>
-    <string name="newProject">create new project</string>
+    <string name="newProject">+create new project</string>
     <string name="inputHint">input name here</string>
-    <string name="chooseProject">(click to choose other project, long click to see project history)</string>
+    <string name="chooseProject">(click to choose, long click to see history)</string>
     <string name="setTimerOff">set timer off</string>
     <string name="setTimerOn">set timer on</string>
     <string name="timeResult">time accumulated : %1$dhours %2$dminutes %3$dseconds</string>

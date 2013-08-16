@@ -2,9 +2,9 @@
 <resources>
 
     <string name="app_name">时间随手记</string>
-    <string name="newProject">新建项目</string>
+    <string name="newProject">+新建项目</string>
     <string name="inputHint">请输入名称</string>
-    <string name="chooseProject">（点击可选择其他项目，长按可看项目历史）</string>
+    <string name="chooseProject">（点击选择，长按看历史）</string>
     <string name="setTimerOff">停止计时</string>
     <string name="setTimerOn">继续计时</string>
     <string name="timeResult">累计时间：%1$d小时%2$d分%3$d秒</string>
