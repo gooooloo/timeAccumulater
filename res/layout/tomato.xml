@@ -3,93 +3,111 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:visibility="gone" >
 
-    <TextView
-        android:id="@+id/start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/date"
-        android:textSize="@dimen/tomato_start_end_time_textsize" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="test" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/to"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/start"
-        android:layout_toRightOf="@id/start"
-        android:text="@string/symbol_to" />
+    <RelativeLayout
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/start"
-        android:layout_toRightOf="@id/to"
-        android:textSize="@dimen/tomato_start_end_time_textsize" />
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
 
-    <TextView
-        android:id="@+id/duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center_vertical" />
+        <TextView
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/date"
+            android:textSize="@dimen/tomato_start_end_time_textsize" />
 
-    <TextView
-        android:id="@+id/project"
-        android:paddingLeft="12dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/date" />
+        <TextView
+            android:id="@+id/to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/start"
+            android:layout_toRightOf="@id/start"
+            android:text="@string/symbol_to" />
 
-    <TextView
-        android:id="@+id/note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/start" />
+        <TextView
+            android:id="@+id/end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/start"
+            android:layout_toRightOf="@id/to"
+            android:textSize="@dimen/tomato_start_end_time_textsize" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_alignBottom="@id/date"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical" />
 
-        <View
-            android:id="@+id/pastInDay"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent" >
-        </View>
+        <TextView
+            android:id="@+id/project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/date"
+            android:paddingLeft="12dp" />
 
-        <View
-            android:id="@+id/nowInDay"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:background="@android:color/darker_gray" >
-        </View>
+        <TextView
+            android:id="@+id/note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/start" />
 
-        <View
-            android:id="@+id/futureInDay"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent" >
-        </View>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@id/date"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal" >
 
-    <RatingBar
-        android:id="@+id/rating"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:isIndicator="true" />
+            <View
+                android:id="@+id/pastInDay"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent" >
+            </View>
+
+            <View
+                android:id="@+id/nowInDay"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@android:color/darker_gray" >
+            </View>
+
+            <View
+                android:id="@+id/futureInDay"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent" >
+            </View>
+        </LinearLayout>
+
+        <RatingBar
+            android:id="@+id/rating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:isIndicator="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

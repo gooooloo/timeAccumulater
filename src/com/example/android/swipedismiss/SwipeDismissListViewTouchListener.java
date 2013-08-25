@@ -121,22 +121,10 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener
 	 */
 	public interface DismissCallbacks
 	{
-		/**
-		 * Called to determine whether the given position can be dismissed.
-		 */
-		boolean canDismiss(int position);
 
-		/**
-		 * Called when the user has indicated they she would like to dismiss one
-		 * or more list item positions.
-		 * 
-		 * @param listView
-		 *            The originating {@link ListView}.
-		 * @param reverseSortedPositions
-		 *            An array of positions to dismiss, sorted in descending
-		 *            order for convenience.
-		 */
-		void onDismiss(ListView listView, int[] reverseSortedPositions);
+		void onSwiping(View mDownView, int viewWidth, float deltaX);
+
+		void onSwipeDone(View mDownView, int mViewWidth, long mAnimationTime);
 	}
 
 	/**
@@ -241,15 +229,8 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener
 			{
 				mDownX = motionEvent.getRawX();
 				mDownPosition = mListView.getPositionForView(mDownView);
-				if (mCallbacks.canDismiss(mDownPosition))
-				{
-					mVelocityTracker = VelocityTracker.obtain();
-					mVelocityTracker.addMovement(motionEvent);
-				}
-				else
-				{
-					mDownView = null;
-				}
+				mVelocityTracker = VelocityTracker.obtain();
+				mVelocityTracker.addMovement(motionEvent);
 			}
 			view.onTouchEvent(motionEvent);
 			return true;
@@ -269,34 +250,18 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener
 			float absVelocityX = Math.abs(velocityX);
 			float absVelocityY = Math.abs(mVelocityTracker.getYVelocity());
 			boolean dismiss = false;
-			boolean dismissRight = false;
-			if (Math.abs(deltaX) > mViewWidth / 2)
+			if (Math.abs(deltaX) > mViewWidth / 3)
 			{
 				dismiss = true;
-				dismissRight = deltaX > 0;
 			}
 			else if (mMinFlingVelocity <= absVelocityX && absVelocityX <= mMaxFlingVelocity && absVelocityY < absVelocityX)
 			{
 				// dismiss only if flinging in the same direction as dragging
 				dismiss = (velocityX < 0) == (deltaX < 0);
-				dismissRight = mVelocityTracker.getXVelocity() > 0;
 			}
 			if (dismiss)
 			{
-				// dismiss
-				final View downView = mDownView; // mDownView gets null'd before
-													// animation ends
-				final int downPosition = mDownPosition;
-				++mDismissAnimationRefCount;
-				mDownView.animate().translationX(dismissRight ? mViewWidth : -mViewWidth).alpha(0).setDuration(mAnimationTime)
-						.setListener(new AnimatorListenerAdapter()
-						{
-							@Override
-							public void onAnimationEnd(Animator animation)
-							{
-								performDismiss(downView, downPosition);
-							}
-						});
+				mCallbacks.onSwipeDone(mDownView, mViewWidth, mAnimationTime);
 			}
 			else
 			{
@@ -335,8 +300,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener
 
 			if (mSwiping)
 			{
-				mDownView.setTranslationX(deltaX);
-				mDownView.setAlpha(Math.max(0f, Math.min(1f, 1f - 2f * Math.abs(deltaX) / mViewWidth)));
+				mCallbacks.onSwiping(mDownView, mViewWidth, deltaX);
 				return true;
 			}
 			break;
@@ -395,7 +359,6 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener
 					{
 						dismissPositions[i] = mPendingDismisses.get(i).position;
 					}
-					mCallbacks.onDismiss(mListView, dismissPositions);
 
 					ViewGroup.LayoutParams lp;
 					for (PendingDismissData pendingDismiss : mPendingDismisses)
@@ -423,7 +386,8 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener
 			}
 		});
 
-		mPendingDismisses.add(new PendingDismissData(dismissPosition, dismissView));
-		animator.start();
+		// mPendingDismisses.add(new PendingDismissData(dismissPosition,
+		// dismissView));
+		// animator.start();
 	}
 }

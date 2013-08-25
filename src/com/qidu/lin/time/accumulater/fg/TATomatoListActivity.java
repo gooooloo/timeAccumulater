@@ -20,8 +20,11 @@
 package com.qidu.lin.time.accumulater.fg;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -29,6 +32,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -43,6 +47,7 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.android.swipedismiss.SwipeDismissListViewTouchListener;
 import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
 import com.qidu.lin.time.accumulater.bg.TATime;
@@ -342,6 +347,54 @@ public class TATomatoListActivity extends Activity
 
 			}
 		});
+
+		SwipeDismissListViewTouchListener touchListener = new SwipeDismissListViewTouchListener(lv,
+				new SwipeDismissListViewTouchListener.DismissCallbacks()
+				{
+					View swipedView = null;
+					boolean done = false;
+
+					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
+					@Override
+					public void onSwiping(View mDownView, int viewWidth, float deltaX)
+					{
+						// mDownView.findViewById(R.id.edit).setVisibility(View.VISIBLE);
+						// mDownView.findViewById(R.id.info).setTranslationX(deltaX);
+						// mDownView.findViewById(R.id.edit).setAlpha(1 -
+						// Math.max(0f, Math.min(1f, 1f - 2f * Math.abs(deltaX)
+						// / viewWidth)));
+					}
+
+					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
+					@Override
+					public void onSwipeDone(View mDownView, int mViewWidth, long mAnimationTime)
+					{
+						if (swipedView != null && swipedView != mDownView)
+						{
+							swipedView.findViewById(R.id.info).animate().translationX(0).alpha(1).setDuration(mAnimationTime)
+									.setListener(null);
+							swipedView.findViewById(R.id.edit).setVisibility(View.GONE);
+							swipedView = null;
+						}
+
+						if ((swipedView == mDownView))
+						{
+							mDownView.findViewById(R.id.info).animate().translationX(0).alpha(1).setDuration(mAnimationTime)
+									.setListener(null);
+							mDownView.findViewById(R.id.edit).setVisibility(View.GONE);
+							swipedView = null;
+						}
+						else
+						{
+							mDownView.findViewById(R.id.info).animate().translationX(mViewWidth / 2).alpha(1).setDuration(mAnimationTime)
+									.setListener(null);
+							mDownView.findViewById(R.id.edit).setVisibility(View.VISIBLE);
+							swipedView = mDownView;
+						}
+					}
+				});
+		lv.setOnTouchListener(touchListener);
+		lv.setOnScrollListener(touchListener.makeScrollListener());
 	}
 
 	private boolean isActivityForMultiProjects()
