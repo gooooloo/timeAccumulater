@@ -386,7 +386,7 @@ public class TATomatoListActivity extends Activity
 						}
 						else
 						{
-							mDownView.findViewById(R.id.info).animate().translationX(mViewWidth / 2).alpha(1).setDuration(mAnimationTime)
+							mDownView.findViewById(R.id.info).animate().translationX(mViewWidth * 3/ 4).alpha(1).setDuration(mAnimationTime)
 									.setListener(null);
 							mDownView.findViewById(R.id.edit).setVisibility(View.VISIBLE);
 							swipedView = mDownView;
