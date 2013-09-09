@@ -359,11 +359,10 @@ public class TATomatoListActivity extends Activity
 					@Override
 					public void onSwiping(View mDownView, int viewWidth, float deltaX)
 					{
-						// mDownView.findViewById(R.id.edit).setVisibility(View.VISIBLE);
-						 mDownView.findViewById(R.id.info).setTranslationX(swipedX + deltaX);
-						// mDownView.findViewById(R.id.edit).setAlpha(1 -
-						// Math.max(0f, Math.min(1f, 1f - 2f * Math.abs(deltaX)
-						// / viewWidth)));
+						mDownView.findViewById(R.id.edit).setVisibility(View.VISIBLE);
+						mDownView.findViewById(R.id.info).setTranslationX(swipedX + deltaX);
+						final float tmpAlpha = Math.max(0f, Math.min(1f, 1f - 2f * Math.abs(deltaX) / viewWidth));
+						mDownView.findViewById(R.id.edit).setAlpha(swipedView == null ? 1 - tmpAlpha : tmpAlpha);
 					}
 
 					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
@@ -389,7 +388,7 @@ public class TATomatoListActivity extends Activity
 						}
 						else
 						{
-							final int translationX = mViewWidth * 3/ 4;
+							final int translationX = mViewWidth * 3 / 4;
 							mDownView.findViewById(R.id.info).animate().translationX(translationX).alpha(1).setDuration(mAnimationTime)
 									.setListener(null);
 							mDownView.findViewById(R.id.edit).setVisibility(View.VISIBLE);
