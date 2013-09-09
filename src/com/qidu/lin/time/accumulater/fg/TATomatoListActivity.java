@@ -352,6 +352,7 @@ public class TATomatoListActivity extends Activity
 				new SwipeDismissListViewTouchListener.DismissCallbacks()
 				{
 					View swipedView = null;
+					float swipedX = 0.0f;
 					boolean done = false;
 
 					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
@@ -359,7 +360,7 @@ public class TATomatoListActivity extends Activity
 					public void onSwiping(View mDownView, int viewWidth, float deltaX)
 					{
 						// mDownView.findViewById(R.id.edit).setVisibility(View.VISIBLE);
-						// mDownView.findViewById(R.id.info).setTranslationX(deltaX);
+						 mDownView.findViewById(R.id.info).setTranslationX(swipedX + deltaX);
 						// mDownView.findViewById(R.id.edit).setAlpha(1 -
 						// Math.max(0f, Math.min(1f, 1f - 2f * Math.abs(deltaX)
 						// / viewWidth)));
@@ -375,6 +376,7 @@ public class TATomatoListActivity extends Activity
 									.setListener(null);
 							swipedView.findViewById(R.id.edit).setVisibility(View.GONE);
 							swipedView = null;
+							swipedX = 0.0f;
 						}
 
 						if ((swipedView == mDownView))
@@ -383,13 +385,16 @@ public class TATomatoListActivity extends Activity
 									.setListener(null);
 							mDownView.findViewById(R.id.edit).setVisibility(View.GONE);
 							swipedView = null;
+							swipedX = 0.0f;
 						}
 						else
 						{
-							mDownView.findViewById(R.id.info).animate().translationX(mViewWidth * 3/ 4).alpha(1).setDuration(mAnimationTime)
+							final int translationX = mViewWidth * 3/ 4;
+							mDownView.findViewById(R.id.info).animate().translationX(translationX).alpha(1).setDuration(mAnimationTime)
 									.setListener(null);
 							mDownView.findViewById(R.id.edit).setVisibility(View.VISIBLE);
 							swipedView = mDownView;
+							swipedX = translationX;
 						}
 					}
 				});
