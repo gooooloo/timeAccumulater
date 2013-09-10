@@ -250,7 +250,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener
 			float absVelocityX = Math.abs(velocityX);
 			float absVelocityY = Math.abs(mVelocityTracker.getYVelocity());
 			boolean dismiss = false;
-			if (Math.abs(deltaX) > mViewWidth / 3)
+			if (Math.abs(deltaX) > mViewWidth / 5)
 			{
 				dismiss = true;
 			}

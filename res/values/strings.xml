@@ -27,5 +27,7 @@
     <string name="symbol_to">" --- "</string>
     <string name="past_7_days">records within 7 days</string>
     <string name="managerproject">manage projects</string>
+    <string name="rating">rating</string>
+    <string name="note">note</string>
 
 </resources>

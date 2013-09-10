@@ -27,5 +27,7 @@
     <string name="symbol_to">" --- "</string>
     <string name="past_7_days">7天内历史</string>
     <string name="managerproject">管理项目</string>
+    <string name="rating">评分</string>
+    <string name="note">备注</string>
 
 </resources>

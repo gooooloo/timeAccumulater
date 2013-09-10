@@ -388,7 +388,7 @@ public class TATomatoListActivity extends Activity
 						}
 						else
 						{
-							final int translationX = mViewWidth * 3 / 4;
+							final int translationX = mViewWidth / 2;
 							mDownView.findViewById(R.id.info).animate().translationX(translationX).alpha(1).setDuration(mAnimationTime)
 									.setListener(null);
 							mDownView.findViewById(R.id.edit).setVisibility(View.VISIBLE);

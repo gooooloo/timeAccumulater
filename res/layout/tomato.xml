@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/edit"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
         android:visibility="gone" >
 
-        <RatingBar
+        <Button
+            android:id="@+id/ratingddit"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
-            android:numStars="5"
-            android:stepSize="1.0"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+            android:layout_gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:text="@string/rating"
+            tools:ignore="NewApi" />
+
+        <include layout="@layout/divider_horizen" />
+
+        <Button
+            android:id="@+id/noteedit"
+            android:gravity="center_vertical"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/note"
+            tools:ignore="NewApi" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/info"
-        android:background="@android:color/background_light"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_light" >
 
         <TextView
             android:id="@+id/date"
