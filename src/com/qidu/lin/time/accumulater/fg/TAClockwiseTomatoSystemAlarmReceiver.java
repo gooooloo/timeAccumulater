@@ -19,7 +19,6 @@
 package com.qidu.lin.time.accumulater.fg;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
@@ -37,8 +36,8 @@ import com.qidu.lin.time.accumulater.bg.DataSource;
 import com.qidu.lin.time.accumulater.bg.FilterRules;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
 import com.qidu.lin.time.accumulater.bg.TATomato;
-import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
 import com.qidu.lin.time.accumulater.bg.TATomato.StringFilter;
+import com.qidu.lin.time.accumulater.bg.TATomatoPersistence;
 import com.qidu.lin.time.accumulater.bg.parser.TA3rdPartyRecordParser;
 import com.qidu.lin.time.accumulater.bg.parser.TA3rdPartyRecordParser.TomatoListReverseWithSource;
 
