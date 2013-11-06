@@ -18,6 +18,8 @@
  */
 package com.qidu.lin.time.accumulater.fg;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
@@ -93,8 +95,16 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		}
 		tomatoListReverse = data.tomatoListReverse;
 		source = data.source;
+		
+		setupFilterRulesByDefault();
 
 		updateUI();
+	}
+
+	private void setupFilterRulesByDefault()
+	{
+		filterRules.unaccumalatedOnly = true;
+		filterRules.within2DaysOnly = true;
 	}
 
 	@Override
@@ -110,11 +120,11 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		switch (item.getItemId())
 		{
 		case R.id.menu_unaccumulatedOnly:
-			filterRules.unaccumalatedOnly = true;
+			filterRules.unaccumalatedOnly = !filterRules.unaccumalatedOnly;
 			updateUI();
 			break;
 		case R.id.menu_within2daysonly:
-			filterRules.within2DaysOnly = true;
+			filterRules.within2DaysOnly = !filterRules.within2DaysOnly;
 			updateUI();
 			break;
 		}
@@ -138,10 +148,12 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		ViewGroup root = (ViewGroup) findViewById(R.id.root);
 		root.removeAllViews();
 
-		filterRules.applyToTomatoList(this, tomatoListReverse);
+		List<TATomato> tomatoListToShow = new ArrayList<TATomato>();
+		tomatoListToShow.addAll(tomatoListReverse);
+		filterRules.applyToTomatoList(this, tomatoListToShow);
 
-		int index = tomatoListReverse.size();
-		for (final TATomato y : tomatoListReverse)
+		int index = tomatoListToShow.size();
+		for (final TATomato y : tomatoListToShow)
 		{
 			Button btn = new Button(this);
 			final String projectName = TATomatoPersistence.getProjectName(this, y.getId());
