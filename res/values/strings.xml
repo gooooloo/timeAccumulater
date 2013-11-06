@@ -29,5 +29,9 @@
     <string name="managerproject">manage projects</string>
     <string name="rating">rating</string>
     <string name="note">note</string>
+    <string name="no_unaccumalated_item_within_2_days">no unaccumulated item within 2 days.</string>
+    <string name="no_item_within_2_days">no item within 2 days.</string>
+    <string name="no_unaccumalated_item">no unaccumulated item.</string>
+    <string name="no_item">no item.</string>
 
 </resources>

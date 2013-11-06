@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qidu.lin.time.accumulater.R;
@@ -94,7 +95,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		}
 		tomatoListReverse = data.tomatoListReverse;
 		source = data.source;
-		
+
 		setupFilterRulesByDefault();
 
 		updateUI();
@@ -150,6 +151,32 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		List<TATomato> tomatoListToShow = new ArrayList<TATomato>();
 		tomatoListToShow.addAll(tomatoListReverse);
 		filterRules.applyToTomatoList(this, tomatoListToShow);
+
+		if (tomatoListToShow.isEmpty())
+		{
+			int stringId = 0;
+			if (filterRules.within2DaysOnly && filterRules.unaccumalatedOnly)
+			{
+				stringId = (R.string.no_unaccumalated_item_within_2_days);
+			}
+			else if (filterRules.within2DaysOnly)
+			{
+				stringId = (R.string.no_item_within_2_days);
+			}
+			else if (filterRules.unaccumalatedOnly)
+			{
+				stringId = (R.string.no_unaccumalated_item);
+			}
+			else
+			{
+				stringId = (R.string.no_item);
+			}
+
+			TextView tv = new TextView(this);
+			tv.setText(stringId);
+			root.addView(tv);
+			return;
+		}
 
 		int index = tomatoListToShow.size();
 		for (final TATomato y : tomatoListToShow)
