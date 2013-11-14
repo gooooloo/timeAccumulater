@@ -1,0 +1,8 @@
+Sorry there is only Chinese version for this document right now.
+
+按照优先级:
+1. 递归设计。
+2. 顺手。
+	2.1 跨平台操作要顺手。
+	2.2 单手操作要顺手。
+3. 轻快简洁。包括配色方案。
