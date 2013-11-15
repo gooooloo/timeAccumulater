@@ -19,40 +19,32 @@
 package com.qidu.lin.time.accumulater.fg;
 
 import android.app.Activity;
-import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
 
-final class TAProjectListAdapter implements ListAdapter
+final class TAProjectListAdapter extends BaseAdapter
 {
-	private final String[] names;
+	private String[] names = {};
 	private final Activity activity;
 	private int colorForOn;
 	private int colorForOff;
 
-	TAProjectListAdapter(Activity context, String[] names)
+	TAProjectListAdapter(Activity context)
 	{
 		this.activity = context;
-		this.names = names;
 		colorForOn = activity.getResources().getColor(R.color.colorForOn);
 		colorForOff = activity.getResources().getColor(R.color.colorForOff);
 	}
 
-	@Override
-	public void unregisterDataSetObserver(DataSetObserver observer)
+	public void setItems(String[] names)
 	{
-
-	}
-
-	@Override
-	public void registerDataSetObserver(DataSetObserver observer)
-	{
-
+		this.names = names;
+		this.notifyDataSetChanged();
 	}
 
 	@Override

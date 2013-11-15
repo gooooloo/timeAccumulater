@@ -88,7 +88,9 @@ public class TAProjectListActivity extends Activity
 		});
 
 		final ListView lv = (ListView) findViewById(R.id.listView);
-		lv.setAdapter(new TAProjectListAdapter(this, TADataCenter.ProjectCenter.getProjectNames(this)));
+		final TAProjectListAdapter adapter = new TAProjectListAdapter(this);
+		adapter.setItems(TADataCenter.ProjectCenter.getProjectNames(TAProjectListActivity.this));
+		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(new OnItemClickListener()
 		{
 			@Override
@@ -134,9 +136,7 @@ public class TAProjectListActivity extends Activity
 												TADataCenter.moveAllTomatoToAnotherProject(context, projectName, projectNameNew);
 												TADataCenter.ProjectCenter.changeProjectName(context, projectName, projectNameNew);
 
-												// force UI refresh
-												lv.setAdapter(new TAProjectListAdapter(TAProjectListActivity.this, TADataCenter.ProjectCenter
-														.getProjectNames(TAProjectListActivity.this)));
+												adapter.setItems(TADataCenter.ProjectCenter.getProjectNames(TAProjectListActivity.this));
 											}
 										}).setNegativeButton(android.R.string.cancel, null).show();
 							}
@@ -145,9 +145,7 @@ public class TAProjectListActivity extends Activity
 								TADataCenter.deleteAllTomatoForProject(context, projectName);
 								TADataCenter.ProjectCenter.removeProjectName(context, projectName);
 
-								// force UI refresh
-								lv.setAdapter(new TAProjectListAdapter(TAProjectListActivity.this, TADataCenter.ProjectCenter
-										.getProjectNames(TAProjectListActivity.this)));
+								adapter.setItems(TADataCenter.ProjectCenter.getProjectNames(TAProjectListActivity.this));
 							}
 						}
 					}).show();
