@@ -69,7 +69,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 			int source = data.getIntExtra(TOMATO_SOURCE, 0);
 			String projectName = TADataCenter.ProjectCenter.getProjectNameById(this, projectId);
 			TADataCenter.addPastTimeToAccumulate(this, projectName, duration);
-			TADataCenter.saveATomato(this, projectName, beginMs, endMs);
+			TADataCenter.setATomato(this, projectName, beginMs, endMs);
 			TATomatoPersistence.saveProjectName(this, tomatoId, projectName);
 			TATomatoPersistence.saveTomatoNote(this, tomatoId, source == DataSource.ClockwiseTomato.ordinal() ? "tomato"
 					: source == DataSource.SystemAlarm.ordinal() ? "alarm" : "");

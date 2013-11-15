@@ -35,7 +35,7 @@ public class TAManualRecord extends Activity
 		long endMs = end.getTimeInMillis();
 		long durationMs = endMs - beginMs;
 		TADataCenter.addPastTimeToAccumulate(this, projectname, durationMs);
-		TADataCenter.saveATomato(this, projectname, beginMs, endMs);
+		TADataCenter.setATomato(this, projectname, beginMs, endMs);
 		TATomatoPersistence.saveProjectName(this, new TATomato(beginMs, endMs).getId(), projectname);
 		
 		finish();

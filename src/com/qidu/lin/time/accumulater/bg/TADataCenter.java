@@ -24,25 +24,15 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 
 public class TADataCenter
 {
-	private static final String TAG_IS_TIME_COMSUMING_FLAG = "com.qidu.lin.timeAccumulate.TAG_IS_TIME_COMSUMING_FLAG";
-	private static final String TAG_TIME_ACCUMULATE = "com.qidu.lin.timeAccumulate.TAG_TIME_ACCUMULATE";
-	private static final String TAG_LAST_TOGGLE_TIME = "com.qidu.lin.timeAccumulate.TAG_LAST_TOGGLE_TIME";
-	private static final String TAG_TOMATO_COUNT = "com.qidu.lin.timeAccumulate.TAG_TOMATO_COUNT";
-	private static final String TAG_TOMATO_INDEX_BEGIN_KEY = "com.qidu.lin.timeAccumulate.TAG_TOMATO_INDEX_BEGIN_KEY_";
-	private static final String TAG_TOMATO_INDEX_END_KEY = "com.qidu.lin.timeAccumulate.TAG_TOMATO_INDEX_END_KEY_";
-
 	public static boolean getOnFlag(Context context, String projectName)
 	{
-
-		return TADataCenter.getProjectSP(context, projectName).getBoolean(TAG_IS_TIME_COMSUMING_FLAG, false);
+		return TATomatoPersistence.loadOnFlag(context, projectName);
 	}
 
 	public static void Toggle(Context context, String projectName)
@@ -56,7 +46,7 @@ public class TADataCenter
 			long startTimeMs = getLastTime(context, projectName);
 			long durationTimeMs = endTimeMs - startTimeMs;
 			addPastTimeToAccumulate(context, projectName, durationTimeMs);
-			saveATomato(context, projectName, startTimeMs, endTimeMs);
+			setATomato(context, projectName, startTimeMs, endTimeMs);
 			TATomatoPersistence.saveProjectName(context, new TATomato(startTimeMs, endTimeMs).getId(), projectName);
 		}
 		setLastTime(context, projectName, endTimeMs);
@@ -64,70 +54,19 @@ public class TADataCenter
 
 	}
 
-	public static void saveATomato(Context context, String projectName, long beginMs, long endMs)
+	public static void setATomato(Context context, String projectName, long beginMs, long endMs)
 	{
-		SharedPreferences sp = getProjectSP(context, projectName);
-		int tomatoCnt = sp.getInt(TAG_TOMATO_COUNT, 0) + 1;
-		int tomatoIndex = tomatoCnt;
-		Editor edit = sp.edit();
-		edit.putInt(TAG_TOMATO_COUNT, tomatoCnt);
-		edit.putLong(getTomatoBeginKey(tomatoIndex), beginMs);
-		edit.putLong(getTomatoEndKey(tomatoIndex), endMs);
-		edit.commit();
-	}
-
-	private static String getTomatoEndKey(int tomatoIndex)
-	{
-		return TAG_TOMATO_INDEX_END_KEY + tomatoIndex;
-	}
-
-	private static String getTomatoBeginKey(int tomatoIndex)
-	{
-		return TAG_TOMATO_INDEX_BEGIN_KEY + tomatoIndex;
+		TATomatoPersistence.saveATomato(context, projectName, beginMs, endMs);
 	}
 
 	public static void moveAllTomatoToAnotherProject(Context context, String projectNameSrc, String projectNameDesc)
 	{
-		SharedPreferences spSrc = getProjectSP(context, projectNameSrc);
-		SharedPreferences spDesc = getProjectSP(context, projectNameDesc);
-		Editor editDesc = spDesc.edit();
-
-		for (Map.Entry<String, ?> each : ((Map<String, ?>) spSrc.getAll()).entrySet())
-		{
-			String key = each.getKey();
-			Object value = each.getValue();
-
-			if (value instanceof String)
-			{
-				editDesc.putString(key, (String) value);
-			}
-			else if (value instanceof Long)
-			{
-				editDesc.putLong(key, (Long) value);
-			}
-			else if (value instanceof Integer)
-			{
-				editDesc.putInt(key, (Integer) value);
-			}
-			else if (value instanceof Boolean)
-			{
-				editDesc.putBoolean(key, (Boolean) value);
-			}
-			else if (value instanceof Float)
-			{
-				editDesc.putFloat(key, (Float) value);
-			}
-		}
-
-		editDesc.commit();
-
-		spSrc.edit().clear().commit();
+		TATomatoPersistence.moveAllTomatoToAnotherProject(context, projectNameSrc, projectNameDesc);
 	}
 
 	public static void deleteAllTomatoForProject(Context context, String projectName)
 	{
-		SharedPreferences sp = getProjectSP(context, projectName);
-		sp.edit().clear().commit();
+		TATomatoPersistence.deleteAllTomatoForProject(context, projectName);
 	}
 
 	public static List<TATomato> getAllReverseTomatosWithinHours(Context context, int withinHoursNum)
@@ -170,27 +109,7 @@ public class TADataCenter
 
 	public static List<TATomato> getReverseTomatoListForProject(Context context, String projectName)
 	{
-		SharedPreferences sp = getProjectSP(context, projectName);
-		int tomatoCount = sp.getInt(TAG_TOMATO_COUNT, 0);
-		if (tomatoCount <= 0)
-		{
-			return null;
-		}
-
-		ArrayList<TATomato> list = new ArrayList<TATomato>();
-		for (int i = tomatoCount; i >= 1; i--)
-		{
-			long startMs = sp.getLong(getTomatoBeginKey(i), 0);
-			long endMs = sp.getLong(getTomatoEndKey(i), 0);
-			if (startMs == 0 || endMs == 0)
-			{
-				continue;
-			}
-			TATomato tomato = new TATomato(startMs, endMs);
-			list.add(tomato);
-		}
-		return list;
-
+		return TATomatoPersistence.loadReverseTomatoListForProject(context, projectName);
 	}
 
 	public static void addPastTimeToAccumulate(Context context, String projectName, long pastTimeMs)
@@ -200,7 +119,7 @@ public class TADataCenter
 
 	public static long getAccumulateMs(Context context, String projectName)
 	{
-		return getProjectSP(context, projectName).getLong(TAG_TIME_ACCUMULATE, 0);
+		return TATomatoPersistence.loadAccumulateMs(context, projectName);
 	}
 
 	public static TATime getAccumulateTime(Context context, String projectName)
@@ -216,27 +135,22 @@ public class TADataCenter
 
 	private static void setAccumulate(Context context, String projectName, long duration)
 	{
-		getProjectSP(context, projectName).edit().putLong(TAG_TIME_ACCUMULATE, duration).commit();
+		TATomatoPersistence.saveAccumulate(context, projectName, duration);
 	}
 
 	private static long getLastTime(Context context, String name)
 	{
-		return getProjectSP(context, name).getLong(TAG_LAST_TOGGLE_TIME, Calendar.getInstance().getTimeInMillis());
+		return TATomatoPersistence.loadLastTime(context, name);
 	}
 
 	private static void setLastTime(Context context, String name, long y)
 	{
-		getProjectSP(context, name).edit().putLong(TAG_LAST_TOGGLE_TIME, y).commit();
+		TATomatoPersistence.saveLastTime(context, name, y);
 	}
 
 	private static void setOnFlag(Context context, String name, boolean on)
 	{
-		getProjectSP(context, name).edit().putBoolean(TAG_IS_TIME_COMSUMING_FLAG, on).commit();
-	}
-
-	private static SharedPreferences getProjectSP(Context context, String name)
-	{
-		return context.getSharedPreferences(name, Context.MODE_PRIVATE);
+		TATomatoPersistence.saveOnFlag(context, name, on);
 	}
 
 	public static class ProjectCenter
