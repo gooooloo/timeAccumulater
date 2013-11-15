@@ -58,7 +58,7 @@ public class TATomatoPersistence
 		context.getSharedPreferences(TAG_TOMATO_NOTE, Context.MODE_PRIVATE).edit().putString(getKeyByTomatoId(tomatoId), note).commit();
 	}
 
-	public static String getTomatoNote(Context context, long tomatoId)
+	public static String loadTomatoNote(Context context, long tomatoId)
 	{
 		if (invalidId(tomatoId))
 		{
@@ -79,7 +79,7 @@ public class TATomatoPersistence
 
 	}
 
-	public static float getTomatoRating(Context context, long tomatoId)
+	public static float loadTomatoRating(Context context, long tomatoId)
 	{
 		if (invalidId(tomatoId))
 		{

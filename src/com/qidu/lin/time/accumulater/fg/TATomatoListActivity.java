@@ -120,7 +120,7 @@ public class TATomatoListActivity extends Activity
 			((TextView) v.findViewById(R.id.end)).setText(item.getString(context, StringFilter.EndTime));
 			((TextView) v.findViewById(R.id.duration)).setText(item.getString(context, StringFilter.Duration));
 
-			String tomatoNote = TATomatoPersistence.getTomatoNote(context, item.getId());
+			String tomatoNote = TATomatoPersistence.loadTomatoNote(context, item.getId());
 			if (tomatoNote == null)
 			{
 				tomatoNote = "";
@@ -154,7 +154,7 @@ public class TATomatoListActivity extends Activity
 			setWeight(v, R.id.futureInDay, 1 - x1 - x2);
 
 			final RatingBar ratingbar = (RatingBar) v.findViewById(R.id.rating);
-			final float rating = TATomatoPersistence.getTomatoRating(context, item.getId());
+			final float rating = TATomatoPersistence.loadTomatoRating(context, item.getId());
 			if (rating > 0)
 			{
 				ratingbar.setVisibility(View.VISIBLE);
@@ -324,11 +324,11 @@ public class TATomatoListActivity extends Activity
 				editText.setHint(R.string.input_tomato_note_hint);
 
 				ratingBar.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-				final float tomatoRating = TATomatoPersistence.getTomatoRating(context, tomatoId);
+				final float tomatoRating = TATomatoPersistence.loadTomatoRating(context, tomatoId);
 				ratingBar.setNumStars(5);
 				ratingBar.setRating(tomatoRating);
 				ratingBar.setStepSize(1.0f);
-				String note = TATomatoPersistence.getTomatoNote(context, tomatoId);
+				String note = TATomatoPersistence.loadTomatoNote(context, tomatoId);
 				if (note != null)
 				{
 					editText.setText(note);
