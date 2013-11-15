@@ -55,8 +55,11 @@ public class TAMain extends SlidingActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		getSlidingMenu().setMode(SlidingMenu.LEFT_RIGHT);
 		setContentView(R.layout.main);
+		
 		setBehindContentView(R.layout.behind);
+		setBehindContentSecondView(R.layout.behind);
 		getSlidingMenu().setBehindOffset(400);
 		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		setupActionBar();
@@ -74,7 +77,13 @@ public class TAMain extends SlidingActivity
 
 		((TAProjectButton) findViewById(R.id.project)).setup(this, selectdode);
 
-		((Button) this.findViewById(R.id.manualrecord)).setOnClickListener(new OnClickListener()
+		setupSlidingMenuClickEvent(this.getSlidingMenu().getMenu());
+		setupSlidingMenuClickEvent(this.getSlidingMenu().getSecondaryMenu());
+	}
+
+	private void setupSlidingMenuClickEvent(View menu)
+	{
+		((Button) menu.findViewById(R.id.manualrecord)).setOnClickListener(new OnClickListener()
 		{
 
 			@Override
@@ -84,7 +93,7 @@ public class TAMain extends SlidingActivity
 			}
 		});
 
-		((Button) this.findViewById(R.id.past24)).setOnClickListener(new OnClickListener()
+		((Button) menu.findViewById(R.id.past24)).setOnClickListener(new OnClickListener()
 		{
 
 			@Override
@@ -94,7 +103,7 @@ public class TAMain extends SlidingActivity
 			}
 		});
 
-		((Button) this.findViewById(R.id.past7days)).setOnClickListener(new OnClickListener()
+		((Button) menu.findViewById(R.id.past7days)).setOnClickListener(new OnClickListener()
 		{
 
 			@Override
@@ -104,7 +113,7 @@ public class TAMain extends SlidingActivity
 			}
 		});
 
-		((Button) this.findViewById(R.id.manageproject)).setOnClickListener(new OnClickListener()
+		((Button) menu.findViewById(R.id.manageproject)).setOnClickListener(new OnClickListener()
 		{
 
 			@Override
