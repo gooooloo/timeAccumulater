@@ -26,8 +26,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
+// this is a center class for UI to get data
+// currently it is just wrapper class of persistence data saver/loader
+// but it may change later.
 public class TADataCenter
 {
 	public static boolean getOnFlag(Context context, String projectName)
@@ -155,41 +157,19 @@ public class TADataCenter
 
 	public static class ProjectCenter
 	{
-		private static final String TAG_ALL_PROJECTS = "spnames";
-		private static final String TAG_PROJECT_CNT = "cnt";
-		private static final String TAG_LAST_PROJECT = "TAG_LAST_NAME";
-		private static final int INVALID_ID = -1;
-
 		private static int getLastPrjoectId(Context context)
 		{
-			SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
-			return x.getInt(ProjectCenter.TAG_LAST_PROJECT, INVALID_ID);
+			return TAProjectPersistence.loadLastPrjoectId(context);
 		}
 
 		public static void setLastProjectId(Context context, int id)
 		{
-			SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
-			x.edit().putInt(TAG_LAST_PROJECT, id).commit();
+			TAProjectPersistence.saveLastProjectId(context, id);
 		}
 
 		public static String[] getProjectNames(Context context)
 		{
-			SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
-			int cnt = x.getInt(ProjectCenter.TAG_PROJECT_CNT, 0);
-			if (cnt <= 0)
-			{
-				return new String[] {};
-			}
-			ArrayList<String> arr = new ArrayList<String>();
-			for (int i = 0; i < cnt; i++)
-			{
-				String name = x.getString(ProjectCenter.makeKey(i), null);
-				if (name != null)
-				{
-					arr.add(name);
-				}
-			}
-			return arr.toArray(new String[] {});
+			return TAProjectPersistence.loadProjectNames(context);
 		}
 
 		public static String getLastProjectName(Context context)
@@ -205,13 +185,12 @@ public class TADataCenter
 			}
 
 			int id = getProjectIdByName(context, name);
-			if (id == INVALID_ID)
+			if (id == TAProjectPersistence.INVALID_ID)
 			{
 				return;
 			}
 
-			SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
-			x.edit().putString(ProjectCenter.makeKey(id), null).commit();
+			TAProjectPersistence.removeProjectNameById(context, id);
 		}
 
 		public static void changeProjectName(Context context, String nameSrc, String nameDesc)
@@ -221,75 +200,44 @@ public class TADataCenter
 				return;
 			}
 
-			if (getProjectIdByName(context, nameDesc) != INVALID_ID)
+			if (getProjectIdByName(context, nameDesc) != TAProjectPersistence.INVALID_ID)
 			{
 				// don:t support change to existing
 				return;
 			}
 
 			int id = getProjectIdByName(context, nameSrc);
-			if (id == INVALID_ID)
+			if (id == TAProjectPersistence.INVALID_ID)
 			{
 				return;
 			}
 
-			SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
-			x.edit().putString(ProjectCenter.makeKey(id), nameDesc).commit();
+			TAProjectPersistence.updateProjectNameById(context, nameDesc, id);
 		}
 
 		public static int addProjectName(Context context, String name)
 		{
 			if (name == null || name.length() == 0)
 			{
-				return ProjectCenter.INVALID_ID;
+				return TAProjectPersistence.INVALID_ID;
 			}
 
 			int id = getProjectIdByName(context, name);
-			if (id == INVALID_ID)
+			if (id == TAProjectPersistence.INVALID_ID)
 			{
-				SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
-				int cnt = x.getInt(ProjectCenter.TAG_PROJECT_CNT, 0);
-				id = cnt;
-				x.edit().putString(ProjectCenter.makeKey(id), name).commit();
-				x.edit().putInt(ProjectCenter.TAG_PROJECT_CNT, cnt + 1).commit();
+				id = TAProjectPersistence.addProjectNameAndGetNewId(context, name);
 			}
 			return id;
 		}
 
 		public static String getProjectNameById(Context context, int id)
 		{
-			String retErr = "";
-			if (id == INVALID_ID)
-			{
-				return retErr;
-			}
-			return context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE).getString(ProjectCenter.makeKey(id),
-					null);
+			return TAProjectPersistence.loadProjectNameById(context, id);
 		}
 
 		public static int getProjectIdByName(Context context, String name)
 		{
-			if (name == null)
-			{
-				return INVALID_ID;
-			}
-
-			SharedPreferences x = context.getSharedPreferences(ProjectCenter.TAG_ALL_PROJECTS, Context.MODE_PRIVATE);
-			int cnt = x.getInt(ProjectCenter.TAG_PROJECT_CNT, 0);
-			for (int i = 0; i < cnt; i++)
-			{
-				String aname = x.getString(ProjectCenter.makeKey(i), null);
-				if (aname != null && aname.equalsIgnoreCase(name))
-				{
-					return i;
-				}
-			}
-			return INVALID_ID;
-		}
-
-		private static String makeKey(int i)
-		{
-			return "" + i;
+			return TAProjectPersistence.loadProjectIdByName(context, name);
 		}
 	}
 }
