@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-
+// TODO: the id/key things make confusing. remove one of them.
 public class TAProjectPersistence
 {
 
