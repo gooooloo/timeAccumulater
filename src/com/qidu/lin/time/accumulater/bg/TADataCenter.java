@@ -41,7 +41,7 @@ public class TADataCenter
 	{
 		boolean beforeIsOn = getOnFlag(context, projectName);
 
-		long endTimeMs = Calendar.getInstance().getTimeInMillis();
+		long endTimeMs = getCurrentTimeAsProjectLastTime();
 
 		if (beforeIsOn)
 		{
@@ -54,6 +54,11 @@ public class TADataCenter
 		setProjectLastTime(context, projectName, endTimeMs);
 		setOnFlag(context, projectName, !beforeIsOn);
 
+	}
+
+	private static long getCurrentTimeAsProjectLastTime()
+	{
+		return Calendar.getInstance().getTimeInMillis();
 	}
 
 	public static void setATomato(Context context, String projectName, long beginMs, long endMs)
@@ -138,6 +143,15 @@ public class TADataCenter
 	private static void setAccumulate(Context context, String projectName, long duration)
 	{
 		TATomatoPersistence.saveAccumulate(context, projectName, duration);
+		
+		if (getOnFlag(context, projectName))
+		{
+			// TODO: how to handle this?
+		}
+		else
+		{
+			setProjectLastTime(context, projectName, getCurrentTimeAsProjectLastTime());
+		}
 	}
 
 	public static long getProjectLastTime(Context context, String name)

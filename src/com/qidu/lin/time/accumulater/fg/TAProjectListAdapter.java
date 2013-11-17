@@ -85,7 +85,7 @@ final class TAProjectListAdapter extends BaseAdapter
 				{
 					long l = TADataCenter.getProjectLastTime(activity, lhs);
 					long r = TADataCenter.getProjectLastTime(activity, rhs);
-					if (sortType == SortType.TimeLessToMore)
+					if (sortType == SortType.LastUsedPastToRecent)
 						return (l > r) ? 1 : (l < r) ? -1 : 0;
 					else
 						return (l > r) ? -1 : (l < r) ? 1 : 0;

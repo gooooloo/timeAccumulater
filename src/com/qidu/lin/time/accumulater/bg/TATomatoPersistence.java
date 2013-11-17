@@ -19,7 +19,6 @@
 package com.qidu.lin.time.accumulater.bg;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -156,7 +155,7 @@ public class TATomatoPersistence
 
 	public static long loadLastTime(Context context, String name)
 	{
-		return getProjectSP(context, name).getLong(TAG_LAST_TOGGLE_TIME, Calendar.getInstance().getTimeInMillis());
+		return getProjectSP(context, name).getLong(TAG_LAST_TOGGLE_TIME, 0);
 	}
 
 	public static void saveLastTime(Context context, String name, long y)
