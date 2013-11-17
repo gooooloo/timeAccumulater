@@ -19,30 +19,33 @@
 
 package com.qidu.lin.time.accumulater.bg;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 public class TATime
 {
-	public final int hours;
+	public final int hour;
 	public final int minute;
 	public final int second;
 
 	public TATime(int hour, int minute, int second)
 	{
-		this.hours = hour;
+		if (second >= 60)
+		{
+			minute += second / 60;
+			second %= 60;
+		}
+
+		if (minute >= 60)
+		{
+			hour += minute / 60;
+			minute %= 60;
+		}
+
+		this.hour = hour;
 		this.minute = minute;
 		this.second = second;
 	}
 
 	public String toString()
 	{
-		SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss", Locale.getDefault());
-		Date date = new Date();
-		date.setHours(hours);
-		date.setMinutes(minute);
-		date.setSeconds(second);
-		return format.format(date);
+		return String.format("%d:%d%d:%d%d", hour, minute / 10, minute % 10, second / 10, second % 10);
 	}
 }

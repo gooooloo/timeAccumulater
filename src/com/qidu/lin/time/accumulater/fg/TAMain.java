@@ -183,7 +183,7 @@ public class TAMain extends SlidingActivity
 		else
 		{
 			TATime x = TADataCenter.getAccumulateTime(this, TADataCenter.ProjectCenter.getLastProjectName(this));
-			tv.setText(this.getString(R.string.timeResult, x.hours, x.minute, x.second));
+			tv.setText(this.getString(R.string.timeResult, x.hour, x.minute, x.second));
 		}
 	}
 }

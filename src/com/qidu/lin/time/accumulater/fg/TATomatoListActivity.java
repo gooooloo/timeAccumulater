@@ -300,7 +300,7 @@ public class TATomatoListActivity extends Activity
 		}
 		else if (!isActivityForMultiProjects())
 		{
-			this.setTitle(projectName + "  " + getString(R.string.timeResultShort, x.hours, x.minute, x.second));
+			this.setTitle(projectName + "  " + getString(R.string.timeResultShort, x.hour, x.minute, x.second));
 		}
 		else
 		{
