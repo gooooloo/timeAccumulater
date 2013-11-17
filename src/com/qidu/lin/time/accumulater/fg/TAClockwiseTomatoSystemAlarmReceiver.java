@@ -181,7 +181,8 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 		int index = tomatoListToShow.size();
 		for (final TATomato y : tomatoListToShow)
 		{
-			Button btn = new Button(this);
+			View tomatoCard = this.getLayoutInflater().inflate(R.layout.tomato_record_card, null);
+			Button btn = (Button) tomatoCard.findViewById(R.id.btn);
 			final String projectName = TATomatoPersistence.getProjectName(this, y.getId());
 			String text = "#" + index + " " + y.getString(this, StringFilter.StartTimeWithDate) + "  "
 					+ y.getString(this, StringFilter.Duration);
@@ -190,7 +191,7 @@ public class TAClockwiseTomatoSystemAlarmReceiver extends Activity
 				text += "\n" + projectName;
 			}
 			btn.setText(text);
-			root.addView(btn);
+			root.addView(tomatoCard);
 
 			btn.setOnClickListener(new View.OnClickListener()
 			{
