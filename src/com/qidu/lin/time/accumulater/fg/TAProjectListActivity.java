@@ -25,6 +25,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -96,7 +98,7 @@ public class TAProjectListActivity extends Activity
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
 			{
-				final TAProjectListAdapter listAdapter = (TAProjectListAdapter) lv.getAdapter();
+				final TAProjectListAdapter listAdapter = getListAdapter();
 				String projectName = listAdapter.getProjectName(position);
 
 				if (purpose == ActivityPurpose.select)
@@ -158,8 +160,7 @@ public class TAProjectListActivity extends Activity
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
 			{
-				TAProjectListAdapter listAdapter = (TAProjectListAdapter) lv.getAdapter();
-				final String projectName = listAdapter.getProjectName(position);
+				final String projectName = (getListAdapter()).getProjectName(position);
 				startActivity(new Intent(TATomatoListActivity.getLauncherIntent(TAProjectListActivity.this, projectName)));
 
 				return true;
@@ -174,4 +175,37 @@ public class TAProjectListActivity extends Activity
 		setResult(RESULT_OK, intent);
 		TAProjectListActivity.this.finish();
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		getMenuInflater().inflate(R.menu.activity_project_list, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+		case R.id.menu_sort_by_total_time_less_to_more:
+			this.sortByTimeFromLessToMore();
+			break;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void sortByTimeFromLessToMore()
+	{
+		getListAdapter().sortByTimeLessToMore();
+	}
+
+	public TAProjectListAdapter getListAdapter()
+	{
+		final ListView lv = (ListView) findViewById(R.id.listView);
+		final TAProjectListAdapter listAdapter = (TAProjectListAdapter) lv.getAdapter();
+		return listAdapter;
+	}
+
 }

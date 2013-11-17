@@ -18,6 +18,9 @@
  */
 package com.qidu.lin.time.accumulater.fg;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,7 @@ import android.widget.TextView;
 
 import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
+import com.qidu.lin.time.accumulater.bg.TATime;
 
 final class TAProjectListAdapter extends BaseAdapter
 {
@@ -39,6 +43,22 @@ final class TAProjectListAdapter extends BaseAdapter
 		this.activity = context;
 		colorForOn = activity.getResources().getColor(R.color.colorForOn);
 		colorForOff = activity.getResources().getColor(R.color.colorForOff);
+	}
+
+	public void sortByTimeLessToMore()
+	{
+		Comparator<String> comparator = new Comparator<String>()
+		{
+			@Override
+			public int compare(String lhs, String rhs)
+			{
+				long l = TADataCenter.getAccumulateMs(activity, lhs);
+				long r = TADataCenter.getAccumulateMs(activity, rhs);
+				return (l > r) ? 1 : (l < r) ? -1 : 0;
+			}
+		};
+		Arrays.sort(this.names, comparator);
+		this.notifyDataSetChanged();
 	}
 
 	public void setItems(String[] names)

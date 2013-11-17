@@ -33,5 +33,6 @@
     <string name="no_item_within_2_days">2天内无项目。</string>
     <string name="no_unaccumalated_item">所有项目已处理。</string>
     <string name="no_item">无项目。</string>
+    <string name="sort_by_total_time_from_less_to_more">按时间从小到大排列</string>
 
 </resources>
