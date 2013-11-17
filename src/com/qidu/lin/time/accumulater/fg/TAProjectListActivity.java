@@ -38,6 +38,7 @@ import android.widget.ListView;
 
 import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
+import com.qidu.lin.time.accumulater.fg.TAProjectListAdapter.SortType;
 
 public class TAProjectListActivity extends Activity
 {
@@ -191,14 +192,22 @@ public class TAProjectListActivity extends Activity
 		case R.id.menu_sort_by_total_time_less_to_more:
 			this.sortByTimeFromLessToMore();
 			break;
+		case R.id.menu_sort_by_total_time_more_to_less:
+			this.sortByTimeFromMoreToLess();
+			break;
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void sortByTimeFromMoreToLess()
+	{
+		getListAdapter().sort(SortType.TimeMoreToLess);
+	}
+
 	private void sortByTimeFromLessToMore()
 	{
-		getListAdapter().sortByTimeLessToMore();
+		getListAdapter().sort(SortType.TimeLessToMore);
 	}
 
 	public TAProjectListAdapter getListAdapter()

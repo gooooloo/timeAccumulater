@@ -4,5 +4,9 @@
         android:id="@+id/menu_sort_by_total_time_less_to_more"
         android:orderInCategory="100"
         android:title="@string/sort_by_total_time_from_less_to_more"/>
+    <item
+        android:id="@+id/menu_sort_by_total_time_more_to_less"
+        android:orderInCategory="100"
+        android:title="@string/sort_by_total_time_from_more_to_less"/>
 
 </menu>

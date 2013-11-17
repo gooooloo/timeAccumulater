@@ -29,7 +29,6 @@ import android.widget.TextView;
 
 import com.qidu.lin.time.accumulater.R;
 import com.qidu.lin.time.accumulater.bg.TADataCenter;
-import com.qidu.lin.time.accumulater.bg.TATime;
 
 final class TAProjectListAdapter extends BaseAdapter
 {
@@ -38,6 +37,11 @@ final class TAProjectListAdapter extends BaseAdapter
 	private int colorForOn;
 	private int colorForOff;
 
+	public enum SortType
+	{
+		TimeLessToMore, TimeMoreToLess,
+	};
+
 	TAProjectListAdapter(Activity context)
 	{
 		this.activity = context;
@@ -45,20 +49,36 @@ final class TAProjectListAdapter extends BaseAdapter
 		colorForOff = activity.getResources().getColor(R.color.colorForOff);
 	}
 
-	public void sortByTimeLessToMore()
+	public void sort(SortType sortType)
 	{
-		Comparator<String> comparator = new Comparator<String>()
-		{
-			@Override
-			public int compare(String lhs, String rhs)
-			{
-				long l = TADataCenter.getAccumulateMs(activity, lhs);
-				long r = TADataCenter.getAccumulateMs(activity, rhs);
-				return (l > r) ? 1 : (l < r) ? -1 : 0;
-			}
-		};
-		Arrays.sort(this.names, comparator);
+		Arrays.sort(this.names, getProjectComparator(sortType));
 		this.notifyDataSetChanged();
+	}
+
+	private Comparator<String> getProjectComparator(final SortType sortType)
+	{
+		switch (sortType)
+		{
+		case TimeLessToMore:
+		case TimeMoreToLess:
+			return new Comparator<String>()
+			{
+				@Override
+				public int compare(String lhs, String rhs)
+				{
+					long l = TADataCenter.getAccumulateMs(activity, lhs);
+					long r = TADataCenter.getAccumulateMs(activity, rhs);
+					if (sortType == SortType.TimeLessToMore)
+						return (l > r) ? 1 : (l < r) ? -1 : 0;
+					else
+						return (l > r) ? -1 : (l < r) ? 1 : 0;
+
+				}
+			};
+
+		default:
+			return null;
+		}
 	}
 
 	public void setItems(String[] names)
