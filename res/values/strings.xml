@@ -33,7 +33,9 @@
     <string name="no_item_within_2_days">no item within 2 days.</string>
     <string name="no_unaccumalated_item">no unaccumulated item.</string>
     <string name="no_item">no item.</string>
-    <string name="sort_by_total_time_from_less_to_more">sort by time (less to more)</string>
-    <string name="sort_by_total_time_from_more_to_less">sort by time (more to less)</string>
+    <string name="sort_by_total_time_from_less_to_more">sort by total time (less to more)</string>
+    <string name="sort_by_total_time_from_more_to_less">sort by total time (more to less)</string>
+    <string name="sort_by_last_time_past_to_Recent">sort by last used time (past to recent)</string>
+    <string name="sort_by_last_time_recent_to_past">sort by last used time (recent to past)</string>
 
 </resources>

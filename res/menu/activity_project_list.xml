@@ -8,5 +8,13 @@
         android:id="@+id/menu_sort_by_total_time_more_to_less"
         android:orderInCategory="100"
         android:title="@string/sort_by_total_time_from_more_to_less"/>
+    <item
+        android:id="@+id/menu_sort_by_last_time_recent_to_past"
+        android:orderInCategory="100"
+        android:title="@string/sort_by_last_time_recent_to_past"/>
+    <item
+        android:id="@+id/menu_sort_by_last_time_past_to_Recent"
+        android:orderInCategory="100"
+        android:title="@string/sort_by_last_time_past_to_Recent"/>
 
 </menu>

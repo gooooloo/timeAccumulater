@@ -190,24 +190,19 @@ public class TAProjectListActivity extends Activity
 		switch (item.getItemId())
 		{
 		case R.id.menu_sort_by_total_time_less_to_more:
-			this.sortByTimeFromLessToMore();
+			this.getListAdapter().sort(SortType.TimeLessToMore);
 			break;
 		case R.id.menu_sort_by_total_time_more_to_less:
-			this.sortByTimeFromMoreToLess();
+			this.getListAdapter().sort(SortType.TimeMoreToLess);
 			break;
+		case R.id.menu_sort_by_last_time_past_to_Recent:
+			this.getListAdapter().sort(SortType.LastUsedPastToRecent);
+			break;
+		case R.id.menu_sort_by_last_time_recent_to_past:
+			this.getListAdapter().sort(SortType.LastUsedRecentToPast);
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-
-	private void sortByTimeFromMoreToLess()
-	{
-		getListAdapter().sort(SortType.TimeMoreToLess);
-	}
-
-	private void sortByTimeFromLessToMore()
-	{
-		getListAdapter().sort(SortType.TimeLessToMore);
 	}
 
 	public TAProjectListAdapter getListAdapter()

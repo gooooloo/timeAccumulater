@@ -39,7 +39,7 @@ final class TAProjectListAdapter extends BaseAdapter
 
 	public enum SortType
 	{
-		TimeLessToMore, TimeMoreToLess,
+		TimeLessToMore, TimeMoreToLess, LastUsedRecentToPast, LastUsedPastToRecent
 	};
 
 	TAProjectListAdapter(Activity context)
@@ -68,6 +68,23 @@ final class TAProjectListAdapter extends BaseAdapter
 				{
 					long l = TADataCenter.getAccumulateMs(activity, lhs);
 					long r = TADataCenter.getAccumulateMs(activity, rhs);
+					if (sortType == SortType.TimeLessToMore)
+						return (l > r) ? 1 : (l < r) ? -1 : 0;
+					else
+						return (l > r) ? -1 : (l < r) ? 1 : 0;
+
+				}
+			};
+
+		case LastUsedPastToRecent:
+		case LastUsedRecentToPast:
+			return new Comparator<String>()
+			{
+				@Override
+				public int compare(String lhs, String rhs)
+				{
+					long l = TADataCenter.getProjectLastTime(activity, lhs);
+					long r = TADataCenter.getProjectLastTime(activity, rhs);
 					if (sortType == SortType.TimeLessToMore)
 						return (l > r) ? 1 : (l < r) ? -1 : 0;
 					else

@@ -45,13 +45,13 @@ public class TADataCenter
 
 		if (beforeIsOn)
 		{
-			long startTimeMs = getLastTime(context, projectName);
+			long startTimeMs = getProjectLastTime(context, projectName);
 			long durationTimeMs = endTimeMs - startTimeMs;
 			addPastTimeToAccumulate(context, projectName, durationTimeMs);
 			setATomato(context, projectName, startTimeMs, endTimeMs);
 			TATomatoPersistence.saveProjectName(context, new TATomato(startTimeMs, endTimeMs).getId(), projectName);
 		}
-		setLastTime(context, projectName, endTimeMs);
+		setProjectLastTime(context, projectName, endTimeMs);
 		setOnFlag(context, projectName, !beforeIsOn);
 
 	}
@@ -79,7 +79,7 @@ public class TADataCenter
 		List<TATomato> ret = new ArrayList<TATomato>();
 		for (String pn : pns)
 		{
-			long lt = getLastTime(context, pn);
+			long lt = getProjectLastTime(context, pn);
 			if (nt - lt > msWithin)
 			{
 				continue;
@@ -140,12 +140,12 @@ public class TADataCenter
 		TATomatoPersistence.saveAccumulate(context, projectName, duration);
 	}
 
-	private static long getLastTime(Context context, String name)
+	public static long getProjectLastTime(Context context, String name)
 	{
 		return TATomatoPersistence.loadLastTime(context, name);
 	}
 
-	private static void setLastTime(Context context, String name, long y)
+	private static void setProjectLastTime(Context context, String name, long y)
 	{
 		TATomatoPersistence.saveLastTime(context, name, y);
 	}

@@ -35,5 +35,7 @@
     <string name="no_item">无项目。</string>
     <string name="sort_by_total_time_from_less_to_more">按时间从小到大排列</string>
     <string name="sort_by_total_time_from_more_to_less">按时间从大到小排列</string>
+    <string name="sort_by_last_time_past_to_Recent">按修改时间从旧到新排列</string>
+    <string name="sort_by_last_time_recent_to_past">按修改时间从新到旧排列</string>
 
 </resources>
