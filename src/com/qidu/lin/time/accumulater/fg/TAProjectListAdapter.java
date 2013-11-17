@@ -85,6 +85,12 @@ final class TAProjectListAdapter extends BaseAdapter
 				{
 					long l = TADataCenter.getProjectLastTime(activity, lhs);
 					long r = TADataCenter.getProjectLastTime(activity, rhs);
+
+					if (l == 0) // means not exists
+						l = (sortType == SortType.LastUsedPastToRecent) ? Long.MAX_VALUE : 1;
+					if (r == 0) // means not exists
+						r = (sortType == SortType.LastUsedPastToRecent) ? Long.MAX_VALUE : 1;
+
 					if (sortType == SortType.LastUsedPastToRecent)
 						return (l > r) ? 1 : (l < r) ? -1 : 0;
 					else
